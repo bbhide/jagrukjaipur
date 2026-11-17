@@ -48,10 +48,22 @@
     "maps_url": "https://goo.gl/maps/2hTFNUr6iTtcwHQYA"
   },
   {
+    "name": "Rajasthan International Centre",
+    "area": "Gopalpura",
+    "address": "Bhamashah State Data Centre Block-C, Bhamashah State Data Centre, Jhalana Doongri, Jaipur, Rajasthan 302017",
+    "maps_url": "https://share.google/x7FEL4ivtq4aTOWHi"
+  },
+  {
     "name": "Prarthana Yoga Studio",
     "area": "Bajaj Nagar",
     "address": "Basement Floor, Cassandra Business Tower,, Bajaj Nagar Enclave, Jaipur, Rajasthan 302015",
     "maps_url": "https://share.google/V7dxGcZ8K3qhwz1bX"
+  },
+  {
+    "name": "Rangayan,Jawahar Kala Kendra",
+    "area": null,
+    "address": null,
+    "maps_url": null
   },
   {
     "name": "Burger N Beans",
@@ -66,22 +78,82 @@
     "maps_url": "https://share.google/P8GXHVzwOLWd0zrQa"
   },
   {
+    "name": "Selvas",
+    "area": "Civil Lines",
+    "address": "padampura house, barwara house colony, Madrampur, Civil Lines, Jaipur, Rajasthan 302006",
+    "maps_url": "https://share.google/fmIe87TEjSg1w3OhY"
+  },
+  {
+    "name": "12notez Music studio",
+    "area": "Mansarovar",
+    "address": "Basement & 3rd floor, 50, Mansarovar Link Rd, JDA Market, Usha Vihar, Keshav Vihar, Arjun Nagar, Jaipur, Rajasthan 302018, India",
+    "maps_url": "https://share.google/yvPvjAhCs6OEcxJs0"
+  },
+  {
+    "name": "Mandir Shri Madho Bihari ji",
+    "area": "Sindhi Camp",
+    "address": "14, Station Rd, Shri Ram Colony, Sindhi Camp, Jaipur, Rajasthan 302001",
+    "maps_url": "https://maps.app.goo.gl/dzoSX5SqTsNrLEV56?g_st=iw"
+  },
+  {
     "name": "Birla Auditorium",
     "area": null,
     "address": "BM Birla Auditorium, Statue Circle, C Scheme, Rambagh, Jaipur, Rajasthan 302015",
     "maps_url": "https://share.google/exnvVWpRNiUrlAqRD"
   },
   {
-    "name": "Rajasthan International Centre",
-    "area": "Gopalpura",
-    "address": "Bhamashah State Data Centre Block-C, Bhamashah State Data Centre, Jhalana Doongri, Jaipur, Rajasthan 302017",
-    "maps_url": "https://share.google/x7FEL4ivtq4aTOWHi"
+    "name": "Zee Studios",
+    "area": "Sitapura Industrial Area",
+    "address": "SP-7A Ricco Industrial Area, Sitapura, Jaipur, Rajasthan 302033",
+    "maps_url": "https://share.google/D60dN2c9wzKsOaEuZ"
+  },
+  {
+    "name": "Loop (Café & Pickleball)",
+    "area": "Malviya Nagar",
+    "address": "Girdhar Marg, Siddharth Nagar, Sector 9, Malviya Nagar, Jaipur, Rajasthan 302017",
+    "maps_url": "https://share.google/5nbYMgwKlr5yW1oEq"
+  },
+  {
+    "name": "Maharana Pratap Auditorium",
+    "area": "Bajaj Nagar",
+    "address": "Bharatiya Vidya Bhavan Vidyashram, KM Munshi Marg, opp. O.T.S, Mahesh Nagar Phatak, Bajaj Nagar, Jaipur, Rajasthan 302015",
+    "maps_url": "https://share.google/OxtsgFZ0o2HQykAPV"
+  },
+  {
+    "name": "Downtown Jaipur",
+    "area": "Bani Park",
+    "address": "Devraj Niwas, Mirza Ismail Rd, near Shri Amarapur Setu, Barodia Scheme, Bani Park, Jaipur, Rajasthan 302006",
+    "maps_url": "https://maps.app.goo.gl/xnp7XbYdWjgKQEfJ6"
   },
   {
     "name": "Anahata Space",
     "area": "Shyam Nagar",
     "address": "12, Laxman Path, opp. Alwell clinic, Kishan Nagar, Shyam Nagar, Jaipur, Rajasthan 302019",
     "maps_url": "https://share.google/BIDfihv4euuU5R0Db"
+  },
+  {
+    "name": "Maah",
+    "area": "Malviya Nagar",
+    "address": "s-18-19, Adinath Nagar, Jaipur, Rajasthan 302017",
+    "maps_url": "https://maps.app.goo.gl/jVJADyRbLwv1zdbPA"
+  },
+  {
+    "name": "Deep Smriti Auditorium",
+    "area": "Mansarovar",
+    "address": "7, Zone, DEEP SMRITI AUDITORIUM, 70, inside TAGORE INTERNATIONAL SCHOOL, Mansarovar Sector 7, Shipra Path, Barh Devariya, Mansarovar, Jaipur, Rajasthan 302020",
+    "maps_url": "https://share.google/w7i2Vdoqly7psBj1C"
+  },
+  {
+    "name": "Siam Auditorium",
+    "area": "Durgapura",
+    "address": "RQVV+F22, State Agricalture Management Institute,, Durgapura, Jaipur, Rajasthan 302018",
+    "maps_url": "https://share.google/Vj1Yj1Ex4pNmbuShq"
+  },
+  {
+    "name": "Hotel Clarks Amer",
+    "area": "Jawaharlal Nehru Marg",
+    "address": "Jawahar Lal Nehru Marg, opposite FORTIS ESCORTS HOSPITAL, Lal Bahadur Nagar, Chandrakala Colony, Durgapura, Jaipur, Rajasthan 302018",
+    "maps_url": "https://maps.app.goo.gl/PTdm1LByehQVzZ2e6"
   },
   {
     "name": "JECC (JAIPUR EXHIBITION & CONVENTION CENTRE)",

@@ -45,7 +45,7 @@ npm run dev
 - API: http://localhost:4000/api
 - Logging in as a visitor: enter any valid 10-digit mobile number; the OTP is `OTP_DEV_CODE`, or is printed in the API log when that is unset.
 
-`npm run db:seed` loads `db/seed/*.json` — 28 events, 23 organisers, 27 categories, 15 venues and the podcast catalogue, imported from the legacy site's public pages by `scripts/import-reference.mjs`. Event and logo images live in `apps/web/public/uploads/` (git-ignored); re-run the import script to fetch them again.
+`npm run db:seed` loads `db/seed/*.json` — 45 events, 27 organisers, 27 categories, 27 venues and the podcast catalogue, imported from the legacy site's public pages by `scripts/import-reference.mjs`. Event and logo images live in `apps/web/public/uploads/` (git-ignored); re-run the import script to fetch them again.
 
 ## Commands
 

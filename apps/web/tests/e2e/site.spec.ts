@@ -90,8 +90,12 @@ test.describe("homepage", () => {
     await expect(cards).toHaveCount(12);
     await page.click("#load-more-btn");
     await expect(cards).toHaveCount(24);
-    await page.click("#load-more-btn");
-    await expect(page.locator("#load-more-btn")).toHaveCount(0);
+    // Keep loading until the lineup is exhausted, however many events are seeded.
+    for (let shown = 24; await page.locator("#load-more-btn").count(); ) {
+      await page.click("#load-more-btn");
+      await expect.poll(() => cards.count()).toBeGreaterThan(shown);
+      shown = await cards.count();
+    }
     await expect(page.locator("#end-of-events")).toBeVisible();
     expect(await cards.count()).toBeGreaterThan(24);
   });

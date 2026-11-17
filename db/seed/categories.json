@@ -18,10 +18,10 @@
     "is_system": false
   },
   {
-    "name": "Workshops",
-    "slug": "workshops",
-    "icon": "📚",
-    "color": "#FF5722",
+    "name": "Music & Concerts",
+    "slug": "music",
+    "icon": "🎵",
+    "color": "#E91E8C",
     "sort_order": 2,
     "is_active": true,
     "is_system": false
@@ -36,19 +36,19 @@
     "is_system": false
   },
   {
-    "name": "Fests & Fairs",
-    "slug": "fests",
-    "icon": "🎉",
-    "color": "#FF9800",
+    "name": "Workshops",
+    "slug": "workshops",
+    "icon": "📚",
+    "color": "#FF5722",
     "sort_order": 4,
     "is_active": true,
     "is_system": false
   },
   {
-    "name": "Music & Concerts",
-    "slug": "music",
-    "icon": "🎵",
-    "color": "#E91E8C",
+    "name": "Fests & Fairs",
+    "slug": "fests",
+    "icon": "🎉",
+    "color": "#FF9800",
     "sort_order": 5,
     "is_active": true,
     "is_system": false
@@ -63,10 +63,10 @@
     "is_system": false
   },
   {
-    "name": "Kids & Family",
-    "slug": "kids",
-    "icon": "👶",
-    "color": "#FFEB3B",
+    "name": "Open Mic",
+    "slug": "open-mic",
+    "icon": "🎤",
+    "color": "#E91E8C",
     "sort_order": 7,
     "is_active": true,
     "is_system": false
@@ -81,38 +81,20 @@
     "is_system": false
   },
   {
-    "name": "Open Mic",
-    "slug": "open-mic",
-    "icon": "🎤",
-    "color": "#E91E8C",
+    "name": "Spiritual",
+    "slug": "spiritual",
+    "icon": "🙏",
+    "color": "#FF8F00",
     "sort_order": 9,
     "is_active": true,
     "is_system": false
   },
   {
-    "name": "Poetry",
-    "slug": "poetry",
-    "icon": "🎤",
-    "color": "#7C3AED",
+    "name": "Kids & Family",
+    "slug": "kids",
+    "icon": "👶",
+    "color": "#FFEB3B",
     "sort_order": 10,
-    "is_active": true,
-    "is_system": false
-  },
-  {
-    "name": "Food & Dining",
-    "slug": "food",
-    "icon": "🍽️",
-    "color": "#4CAF50",
-    "sort_order": 11,
-    "is_active": true,
-    "is_system": false
-  },
-  {
-    "name": "Networking",
-    "slug": "networking",
-    "icon": "💼",
-    "color": "#607D8B",
-    "sort_order": 12,
     "is_active": true,
     "is_system": false
   },
@@ -121,16 +103,43 @@
     "slug": "theatre",
     "icon": "🎪",
     "color": "#795548",
+    "sort_order": 11,
+    "is_active": true,
+    "is_system": false
+  },
+  {
+    "name": "Poetry",
+    "slug": "poetry",
+    "icon": "🎤",
+    "color": "#7C3AED",
+    "sort_order": 12,
+    "is_active": true,
+    "is_system": false
+  },
+  {
+    "name": "Food & Dining",
+    "slug": "food",
+    "icon": "🍽️",
+    "color": "#4CAF50",
     "sort_order": 13,
     "is_active": true,
     "is_system": false
   },
   {
-    "name": "Wellness & Yoga",
-    "slug": "wellness",
-    "icon": "🧘",
-    "color": "#8BC34A",
+    "name": "Movies",
+    "slug": "movies",
+    "icon": "🎬",
+    "color": "#2196F3",
     "sort_order": 14,
+    "is_active": true,
+    "is_system": false
+  },
+  {
+    "name": "Networking",
+    "slug": "networking",
+    "icon": "💼",
+    "color": "#607D8B",
+    "sort_order": 15,
     "is_active": true,
     "is_system": false
   },
@@ -139,16 +148,16 @@
     "slug": "dance",
     "icon": "💃",
     "color": "#7C3AED",
-    "sort_order": 15,
+    "sort_order": 16,
     "is_active": true,
     "is_system": false
   },
   {
-    "name": "Movies",
-    "slug": "movies",
-    "icon": "🎬",
-    "color": "#7C3AED",
-    "sort_order": 16,
+    "name": "Wellness & Yoga",
+    "slug": "wellness",
+    "icon": "🧘",
+    "color": "#8BC34A",
+    "sort_order": 17,
     "is_active": true,
     "is_system": false
   },
@@ -157,7 +166,7 @@
     "slug": "sports",
     "icon": "🏃",
     "color": "#F44336",
-    "sort_order": 17,
+    "sort_order": 18,
     "is_active": true,
     "is_system": false
   },
@@ -166,15 +175,6 @@
     "slug": "adventure",
     "icon": "🌿",
     "color": "#009688",
-    "sort_order": 18,
-    "is_active": true,
-    "is_system": false
-  },
-  {
-    "name": "Spiritual",
-    "slug": "spiritual",
-    "icon": "🙏",
-    "color": "#7C3AED",
     "sort_order": 19,
     "is_active": true,
     "is_system": false
