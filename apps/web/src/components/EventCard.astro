@@ -1,0 +1,51 @@
+---
+/** Event card used by every listing. Opening an event is a members-only action, so the card is an auth-gated link. */
+import type { EventCardData } from "@/lib/types";
+import { cardDate, eventUrl, priceLabel, shareText, site } from "@/lib/format";
+
+interface Props { event: EventCardData; sourcePage: string; showArea?: boolean; sourcePrefix?: string }
+const { event: e, sourcePage, showArea = true, sourcePrefix = "Grid" } = Astro.props;
+const price = priceLabel(e);
+const venue = [e.venue_name, showArea ? e.venue_area : null].filter(Boolean).join(" · ");
+// Organisers sometimes put a note ("On Spot Booking") where a link is expected; those CTAs lead to the event page instead.
+const isLink = !!e.ticket_url && /^https?:\/\//i.test(e.ticket_url);
+const cta = isLink ? e.ticket_url : e.ticket_url || e.has_ticketing ? eventUrl(e.slug) : null;
+---
+<a href={eventUrl(e.slug)} class="event-card needs-auth-ticket-btn" data-ticket-url={eventUrl(e.slug)} data-source-page={sourcePage}
+   data-source-button={`Card: ${e.title}`} data-event-slug={e.slug} id={`event-card-${e.id}`} aria-label={e.title}>
+  {e.is_exclusive && <div class="ribbon-exclusive"><span>JJ Exclusive</span></div>}
+  <div class="event-card-image">
+    {(e.thumb_path || e.image_path) && <img src={e.thumb_path ?? e.image_path} alt={e.title} loading="lazy" />}
+  </div>
+  <div class="event-card-body">
+    <div class="event-card-badges">
+      {e.categories.map((c) => <span class="badge badge-cat" style={`background:${c.color}22; color:${c.color}; border-color:${c.color}44;`}>{c.icon} {c.name}</span>)}
+      {e.is_free && <span class="badge badge-free">FREE</span>}
+      {e.status === "cancelled" && <span class="badge badge-cancelled">Cancelled</span>}
+    </div>
+    <div class="event-card-date">
+      📅 {cardDate(e)} {e.interests > 0 && <span class="interest-chip">👍🏻 {e.interests} Interests</span>}
+    </div>
+    <h3 class="event-card-title">{e.title}</h3>
+    {venue && (
+      <div class="event-card-venue">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z" /><circle cx="12" cy="9" r="2.5" /></svg>
+        {venue}
+      </div>
+    )}
+    {e.short_description && <p class="event-card-desc">{e.short_description}</p>}
+  </div>
+  <div class="event-card-footer">
+    {price && <span class:list={["event-price", { free: e.is_free }]}>{price}</span>}
+    <div class="ml-auto flex items-center gap-2">
+      <button type="button" class="btn btn-icon share-event-card" aria-label="Share Event" data-title={`${e.title} — ${site.name}`}
+              data-url={`${site.url}${eventUrl(e.slug)}`} data-text={shareText(e)}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" /><line x1="8.59" y1="13.51" x2="15.42" y2="17.49" /><line x1="15.41" y1="6.51" x2="8.59" y2="10.49" /></svg>
+      </button>
+      {cta && e.status !== "cancelled" && (
+        <span class="btn btn-accent btn-sm needs-auth-ticket-btn" data-ticket-url={cta} data-source-page={sourcePage}
+              data-source-button={`${sourcePrefix}: ${e.title}`} data-event-slug={e.slug} role="button">{e.button_text}</span>
+      )}
+    </div>
+  </div>
+</a>

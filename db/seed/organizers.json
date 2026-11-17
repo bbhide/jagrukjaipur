@@ -1,0 +1,821 @@
+[
+  {
+    "name": "Happy Huddle",
+    "slug": "happy-huddle",
+    "contact": "9831257845",
+    "is_community": true,
+    "logo_path": "/uploads/org_logo_69f9e7273865e.webp",
+    "about": "Happy Huddle is a space where Preggos, Moms & Kids come together to share, learn and grow — without judgment. From fun playdates, expert sessions to informational podcasts, we create experiences that support both you and your little one. It’s not just about kids… it’s about YOU feeling seen, supported and connected.",
+    "special": "Happy Huddle's vision is to build a safe and supportive space where every mom feels connected, understood, and empowered — while raising happy, confident children together.",
+    "features": [
+      {
+        "icon": "🎟️",
+        "label": "Paid Events"
+      },
+      {
+        "icon": "💬",
+        "label": "Group Chat"
+      },
+      {
+        "icon": "🛠️",
+        "label": "Workshops"
+      },
+      {
+        "icon": "🧸",
+        "label": "Kid Friendly"
+      },
+      {
+        "icon": "🆓",
+        "label": "Free Events"
+      },
+      {
+        "icon": "🤝",
+        "label": "Networking"
+      }
+    ],
+    "social_instagram": "https://www.instagram.com/happy__huddle?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    "social_facebook": null,
+    "social_twitter": null,
+    "social_whatsapp": "https://chat.whatsapp.com/JgtGmbqcPs0CRJ0ijIrznd",
+    "social_website": null,
+    "category_slugs": [
+      "workshops",
+      "kids"
+    ]
+  },
+  {
+    "name": "Indie Beer Community",
+    "slug": "indie-beer-community",
+    "contact": null,
+    "is_community": true,
+    "logo_path": "/uploads/org_logo_69fafb846e091.webp",
+    "about": "Welcome to the community of the 3rd most consumed beverage across the globe, Beer! This is the 1st craft beer community of and for India. We believe in real people. Real stories. We believe in pushing the boundaries into the open fields. We believe in magic. We believe in you. We do this by crafting not the perfect, not the finely curated, not some special ingredients, but by just adding four simple ingredients. Yes, we make beer. Just beer. You make it special! Wanna have a beer?",
+    "special": "Nurturing relationships over beers.",
+    "features": [
+      {
+        "icon": "🎟️",
+        "label": "Paid Events"
+      },
+      {
+        "icon": "💬",
+        "label": "Group Chat"
+      },
+      {
+        "icon": "🛠️",
+        "label": "Workshops"
+      },
+      {
+        "icon": "✨",
+        "label": "Pet Friendly Events"
+      },
+      {
+        "icon": "✨",
+        "label": "Join by Approval"
+      },
+      {
+        "icon": "✨",
+        "label": "LGBTQ Friendly"
+      }
+    ],
+    "social_instagram": "https://www.instagram.com/indiebeercommunity?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    "social_facebook": null,
+    "social_twitter": null,
+    "social_whatsapp": null,
+    "social_website": "https://myhoc.in/indiebeercommunity?utm_source=ig&utm_medium=social&utm_content=link_in_bio",
+    "category_slugs": [
+      "music",
+      "food",
+      "workshops"
+    ]
+  },
+  {
+    "name": "Jaipur Coffee Community",
+    "slug": "jaipur-coffee-community",
+    "contact": null,
+    "is_community": true,
+    "logo_path": "/uploads/org_logo_69f9e80089aaf.webp",
+    "about": "Jaipur Coffee Community is a space for people who love coffee in any form — from expert brewers to those who simply enjoy a warm cup. We gather to share brews, stories, cafés, skills, and good vibes. It’s a no-judgment zone where curiosity is welcome and caffeine connects us. Through offline meetups, tasting sessions, and city café explorations, we celebrate the joy of coffee and the community that forms around it. Here, every sip comes with belonging.",
+    "special": null,
+    "features": [
+      {
+        "icon": "🎟️",
+        "label": "Paid Events"
+      },
+      {
+        "icon": "💬",
+        "label": "Group Chat"
+      },
+      {
+        "icon": "🛠️",
+        "label": "Workshops"
+      },
+      {
+        "icon": "🧸",
+        "label": "Kid Friendly"
+      },
+      {
+        "icon": "🆓",
+        "label": "Free Events"
+      },
+      {
+        "icon": "🤝",
+        "label": "Networking"
+      },
+      {
+        "icon": "✨",
+        "label": "Join by Approval"
+      },
+      {
+        "icon": "🐾",
+        "label": "Pet Friendly"
+      },
+      {
+        "icon": "✨",
+        "label": "LGBTQ Friendly"
+      }
+    ],
+    "social_instagram": "https://www.instagram.com/jaipurcoffeecommunity?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    "social_facebook": null,
+    "social_twitter": null,
+    "social_whatsapp": null,
+    "social_website": null,
+    "category_slugs": [
+      "food",
+      "workshops",
+      "networking"
+    ]
+  },
+  {
+    "name": "Jaipur Crochet Community",
+    "slug": "jaipur-crochet-community",
+    "contact": null,
+    "is_community": true,
+    "logo_path": "/uploads/org_logo_69f9e9555a5ad.webp",
+    "about": "Jaipur Crochet Community (JCC) isn’t just a group — it’s a home for anyone who loves yarn, creativity, and connection. Started by Apoorva and Sheetal in 2023, JCC began with a simple thought: crochet feels better when shared. What started as two people meeting over a shared passion has now grown into a beautiful space where strangers walk in with yarn and leave with friends, inspiration, and a sense of belonging. We aim to be an NGO soon and empower women ✨",
+    "special": "✨As JCC grows we aim toward becoming an NGO, we aim to empower underprivileged women through skill-based training and handmade craft opportunities.✨",
+    "features": [
+      {
+        "icon": "🎟️",
+        "label": "Paid Events"
+      },
+      {
+        "icon": "💬",
+        "label": "Group Chat"
+      },
+      {
+        "icon": "🛠️",
+        "label": "Workshops"
+      },
+      {
+        "icon": "🧸",
+        "label": "Kid Friendly"
+      },
+      {
+        "icon": "🆓",
+        "label": "Free Events"
+      },
+      {
+        "icon": "🤝",
+        "label": "Networking"
+      },
+      {
+        "icon": "✨",
+        "label": "Join By Approval"
+      },
+      {
+        "icon": "✨",
+        "label": "Membership Required"
+      },
+      {
+        "icon": "✨",
+        "label": "LGBTQ Friendly"
+      },
+      {
+        "icon": "🌍",
+        "label": "Open to All"
+      }
+    ],
+    "social_instagram": "https://www.instagram.com/jaipurcrochetcommunity?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    "social_facebook": null,
+    "social_twitter": null,
+    "social_whatsapp": null,
+    "social_website": null,
+    "category_slugs": [
+      "workshops",
+      "kids",
+      "networking"
+    ]
+  },
+  {
+    "name": "Jaipur Trekkers Community",
+    "slug": "jaipur-trekkers-community",
+    "contact": null,
+    "is_community": true,
+    "logo_path": "/uploads/org_logo_69fafc50d73aa.webp",
+    "about": "Why We Exist?\n\nWe are the Jaipur Trekkers Community, and our members proudly call themselves Panthers! Exploring the trails with a limited pack of 30 Panthers, on Sundays biweekly,  AND Beyond the hikes, we engage and provide resources online helping for those who can’t join us due to reasons like laziness, health issues, or being out of town, hoping they will join us someday—and they do!",
+    "special": null,
+    "features": [
+      {
+        "icon": "🎟️",
+        "label": "Paid Events"
+      },
+      {
+        "icon": "💬",
+        "label": "Group Chat"
+      },
+      {
+        "icon": "🧸",
+        "label": "Kid Friendly"
+      },
+      {
+        "icon": "✨",
+        "label": "Join By Approval"
+      }
+    ],
+    "social_instagram": "https://www.instagram.com/jaipurtrekkerscommunity?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    "social_facebook": null,
+    "social_twitter": null,
+    "social_whatsapp": null,
+    "social_website": null,
+    "category_slugs": []
+  },
+  {
+    "name": "Kythera",
+    "slug": "kythera",
+    "contact": "8742017911",
+    "is_community": true,
+    "logo_path": "/uploads/org_logo_69f9e283e8314.webp",
+    "about": "Kythera Jam is a space to express yourself through the medium of music. It's a place to calm yourself through the chaos of everyday life and meet other people in a non-judgemental, non-transactional way. We have space for 15 people and their friends, so please make sure you come on time so that you can make yourself comfortable.",
+    "special": null,
+    "features": [
+      {
+        "icon": "🎟️",
+        "label": "Paid Events"
+      },
+      {
+        "icon": "💬",
+        "label": "Group Chat"
+      },
+      {
+        "icon": "🧸",
+        "label": "Kid Friendly"
+      },
+      {
+        "icon": "🆓",
+        "label": "Free Events"
+      },
+      {
+        "icon": "🤝",
+        "label": "Networking"
+      },
+      {
+        "icon": "🎤",
+        "label": "Open Mic"
+      },
+      {
+        "icon": "🌍",
+        "label": "Open to All"
+      }
+    ],
+    "social_instagram": "https://www.instagram.com/kythera.city/",
+    "social_facebook": null,
+    "social_twitter": null,
+    "social_whatsapp": null,
+    "social_website": null,
+    "category_slugs": [
+      "music",
+      "workshops",
+      "networking"
+    ]
+  },
+  {
+    "name": "Link Agent",
+    "slug": "link-agent",
+    "contact": null,
+    "is_community": true,
+    "logo_path": "/uploads/org_logo_69fb160eb940e.webp",
+    "about": "At Link Agent community, everything starts with the brand builders of Jaipur. If you’re building something exciting or leading meaningful work in branding, you deserve a place where you feel understood. That’s why we’ve created a filtered and knowledge sharing community in Jaipur, with experiential networking events, marketing workshops, and coffee meetups hosted to help you connect, grow, & belong.",
+    "special": "The go to community for all things entrepreneurship & marketing.",
+    "features": [
+      {
+        "icon": "🎟️",
+        "label": "Paid Events"
+      },
+      {
+        "icon": "💬",
+        "label": "Group Chat"
+      },
+      {
+        "icon": "🛠️",
+        "label": "Workshops"
+      },
+      {
+        "icon": "✨",
+        "label": "Join by Approval"
+      }
+    ],
+    "social_instagram": "https://www.instagram.com/link.agent",
+    "social_facebook": null,
+    "social_twitter": null,
+    "social_whatsapp": null,
+    "social_website": null,
+    "category_slugs": [
+      "art",
+      "networking",
+      "exhibition"
+    ]
+  },
+  {
+    "name": "Not In My Houze",
+    "slug": "not-in-my-houze",
+    "contact": null,
+    "is_community": true,
+    "logo_path": "/uploads/org_logo_69faf53aaa5a0.webp",
+    "about": "We’re an artist community, a curation agency, and culture shapers bringing underground sounds to unexpected spaces. From sneaker studios and salons to cafés, courts, and furniture lofts – we turn everyday places into dance floors. Our team is committed to showcasing imaginative stores, cafes, and spaces through distinctive collaborations, where artists infuse their unique sound into unconventional settings.",
+    "special": null,
+    "features": [
+      {
+        "icon": "🎟️",
+        "label": "Paid Events"
+      },
+      {
+        "icon": "🛠️",
+        "label": "Workshops"
+      },
+      {
+        "icon": "🆓",
+        "label": "Free Events"
+      },
+      {
+        "icon": "🤝",
+        "label": "Networking"
+      }
+    ],
+    "social_instagram": "https://www.instagram.com/notinmyhouze?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    "social_facebook": null,
+    "social_twitter": null,
+    "social_whatsapp": "https://chat.whatsapp.com/Bp1ldbEK4rj1VBeXteDDD7",
+    "social_website": null,
+    "category_slugs": [
+      "music",
+      "nightlife"
+    ]
+  },
+  {
+    "name": "Orange Chowk",
+    "slug": "orange-chowk",
+    "contact": null,
+    "is_community": true,
+    "logo_path": "/uploads/org_logo_69faf96fc02e3.webp",
+    "about": "Orange Chowk is not just a community; it’s a feeling. a homegrown movement built on the belief that creativity is culture, and creatives deserve a place to belong, build, and be seen. We bring together creatives to share real stories, spark collaborations, and shape what the future of India’s creative landscape looks like together.",
+    "special": null,
+    "features": [
+      {
+        "icon": "🎟️",
+        "label": "Paid Events"
+      },
+      {
+        "icon": "💬",
+        "label": "Group Chat"
+      },
+      {
+        "icon": "🛠️",
+        "label": "Workshops"
+      },
+      {
+        "icon": "🤝",
+        "label": "Networking"
+      }
+    ],
+    "social_instagram": "https://www.instagram.com/orangechowk?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    "social_facebook": null,
+    "social_twitter": null,
+    "social_whatsapp": null,
+    "social_website": "https://linktr.ee/orangechowk?utm_source=ig&utm_medium=social&utm_content=link_in_bio",
+    "category_slugs": [
+      "art",
+      "workshops",
+      "networking"
+    ]
+  },
+  {
+    "name": "Pink City Board Games",
+    "slug": "pink-city-board-games",
+    "contact": null,
+    "is_community": true,
+    "logo_path": "/uploads/org_logo_6a211535ebe2c.webp",
+    "about": "It starts with “uhh can I join?” ends with “BRO YOU CHEATED 😭” 🎲 Pink City Board Games = no plans → best plan of the week ✨ come solo, leave with inside jokes ✨ fake fights over Uno, real friendships after ✨ “one last game” x 7 No skills needed, just vibes. We’ll teach the games, you bring the chaos. See you at the table 👀",
+    "special": "We believe in bringing people together through board games, creating moments of joy, laughter, and friendships that could turn into something for life.",
+    "features": [
+      {
+        "icon": "🎟️",
+        "label": "Paid Events"
+      },
+      {
+        "icon": "💬",
+        "label": "Group Chat"
+      },
+      {
+        "icon": "🌍",
+        "label": "Open To All"
+      }
+    ],
+    "social_instagram": "https://www.instagram.com/pinkcityboardgames",
+    "social_facebook": null,
+    "social_twitter": null,
+    "social_whatsapp": null,
+    "social_website": "https://myhoc.in/pinkcityboardgames",
+    "category_slugs": [
+      "art",
+      "workshops"
+    ]
+  },
+  {
+    "name": "Protein Daddy Club",
+    "slug": "protein-daddy-club",
+    "contact": null,
+    "is_community": true,
+    "logo_path": "/uploads/org_logo_6a30ff8d96b16.webp",
+    "about": "Protein Daddy Club is a growing community built around fitness, healthy living, and high-protein nutrition. More than just a food brand, it brings together people who want healthier alternatives without compromising on taste or affordability. Through its content, founder stories, product innovations, and community interactions, Protein Daddy Club promotes a lifestyle focused on fitness, consistency, and better eating habits. The community actively engages with fitness enthusiasts, gym-goers, and health-conscious individuals by sharing their startup journey, introducing high-protein products, and encouraging members to make smarter nutritional choices. With a strong emphasis on clean ingredients, accessibility, and community-driven growth, Protein Daddy Club aims to make protein-rich nutrition a part of everyday life for people across Jaipur.",
+    "special": null,
+    "features": [
+      {
+        "icon": "🎟️",
+        "label": "Paid Events"
+      },
+      {
+        "icon": "💬",
+        "label": "Group Chat"
+      },
+      {
+        "icon": "🛠️",
+        "label": "Workshops"
+      },
+      {
+        "icon": "🆓",
+        "label": "Free Events"
+      },
+      {
+        "icon": "🤝",
+        "label": "Networking"
+      }
+    ],
+    "social_instagram": "https://www.instagram.com/proteindaddyclub?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    "social_facebook": null,
+    "social_twitter": null,
+    "social_whatsapp": "http://chat.whatsapp.com/KqgfVHH2cUV08FezsVasOe",
+    "social_website": "https://www.proteindaddy.in/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&brid=YWdncwEDTgCoIjYxMhxcqLrNXPY8",
+    "category_slugs": [
+      "sports",
+      "wellness",
+      "adventure"
+    ]
+  },
+  {
+    "name": "Qurated",
+    "slug": "qurated",
+    "contact": null,
+    "is_community": true,
+    "logo_path": "/uploads/org_logo_6a21165694007.webp",
+    "about": "🌟 Welcome to Qurated – a vibrant community where ideas, creativity, and meaningful connections come together! 🤝✨\n\n💡 Connect with passionate individuals, innovators, and creators from diverse backgrounds.\n\n🚀 Discover exciting opportunities for learning, networking, and personal growth.\n\n🎯 Participate in engaging events, workshops, and collaborative experiences.\n\n🌍 Build valuable relationships with like-minded people who inspire and support each other.\n\n📚 Share knowledge, exchange insights, and grow together as a community.\n\n🎉 Whether you're a student, professional, or entrepreneur, there's a place for you here.\n\n❤️ Join Qurated and become part of a community that believes in collaboration, innovation, and impact!",
+    "special": null,
+    "features": [
+      {
+        "icon": "💬",
+        "label": "Group Chat"
+      },
+      {
+        "icon": "✨",
+        "label": "Dance"
+      },
+      {
+        "icon": "✨",
+        "label": "Party"
+      }
+    ],
+    "social_instagram": "https://www.instagram.com/qurated.in?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    "social_facebook": null,
+    "social_twitter": null,
+    "social_whatsapp": null,
+    "social_website": null,
+    "category_slugs": [
+      "music",
+      "nightlife"
+    ]
+  },
+  {
+    "name": "Rajasthan Anime Club",
+    "slug": "rajasthan-anime-club",
+    "contact": null,
+    "is_community": true,
+    "logo_path": "/uploads/org_logo_69f9e46d3e59c.webp",
+    "about": "Rajasthan Anime Club is dedicated to bringing the best of anime and Japanese pop culture with some breathtaking events just for you. Our group is a platform specially for the Ota-cool folks of Rajasthan to share their thoughts and discuss in a free and homely environment. From meetup announcements to fandom news, contests, and important updates, everything you need lands here.",
+    "special": null,
+    "features": [
+      {
+        "icon": "🎟️",
+        "label": "Paid Events"
+      },
+      {
+        "icon": "💬",
+        "label": "Group Chat"
+      },
+      {
+        "icon": "🛠️",
+        "label": "Workshops"
+      },
+      {
+        "icon": "🧸",
+        "label": "Kid Friendly"
+      },
+      {
+        "icon": "🆓",
+        "label": "Free Events"
+      },
+      {
+        "icon": "🤝",
+        "label": "Networking"
+      },
+      {
+        "icon": "✨",
+        "label": "Cartoon"
+      },
+      {
+        "icon": "✨",
+        "label": "Join by Approval"
+      }
+    ],
+    "social_instagram": "https://www.instagram.com/rajasthananimeclub",
+    "social_facebook": "https://www.facebook.com/groups/RajasthanAnimeClub/",
+    "social_twitter": null,
+    "social_whatsapp": null,
+    "social_website": null,
+    "category_slugs": [
+      "comedy",
+      "kids"
+    ]
+  },
+  {
+    "name": "SocialSpot Exp",
+    "slug": "socialspot-exp",
+    "contact": "9079839610",
+    "is_community": true,
+    "logo_path": "/uploads/org_logo_69fb0dd6e1ad7.webp",
+    "about": "SocialSpot Exp is a community-first event management company designing social events, creative workshops, experiential trips across India, and private & corporate experiences in Jaipur and beyond.",
+    "special": null,
+    "features": [
+      {
+        "icon": "🎟️",
+        "label": "Paid Events"
+      },
+      {
+        "icon": "🛠️",
+        "label": "Workshops"
+      },
+      {
+        "icon": "🤝",
+        "label": "Networking"
+      }
+    ],
+    "social_instagram": "https://www.instagram.com/socialspotexp?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    "social_facebook": null,
+    "social_twitter": null,
+    "social_whatsapp": "https://chat.whatsapp.com/HtOnLoOhAIV4OLZCG7NnzY?mode=ems_wa_c",
+    "social_website": "https://www.socialspotexp.com/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&brid=YWdncwFmLqIUOCKg_bOc_W3-FwOa",
+    "category_slugs": [
+      "music",
+      "fests",
+      "art"
+    ]
+  },
+  {
+    "name": "The Ritual",
+    "slug": "the-ritual",
+    "contact": null,
+    "is_community": true,
+    "logo_path": "/uploads/org_logo_69f9e225d584a.webp",
+    "about": "The ritual is a community-led run club based in Jaipur that combines movement, mindful community, and meaningful connection — all before your day even starts.",
+    "special": null,
+    "features": [
+      {
+        "icon": "🎟️",
+        "label": "Paid Events"
+      },
+      {
+        "icon": "💬",
+        "label": "Group Chat"
+      },
+      {
+        "icon": "🛠️",
+        "label": "Workshops"
+      },
+      {
+        "icon": "🧸",
+        "label": "Kid Friendly"
+      },
+      {
+        "icon": "🆓",
+        "label": "Free Events"
+      },
+      {
+        "icon": "🤝",
+        "label": "Networking"
+      },
+      {
+        "icon": "✨",
+        "label": "Join by Approval"
+      }
+    ],
+    "social_instagram": "https://www.instagram.com/theritual__/",
+    "social_facebook": null,
+    "social_twitter": null,
+    "social_whatsapp": null,
+    "social_website": null,
+    "category_slugs": [
+      "sports",
+      "wellness",
+      "networking"
+    ]
+  },
+  {
+    "name": "Urban Sketcher Jaipur",
+    "slug": "urban-sketcher-jaipur",
+    "contact": "9587372977",
+    "is_community": true,
+    "logo_path": "/uploads/org_logo_69faf74c999f9.webp",
+    "about": "Urban Sketchers Jaipur (USK Jaipur) is one of the growing city chapters of Urban Sketchers, a global movement dedicated to the practice of live sketching. The community captures the essence of Jaipur its streets, people, and architecture one sketch at a time. Each weekend, artists, designers, and sketch enthusiasts come together to draw from life, share their perspectives, and celebrate the city’s creative pulse through art.",
+    "special": null,
+    "features": [
+      {
+        "icon": "💬",
+        "label": "Group Chat"
+      },
+      {
+        "icon": "🛠️",
+        "label": "Workshops"
+      },
+      {
+        "icon": "🧸",
+        "label": "Kid Friendly"
+      },
+      {
+        "icon": "🆓",
+        "label": "Free Events"
+      },
+      {
+        "icon": "🤝",
+        "label": "Networking"
+      },
+      {
+        "icon": "✨",
+        "label": "Open For All"
+      }
+    ],
+    "social_instagram": "https://www.instagram.com/uskjaipur?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    "social_facebook": "https://www.facebook.com/Uskjaipur/",
+    "social_twitter": null,
+    "social_whatsapp": null,
+    "social_website": null,
+    "category_slugs": [
+      "art",
+      "kids",
+      "networking"
+    ]
+  },
+  {
+    "name": "Your Turn",
+    "slug": "your-turn",
+    "contact": null,
+    "is_community": true,
+    "logo_path": "/uploads/org_logo_6a21171ec2c81.webp",
+    "about": "Why We Exist?\n\nWe offer a library of 200+ games and a lively community of board game lovers! 🎲  • Bring your gang or join new friends for fun, interactive sessions.  • Not sure what to play? Our Game Masters will help you choose and learn! Come play, laugh, and connect — there’s always a seat waiting for you.",
+    "special": null,
+    "features": [
+      {
+        "icon": "🎟️",
+        "label": "Paid Events"
+      },
+      {
+        "icon": "💬",
+        "label": "Group Chat"
+      },
+      {
+        "icon": "🛠️",
+        "label": "Workshops"
+      },
+      {
+        "icon": "🆓",
+        "label": "Free Events"
+      },
+      {
+        "icon": "🤝",
+        "label": "Networking"
+      }
+    ],
+    "social_instagram": "https://www.instagram.com/yourturn.jaipur",
+    "social_facebook": null,
+    "social_twitter": null,
+    "social_whatsapp": null,
+    "social_website": null,
+    "category_slugs": [
+      "workshops",
+      "kids"
+    ]
+  },
+  {
+    "name": "Agarwal Organic Farms – AOF Jaipur",
+    "slug": "agarwal-organic-farms-aof-jaipur",
+    "contact": "7073496366",
+    "is_community": false,
+    "logo_path": null,
+    "about": null,
+    "special": null,
+    "features": [],
+    "social_instagram": null,
+    "social_facebook": null,
+    "social_twitter": null,
+    "social_whatsapp": null,
+    "social_website": null,
+    "category_slugs": []
+  },
+  {
+    "name": "Jaipur Comedy Club",
+    "slug": "jaipur-comedy-club",
+    "contact": null,
+    "is_community": false,
+    "logo_path": null,
+    "about": null,
+    "special": null,
+    "features": [],
+    "social_instagram": null,
+    "social_facebook": null,
+    "social_twitter": null,
+    "social_whatsapp": null,
+    "social_website": null,
+    "category_slugs": []
+  },
+  {
+    "name": "Jaipur Development Authority",
+    "slug": "jaipur-development-authority",
+    "contact": null,
+    "is_community": false,
+    "logo_path": null,
+    "about": null,
+    "special": null,
+    "features": [],
+    "social_instagram": null,
+    "social_facebook": null,
+    "social_twitter": null,
+    "social_whatsapp": null,
+    "social_website": null,
+    "category_slugs": []
+  },
+  {
+    "name": "Nutmeg Cafe",
+    "slug": "nutmeg-cafe",
+    "contact": "6377700751",
+    "is_community": false,
+    "logo_path": null,
+    "about": null,
+    "special": null,
+    "features": [],
+    "social_instagram": null,
+    "social_facebook": null,
+    "social_twitter": null,
+    "social_whatsapp": null,
+    "social_website": null,
+    "category_slugs": []
+  },
+  {
+    "name": "Spotlight PR",
+    "slug": "spotlight-pr",
+    "contact": "919929176991",
+    "is_community": false,
+    "logo_path": null,
+    "about": null,
+    "special": null,
+    "features": [],
+    "social_instagram": null,
+    "social_facebook": null,
+    "social_twitter": null,
+    "social_whatsapp": null,
+    "social_website": null,
+    "category_slugs": []
+  },
+  {
+    "name": "The Laugh Store",
+    "slug": "the-laugh-store",
+    "contact": null,
+    "is_community": false,
+    "logo_path": null,
+    "about": null,
+    "special": null,
+    "features": [],
+    "social_instagram": null,
+    "social_facebook": null,
+    "social_twitter": null,
+    "social_whatsapp": null,
+    "social_website": null,
+    "category_slugs": []
+  }
+]

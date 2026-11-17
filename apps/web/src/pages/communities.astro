@@ -1,0 +1,56 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/components/PageHeader.astro";
+import CommunityCard from "@/components/CommunityCard.astro";
+import EmptyState from "@/components/EmptyState.astro";
+import { api } from "@/lib/api";
+import { loadShell } from "@/lib/page";
+import { site } from "@/lib/format";
+import type { Organizer } from "@/lib/types";
+
+const [{ siteData, me }, { organizers }] = await Promise.all([
+  loadShell(Astro),
+  api<{ organizers: Organizer[] }>("/organizers", { request: Astro.request }),
+]);
+const title = `Discover Communities in Jaipur — ${site.name}`;
+const description = `Discover the best active communities in Jaipur. Connect with groups for music, art, networking, fitness, and more on ${site.name}.`;
+const listLd = {
+  "@context": "https://schema.org", "@type": "ItemList", name: "Discover Communities in Jaipur", description, url: `${site.url}/communities`,
+  numberOfItems: organizers.length,
+  itemListElement: organizers.map((o, i) => ({ "@type": "ListItem", position: i + 1, name: o.name, url: `${site.url}/organizer/${o.slug}` })),
+};
+const crumbLd = {
+  "@context": "https://schema.org", "@type": "BreadcrumbList",
+  itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: `${site.url}/` }, { "@type": "ListItem", position: 2, name: "Communities", item: `${site.url}/communities` }],
+};
+---
+<Base title={title} description={description} canonical="/communities" siteData={siteData} me={me} jsonLd={[listLd, crumbLd]}>
+  <PageHeader icon="🤝" count={`${organizers.length} active ${organizers.length === 1 ? "community" : "communities"} found`}>
+    Discover Communities <span class="text-muted">in Jaipur</span>
+  </PageHeader>
+
+  <section class="section">
+    <div class="container">
+      {organizers.length === 0 ? (
+        <EmptyState icon="🤝" title="No communities yet" text="Communities will show up here soon.">
+          <a href="/" class="btn btn-primary">Browse Events</a>
+        </EmptyState>
+      ) : (
+        <div class="mt-8 grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-6 max-sm:grid-cols-1">
+          {organizers.map((org) => <CommunityCard org={org} />)}
+        </div>
+      )}
+
+      <div class="submit-community-cta slide-up mt-12 border-t border-primary/10 px-4 pt-14 pb-8 text-center">
+        <div class="mb-3 text-[2.5rem]">🤝</div>
+        <h3 class="mb-2 text-[1.4rem]">Run a Community in Jaipur?</h3>
+        <p class="mx-auto mb-6 max-w-[480px] leading-[1.7] text-muted">
+          Get your group featured on Jagruk Jaipur and connect with active members across the Pink City.
+        </p>
+        <a href="#" class="btn btn-primary btn-lg needs-auth-ticket-btn" data-ticket-url="/contact.php?subject=Submit+Community" data-source-page="Communities Page" data-source-button="CTA: Submit Community" id="submit-community-cta-btn">
+          🚀 Submit Your Community
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>

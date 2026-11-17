@@ -1,0 +1,17 @@
+---
+import Admin from "@/layouts/Admin.astro";
+import VenueForm from "@/components/admin/VenueForm.astro";
+import { adminApi, handlePost } from "@/lib/admin";
+import { formToJson } from "@/components/admin/helpers";
+
+const res = await handlePost(Astro, async (form) => {
+  await adminApi(Astro, "/venues", { method: "POST", body: formToJson(form, ["is_active"]) });
+  return { message: "Venue created.", redirect: "/admin/venues" };
+});
+if (res) return res;
+const { areas } = await adminApi<{ areas: string[] }>(Astro, "/venues/areas");
+---
+<Admin title="Add Venue" active="venues">
+  <div class="page-title-row"><div class="page-title">Add Venue</div><a href="/admin/venues" class="a-btn a-btn-outline">← Back</a></div>
+  <VenueForm mode="new" areas={areas} />
+</Admin>

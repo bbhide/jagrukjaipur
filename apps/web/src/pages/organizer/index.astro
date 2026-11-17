@@ -1,0 +1,42 @@
+---
+// Layout inferred — the legacy organiser portal was not observable (see docs/01-reconnaissance.md §6)
+// Logged-out state reproduces the legacy "Login Required" screen exactly.
+import "@/styles/pages/organizer.css";
+import Base from "@/layouts/Base.astro";
+import LoginRequired from "@/components/organizer/LoginRequired.astro";
+import ProfileForm from "@/components/organizer/ProfileForm.astro";
+import { formValues, loadPortal, profileBody } from "@/components/organizer/guard";
+import { api, ApiError } from "@/lib/api";
+
+const p = await loadPortal(Astro, false);
+if (p.organizer) return Astro.redirect("/organizer/dashboard", 302);
+
+let error = "";
+let values: Record<string, string> = {
+  email: p.me?.email ?? "",
+  contact: (p.me?.whatsapp_number ?? "").replace(/^91(?=\d{10}$)/, ""),
+};
+if (p.me && Astro.request.method === "POST") {
+  values = formValues(await Astro.request.formData());
+  try {
+    await api("/organizer/register", { method: "POST", body: profileBody(values), request: Astro.request });
+    return Astro.redirect("/organizer/dashboard?ok=registered", 303);
+  } catch (e) {
+    if (!(e instanceof ApiError)) throw e;
+    if (e.status === 409) return Astro.redirect("/organizer/dashboard", 303);
+    if (e.status === 401) return Astro.redirect("/organizer", 303);
+    error = e.message;
+  }
+}
+---
+<Base title="Organizer Portal | Jagruk Jaipur" description="Register as an organizer on Jagruk Jaipur to sell event tickets and track sales." canonical="/organizer" siteData={p.siteData} me={p.me} noindex>
+  {!p.me ? <LoginRequired /> : (
+    <div class="container section">
+      <div class="org-intro" style="max-width:760px">
+        <h1 class="heading-lg">Partner with Jagruk Jaipur 🚀</h1>
+        <p class="text-muted lead">Tell us about your brand to start listing events and selling tickets. It takes a minute.</p>
+        <ProfileForm values={values} error={error} submitLabel="Register as Organizer" />
+      </div>
+    </div>
+  )}
+</Base>

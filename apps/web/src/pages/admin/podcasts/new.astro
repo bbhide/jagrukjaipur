@@ -1,0 +1,21 @@
+---
+import Admin from "@/layouts/Admin.astro";
+import PodcastsForm from "@/components/admin/PodcastsForm.astro";
+import { adminApi, handlePost } from "@/lib/admin";
+import "@/styles/admin-extra-2.css";
+
+const type = Astro.url.searchParams.get("type") === "guest" ? "guest" : "episode";
+const res = await handlePost(Astro, async (form) => {
+  if (type === "episode") {
+    await adminApi(Astro, "/podcasts/episodes", { method: "POST", body: { ...Object.fromEntries([...form.entries()].filter(([, v]) => typeof v === "string")), is_active: form.get("is_active") === "on" } });
+    return { message: "Episode added.", redirect: "/admin/podcasts?tab=episodes" };
+  }
+  await adminApi(Astro, "/podcasts/guests", { method: "POST", body: form });
+  return { message: "Guest added.", redirect: "/admin/podcasts?tab=guests" };
+});
+if (res) return res;
+---
+<Admin title={type === "episode" ? "Add Episode" : "Add Guest"} active="podcasts">
+  <div class="page-title-row"><div><h1 class="page-title">{type === "episode" ? "Add Podcast Episode" : "Add Featured Guest"}</h1><p class="page-subtitle">🎙️ Podcasts &amp; Guests</p></div></div>
+  <div class="a-card"><div class="a-pad"><PodcastsForm type={type} /></div></div>
+</Admin>

@@ -1,0 +1,21 @@
+---
+import Base from "@/layouts/Base.astro";
+import EmptyState from "@/components/EmptyState.astro";
+import { loadShell } from "@/lib/page";
+const { siteData, me } = await loadShell(Astro);
+Astro.response.status = 404;
+Astro.response.statusText = "Not Found";
+---
+<Base title="Page Not Found — Jagruk Jaipur" description="The page you're looking for doesn't exist." noindex siteData={siteData} me={me}>
+  <section class="section">
+    <div class="container">
+      <EmptyState icon="🧭" title="We couldn't find that page" text="The page may have moved, or the event may have already wrapped up. Let's get you back to what's happening in Jaipur.">
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="/" class="btn btn-primary">🏠 Home</a>
+          <a href="/events-in-jaipur-today" class="btn btn-outline">📅 Events Today</a>
+          <a href="/trending-events-in-jaipur" class="btn btn-outline">🔥 Trending</a>
+        </div>
+      </EmptyState>
+    </div>
+  </section>
+</Base>

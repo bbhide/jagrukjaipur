@@ -1,0 +1,48 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/components/PageHeader.astro";
+import EventGrid from "@/components/EventGrid.astro";
+import EmptyState from "@/components/EmptyState.astro";
+import { api } from "@/lib/api";
+import { loadShell } from "@/lib/page";
+import { eventUrl, site } from "@/lib/format";
+import type { EventList } from "@/lib/types";
+
+const [{ siteData, me }, events] = await Promise.all([
+  loadShell(Astro),
+  api<EventList>("/events", { query: { scope: "trending", per_page: 200 } }),
+]);
+const title = `Trending Events in Jaipur — Most Popular Shows & Concerts — ${site.name}`;
+const description = "Discover the most popular and highly-viewed upcoming events in Jaipur. Stand-up comedy, live music, workshops, and more. Find what's trending now.";
+const listLd = {
+  "@context": "https://schema.org", "@type": "ItemList", name: "Trending Events in Jaipur", description, numberOfItems: events.items.length,
+  itemListElement: events.items.map((e, i) => ({ "@type": "ListItem", position: i + 1, url: site.url + eventUrl(e.slug), name: e.title })),
+};
+---
+<Base title={title} description={description} canonical="/trending-events-in-jaipur" siteData={siteData} me={me} activeFilter="trending" jsonLd={[listLd]}>
+  <PageHeader icon="🔥" sub="Most viewed and popular upcoming events" count={`${events.total} trending events listed`}>
+    Trending Events in <span class="text-muted">Jaipur</span>
+  </PageHeader>
+
+  <section class="section">
+    <div class="container">
+      {events.total === 0 ? (
+        <EmptyState icon="🔥" title="Nothing trending yet" text="Check back soon or browse all upcoming events.">
+          <a href="/" class="btn btn-primary">Browse All Events</a>
+        </EmptyState>
+      ) : (
+        <>
+          <EventGrid events={events.items} sourcePage="Trending Events" id="trending-events-grid" />
+          <div class="mt-12 pt-8 text-center">
+            <p class="mb-4 text-muted">Explore more collections on Jagruk Jaipur:</p>
+            <div class="flex flex-wrap justify-center gap-4">
+              <a href="/events-in-jaipur-today" class="btn btn-outline">📅 Events Today</a>
+              <a href="/events-this-weekend-in-jaipur" class="btn btn-outline">🗓️ Weekend Events</a>
+              <a href="/" class="btn btn-outline">📋 All Upcoming Events</a>
+            </div>
+          </div>
+        </>
+      )}
+    </div>
+  </section>
+</Base>

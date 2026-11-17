@@ -1,0 +1,234 @@
+---
+/**
+ * Event detail page. Public (a direct URL works logged-out, as on the legacy site); the actions that need a
+ * member (maps link, organiser contact, external ticket link) are auth-gated buttons, the booking form asks for login on submit.
+ */
+import "@/styles/pages/event.css";
+import Base from "@/layouts/Base.astro";
+import ShareRow from "@/components/event/ShareRow.astro";
+import BookingForm from "@/components/vue/BookingForm.vue";
+import { api, ApiError } from "@/lib/api";
+import { loadShell } from "@/lib/page";
+import { dateFull, dateLong, site, time12 } from "@/lib/format";
+import { breadcrumbJsonLd, eventJsonLd, faqJsonLd, faqs as buildFaqs, metaDate, recurrenceText, seoDescription, seoTitle, shareLinks, sidebarPrice, type EventDetail } from "@/lib/event-detail";
+
+const { slug } = Astro.params;
+let event: EventDetail;
+try {
+  ({ event } = await api<{ event: EventDetail }>(`/events/${encodeURIComponent(slug ?? "")}`, { request: Astro.request, query: { track: 1 } }));
+} catch (e) {
+  if (e instanceof ApiError && e.status === 404) return Astro.rewrite("/404");
+  throw e;
+}
+
+const { siteData, me } = await loadShell(Astro);
+const path = `/event/${event.slug}`;
+const canonicalUrl = `${site.url}${path}`;
+const cancelled = event.status === "cancelled";
+const over = !cancelled && (event.status === "past" || (event.end_date ?? event.event_date) < siteData.today);
+const sourcePage = `Event: ${event.title}`;
+
+const hasBooking = event.has_ticketing && event.ticketing_enabled && event.tiers.length > 0 && !cancelled && !over;
+const price = sidebarPrice(event);
+const faqs = buildFaqs(event);
+const share = shareLinks(event, canonicalUrl);
+const category = event.categories[0];
+const sameDayTime = [event.event_time && time12(event.event_time), event.end_time && !event.end_date && time12(event.end_time)].filter(Boolean).join(" – ");
+const recurring = recurrenceText(event);
+const title = seoTitle(event);
+const description = seoDescription(event);
+const jsonLd = [eventJsonLd(event, canonicalUrl), breadcrumbJsonLd(event, canonicalUrl), faqJsonLd(faqs)];
+const linkCls = "border-b border-white/20 text-ink";
+---
+<Base title={title} description={description} canonical={path} ogImage={event.image_path ?? undefined} siteData={siteData} me={me} jsonLd={jsonLd}>
+  <div class="container">
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb" class="py-5 text-[0.85rem] text-muted">
+      <a href="/" class="text-muted hover:text-ink">Home</a>
+      {category && (<><span class="mx-2 opacity-50">/</span><a href={`/category/${category.slug}`} class="text-muted hover:text-ink">{category.name}</a></>)}
+      <span class="mx-2 opacity-50">/</span>
+      <span>{event.title}</span>
+    </nav>
+
+    <div class="event-detail">
+      <!-- ─── Main column ─────────────────────────────────── -->
+      <div class="event-main min-w-0">
+        {event.image_path && (
+          <div class="event-hero-img">
+            {event.is_exclusive && <div class="ribbon-exclusive"><span>JJ Exclusive</span></div>}
+            <img src={event.image_path} alt={event.title} loading="eager" />
+          </div>
+        )}
+
+        <!-- Category + status badges -->
+        <div class="event-detail-badges mt-6 flex flex-wrap gap-[0.6rem]">
+          {event.categories.map((c) => <a href={`/category/${c.slug}`} class="badge badge-cat">{c.icon} {c.name}</a>)}
+          {cancelled && <span class="badge badge-cancelled">Cancelled</span>}
+          {event.is_free && <span class="badge badge-free">FREE</span>}
+        </div>
+
+        <h1 class="event-title">{event.title}</h1>
+
+        {cancelled && (
+          <div class="mb-6 rounded-card border border-danger/40 bg-danger/10 px-5 py-4 text-[0.95rem] text-ink" role="status">
+            <strong class="text-danger">This event has been cancelled.</strong> Please check with the organiser for updates.
+          </div>
+        )}
+
+        <!-- Meta row -->
+        <div class="event-meta-row">
+          <div class="event-meta-item"><span>📅</span><span><strong>{metaDate(event)}</strong></span></div>
+          {event.venue_name && (
+            <div class="event-meta-item"><span>📍</span><span>{event.venue_slug ? <a href={`/venue/${event.venue_slug}`} class={linkCls}><strong>{event.venue_name}</strong></a> : <strong>{event.venue_name}</strong>}{event.venue_area && ` · ${event.venue_area}`}</span></div>
+          )}
+          {event.organizer_name && (
+            <div class="event-meta-item">
+              <span>🎤</span>
+              <span>By {event.organizer_slug ? <a href={`/organizer/${event.organizer_slug}`} class={linkCls}><strong>{event.organizer_name}</strong></a> : <strong>{event.organizer_name}</strong>}</span>
+            </div>
+          )}
+          <div class="event-meta-item"><span>👁</span><span>{event.views.toLocaleString("en-IN")} views</span></div>
+        </div>
+
+        <div id="copy-toast" class="copy-toast" role="status" aria-live="polite">Link copied!</div>
+
+        <!-- Mobile share row (above the description) -->
+        <ShareRow variant="mobile" whatsapp={share.whatsapp} twitter={share.twitter} />
+
+        <!-- Description -->
+        <div class="event-desc" set:html={event.description || event.short_description || ""} />
+
+        <!-- Native booking (renders where the legacy page rendered #ticket-purchase-form) -->
+        {hasBooking && (
+          <div class="mt-8">
+            <BookingForm client:visible
+              event={{ id: event.id, title: event.title, slug: event.slug }}
+              tiers={event.tiers} questions={event.questions} hasCoupons={event.has_coupons}
+              commissionRate={event.commission_rate ?? 15} absorptionMode={event.absorption_mode ?? "organiser"} />
+          </div>
+        )}
+
+        <!-- FAQs (auto-generated from the event fields) -->
+        <div class="event-faqs mt-8 pt-8">
+          <h2 class="mb-5 text-[1.4rem]">Frequently Asked Questions</h2>
+          <div class="flex flex-col gap-4">
+            {faqs.map((f) => (
+              <details class="event-faq cursor-pointer p-4">
+                <summary class="relative pr-6 text-[1.05rem] font-semibold outline-none [list-style-position:inside]">
+                  {f.q}
+                  <span class="faq-icon absolute right-0 top-1/2 -translate-y-1/2 text-[1.2rem] opacity-70" aria-hidden="true">+</span>
+                </summary>
+                <div class="mt-3 leading-[1.6] text-muted">{f.a}</div>
+              </details>
+            ))}
+          </div>
+        </div>
+
+        <!-- Terms & conditions -->
+        <div id="ticket-terms-block" class="event-terms mt-8 pt-8">
+          <h2 class="mb-4 flex items-center gap-2 text-[1.4rem] text-white">📜 Terms &amp; Conditions</h2>
+          <div class="rounded-[12px] border border-white/10 bg-white/[0.02] p-5 text-[0.88rem] leading-[1.65] text-muted">
+            <ul class="m-0 flex list-none flex-col gap-[0.6rem] pl-5">
+              <li><strong class="text-white">Entry &amp; Pass Verification:</strong> Every attendee must present a valid E-ticket pass with unique QR code (issued via WhatsApp/Email) at the venue entrance. Photo ID matching attendee details may be requested.</li>
+              <li><strong class="text-white">Non-Refundable &amp; Non-Transferable:</strong> All ticket sales are final. Tickets cannot be refunded or cancelled unless the event is officially cancelled or postponed by the organizer.</li>
+              <li><strong class="text-white">Rights of Admission:</strong> The event organizer and venue security reserve all rights of admission. Unruly behavior or violation of venue rules will result in immediate ejection without refund.</li>
+              <li><strong class="text-white">Age &amp; Venue Guidelines:</strong> Attendees must follow age restrictions, dress codes, and security guidelines specified by the organizer and venue authorities.</li>
+              <li><strong class="text-white">Platform Disclaimer:</strong> Jagruk Jaipur serves as a ticketing technology &amp; discovery platform. The event organizer remains solely responsible for event execution, venue management, and schedule updates.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── Sidebar ───────────────────────────────────────── -->
+      <aside class="event-sidebar" aria-label="Event details">
+        <div class="event-sidebar-card">
+          <!-- Date & time -->
+          <div>
+            <div class="sidebar-section-label">📅 Date &amp; Time</div>
+            <div class="sidebar-value">{dateFull(event.event_date)}</div>
+            {sameDayTime && <div class="sidebar-sub">🕐 {sameDayTime}</div>}
+            {event.end_date && event.end_date !== event.event_date && <div class="sidebar-sub">Ends: {dateLong(event.end_date)}</div>}
+            {recurring && <div class="sidebar-sub mt-2">🔁 <strong>Recurring:</strong> {recurring}</div>}
+          </div>
+
+          {event.venue_name && (
+            <>
+              <hr class="sidebar-divider" />
+              <div>
+                <div class="sidebar-section-label">📍 Venue</div>
+                <div class="sidebar-value">{event.venue_slug ? <a href={`/venue/${event.venue_slug}`} class={`${linkCls} font-semibold no-underline`}>{event.venue_name}</a> : event.venue_name}</div>
+                {event.venue_area && <div class="sidebar-sub">{event.venue_area}, Jaipur</div>}
+                {event.venue_address && <div class="sidebar-sub mt-1 !text-[0.78rem]">{event.venue_address}</div>}
+                {event.venue_maps_url && (
+                  <a href="#" id="view-on-maps-btn" class="btn btn-outline btn-sm needs-auth-ticket-btn mt-3 w-full justify-center"
+                     data-ticket-url={event.venue_maps_url} data-source-page={sourcePage} data-source-button="Open in Google Maps">🗺 Open in Google Maps</a>
+                )}
+              </div>
+            </>
+          )}
+
+          {price && (
+            <>
+              <hr class="sidebar-divider" />
+              <div>
+                <div class="sidebar-section-label">🎟 Price</div>
+                <div class:list={["sidebar-value", { "event-price free": price.free }]}>{price.text}</div>
+              </div>
+            </>
+          )}
+
+          <!-- Ticket call to action: native booking form, external ticket link, or the reason there is none -->
+          {cancelled ? (
+            <><hr class="sidebar-divider" /><div class="rounded-sm border border-danger/40 bg-danger/10 p-3 text-center text-[0.9rem] font-semibold text-danger">Event cancelled</div></>
+          ) : over ? (
+            <><hr class="sidebar-divider" /><div class="rounded-sm border border-line bg-white/[0.04] p-3 text-center text-[0.9rem] text-muted">This event has ended</div></>
+          ) : hasBooking ? (
+            <><hr class="sidebar-divider" /><a href="#ticket-purchase-form" id="get-tickets-btn" role="button" class="btn btn-accent w-full justify-center !p-[0.85rem] text-base">🎟 {event.button_text}</a></>
+          ) : event.ticket_url ? (
+            <><hr class="sidebar-divider" />
+              <a href="#" id="get-tickets-btn" role="button" class="btn btn-accent needs-auth-ticket-btn w-full justify-center !p-[0.85rem] text-base"
+                 data-ticket-url={event.ticket_url} data-source-page={sourcePage} data-source-button="Sidebar Ticket">🎟 {event.button_text}</a></>
+          ) : null}
+
+          <!-- Organiser -->
+          {event.organizer_name && (
+            <>
+              <hr class="sidebar-divider" />
+              <div>
+                <div class="sidebar-section-label">🎤 Organiser</div>
+                <div class="sidebar-value">
+                  {event.organizer_slug ? <a href={`/organizer/${event.organizer_slug}`} class={`${linkCls} font-semibold`}>{event.organizer_name}</a> : event.organizer_name}
+                </div>
+                {event.organizer_contact && <div class="sidebar-sub">{event.organizer_contact}</div>}
+              </div>
+            </>
+          )}
+
+          <!-- Desktop share row -->
+          <ShareRow variant="desktop" whatsapp={share.whatsapp} twitter={share.twitter} />
+        </div>
+      </aside>
+    </div>
+  </div>
+</Base>
+
+<script>
+  // Copy link / native share (legacy behaviour). Uses the page URL without query or hash.
+  const toast = document.getElementById("copy-toast");
+  const url = location.origin + location.pathname;
+  const shareData = { title: document.title, text: "Discover this upcoming event in Jaipur! 🎟️", url };
+  if (navigator.share) {
+    document.querySelectorAll<HTMLElement>(".btn-native-share").forEach((btn) => {
+      btn.classList.add("is-available");
+      btn.addEventListener("click", async () => { try { await navigator.share(shareData); } catch { /* dismissed */ } });
+    });
+  }
+  document.querySelectorAll<HTMLElement>(".btn-copy-link").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      navigator.clipboard.writeText(url).then(() => {
+        toast?.classList.add("show");
+        setTimeout(() => toast?.classList.remove("show"), 2500);
+      });
+    });
+  });
+</script>

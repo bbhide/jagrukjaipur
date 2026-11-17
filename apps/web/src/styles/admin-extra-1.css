@@ -1,0 +1,8 @@
+@layer theme, base, components, utilities;
+/* Admin part 1: pill checkboxes used by the event and organiser forms. */
+@layer components {
+  .cat-chip { display: inline-flex; align-items: center; gap: .4rem; padding: .35rem .8rem; border: 1px solid var(--a-border); border-radius: 50px; font-size: .82rem; cursor: pointer; background: rgba(255,255,255,.04); transition: var(--transition); }
+  .cat-chip:has(input:checked) { border-color: var(--a-primary); background: rgba(124,58,237,.18); color: #fff; }
+  .cat-chip.disabled { opacity: .4; cursor: not-allowed; }
+  .cat-chip input { accent-color: var(--a-primary); }
+}

@@ -1,0 +1,71 @@
+---
+import Admin from "@/layouts/Admin.astro";
+import { adminApi, handlePost } from "@/lib/admin";
+import "@/styles/admin-extra-2.css";
+
+const res = await handlePost(Astro, async (form) => {
+  const action = String(form.get("action") ?? "");
+  const id = Number(form.get("id"));
+  if (action === "set_enabled") { await adminApi(Astro, "/ticketing/promos-enabled", { method: "PUT", body: { enabled: form.get("enabled") === "on" } }); return { message: "Promo code setting updated." }; }
+  if (action === "create") {
+    await adminApi(Astro, "/ticketing/promos", { method: "POST", body: {
+      code: String(form.get("code") ?? ""), discount_type: String(form.get("discount_type") ?? ""), discount_value: String(form.get("discount_value") ?? ""),
+      max_uses: String(form.get("max_uses") ?? ""), valid_until: String(form.get("valid_until") ?? ""), is_active: form.get("is_active") === "on",
+    } });
+    return { message: "Promo code created." };
+  }
+  if (action === "toggle") { await adminApi(Astro, `/ticketing/promos/${id}`, { method: "PUT", body: { is_active: form.get("is_active") === "1" } }); return { message: "Promo code updated." }; }
+  if (action === "delete") { await adminApi(Astro, `/ticketing/promos/${id}`, { method: "DELETE" }); return { message: "Promo code deleted." }; }
+});
+if (res) return res;
+
+const { enabled, promos } = await adminApi<{ enabled: boolean; promos: any[] }>(Astro, "/ticketing/promos");
+const fmtD = (d?: string | null) => (d ? new Date(`${d.slice(0, 10)}T00:00:00+05:30`).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric", timeZone: "Asia/Kolkata" }) : "No expiry");
+const today = new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" });
+---
+<Admin title="Listing Promo Codes" active="ticketing_promos">
+  <div class="page-title-row"><div><h1 class="page-title">Listing Promo Codes</h1><p class="page-subtitle">Discounts on the fee organisers pay to list a ticketed event</p></div></div>
+
+  <div class="a-card" style="margin-bottom:1.25rem;"><div class="a-pad">
+    <form method="POST" class="toggle-group" style="justify-content:space-between;">
+      <input type="hidden" name="action" value="set_enabled" />
+      <div><strong>Enable promo codes at checkout</strong><div class="a-muted">When off, organisers cannot apply any promo code to the listing fee.</div></div>
+      <div class="toggle-group"><label class="toggle"><input type="checkbox" name="enabled" checked={enabled} /><span class="toggle-slider"></span></label><button class="a-btn a-btn-outline a-btn-sm" type="submit">Save</button></div>
+    </form>
+  </div></div>
+
+  <div class="a-card"><div class="a-card-header"><h2 class="a-card-title">Create Promo Code</h2></div>
+    <form method="POST" class="a-pad"><input type="hidden" name="action" value="create" />
+      <div class="form-grid">
+        <div class="form-group"><label class="form-label" for="code">Code<span class="req">*</span></label><input class="form-input" id="code" name="code" required maxlength="40" pattern="[A-Za-z0-9_\-]+" placeholder="LAUNCH50" style="text-transform:uppercase;" /></div>
+        <div class="form-group"><label class="form-label" for="discount_type">Discount Type</label><select class="form-select" id="discount_type" name="discount_type"><option value="percent">Percent (%)</option><option value="fixed">Fixed amount (₹)</option></select></div>
+        <div class="form-group"><label class="form-label" for="discount_value">Discount Value<span class="req">*</span></label><input class="form-input" type="number" step="0.01" min="0.01" id="discount_value" name="discount_value" required /></div>
+        <div class="form-group"><label class="form-label" for="max_uses">Max Uses</label><input class="form-input" type="number" min="1" id="max_uses" name="max_uses" placeholder="Unlimited" /></div>
+        <div class="form-group"><label class="form-label" for="valid_until">Valid Until</label><input class="form-input" type="date" id="valid_until" name="valid_until" /></div>
+        <div class="form-group"><label class="form-label">Active</label><div class="toggle-group"><label class="toggle"><input type="checkbox" name="is_active" checked /><span class="toggle-slider"></span></label></div></div>
+      </div>
+      <div class="form-actions"><button class="a-btn a-btn-primary" type="submit">➕ Create Promo Code</button></div>
+    </form>
+  </div>
+
+  <div class="a-card" style="margin-top:1.25rem;"><div class="a-card-header"><h2 class="a-card-title">All Promo Codes</h2></div>
+    {promos.length === 0 ? <div class="a-empty">No promo codes yet.</div> : (
+      <div class="a-table-wrap"><table class="a-table">
+        <thead><tr><th>ID</th><th>Promo Code</th><th>Discount</th><th>Uses / Max</th><th>Expiry</th><th>Status</th><th>Created</th><th>Actions</th></tr></thead>
+        <tbody>{promos.map((p) => {
+          const expired = p.valid_until && p.valid_until < today;
+          return (
+          <tr>
+            <td>{p.id}</td><td><code><strong>{p.code}</strong></code></td>
+            <td>{p.discount_type === "percent" ? `${p.discount_value}%` : `₹${p.discount_value}`}</td>
+            <td>{p.uses} / {p.max_uses ?? "∞"}</td><td class="nowrap">{fmtD(p.valid_until)}{expired && " (expired)"}</td>
+            <td><span class:list={["a-badge", p.is_active ? "a-badge-success" : "a-badge-muted"]}>{p.is_active ? "Active" : "Inactive"}</span></td>
+            <td class="nowrap">{fmtD(p.created_at)}</td>
+            <td><div class="actions-cell">
+              <form method="POST" class="a-inline-form"><input type="hidden" name="action" value="toggle" /><input type="hidden" name="id" value={p.id} /><input type="hidden" name="is_active" value={p.is_active ? "0" : "1"} /><button class="a-btn a-btn-outline a-btn-sm" type="submit">{p.is_active ? "Deactivate" : "Activate"}</button></form>
+              <form method="POST" class="a-inline-form" data-confirm="Delete this promo code? This cannot be undone."><input type="hidden" name="action" value="delete" /><input type="hidden" name="id" value={p.id} /><button class="a-btn a-btn-danger a-btn-sm" type="submit" title="Delete">🗑</button></form>
+            </div></td>
+          </tr>);})}</tbody>
+      </table></div>)}
+  </div>
+</Admin>

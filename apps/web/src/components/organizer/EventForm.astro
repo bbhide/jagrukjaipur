@@ -1,0 +1,119 @@
+---
+/** Create/edit event form shared by events/new and events/[id]. Layout inferred — the legacy organiser portal was not observable. */
+import TicketingEditor from "@/components/vue/TicketingEditor.vue";
+import type { FormOptions } from "./guard";
+
+interface Props {
+  values: Record<string, string>;
+  categoryIds: string[];
+  options: FormOptions;
+  tiers?: any[]; questions?: any[]; coupons?: any[];
+  imagePath?: string | null;
+  error?: string;
+  submitLabel: string;
+  /** Edit mode: shows the current banner and a delete button handled by the page. */
+  canDelete?: boolean;
+}
+const { values: v, categoryIds, options, tiers, questions, coupons, imagePath, error, submitLabel, canDelete = false } = Astro.props;
+const listing = v.listing_type === "ticketing" ? "ticketing" : "free_listing";
+---
+<form method="post" enctype="multipart/form-data" class="org-form event-form">
+  {error && <div class="flash flash-error org-flash" role="alert">{error}</div>}
+
+  <div class="glass-box org-fieldset">
+    <h2 class="org-section-title">Listing type</h2>
+    <div class="fee-option-group">
+      <label class="fee-card">
+        <input type="radio" name="listing_type" value="free_listing" checked={listing === "free_listing"} />
+        <span class="fee-card-content"><span class="fee-title">📋 Free listing</span><span class="fee-desc">List your event on Jagruk Jaipur at no cost. Optionally link to your own ticketing page.</span></span>
+      </label>
+      <label class="fee-card">
+        <input type="radio" name="listing_type" value="ticketing" checked={listing === "ticketing"} />
+        <span class="fee-card-content"><span class="fee-title">🎟 Sell tickets with us</span><span class="fee-desc">Free or paid ticket tiers, buyer questions and promo codes, with a live sales dashboard and a QR check-in scanner.</span></span>
+      </label>
+    </div>
+  </div>
+
+  <div class="glass-box org-fieldset">
+    <h2 class="org-section-title">Event details</h2>
+    <div class="org-fields">
+      <div class="form-group">
+        <label class="form-label" for="e-title">Title<span class="req">*</span></label>
+        <input class="form-input" id="e-title" name="title" required maxlength="160" value={v.title ?? ""} />
+      </div>
+      <div class="form-group">
+        <span class="form-label">Categories<span class="req">*</span> <span class="text-muted text-small">(choose up to 3)</span></span>
+        <div class="org-checks">
+          {options.categories.map((c) => (
+            <label class="org-check"><input type="checkbox" name="category_id[]" value={String(c.id)} checked={categoryIds.includes(String(c.id))} /> {c.icon} {c.name}</label>
+          ))}
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="e-short">Short description</label>
+        <input class="form-input" id="e-short" name="short_description" maxlength="300" value={v.short_description ?? ""} placeholder="One line shown on event cards" />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="e-desc">Description</label>
+        <textarea class="form-input" id="e-desc" name="description" maxlength="20000" style="min-height:11rem">{v.description ?? ""}</textarea>
+        <span class="hint">Plain text. Leave a blank line between paragraphs.</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="e-image">Banner image</label>
+        {imagePath && <img class="org-image-preview" src={imagePath} alt="Current banner" loading="lazy" />}
+        <input class="form-input" id="e-image" type="file" name="image" accept="image/jpeg,image/png,image/webp,image/gif" />
+        <span class="hint">JPEG, PNG, WebP or GIF up to 5 MB.{imagePath ? " Choose a file to replace the current banner." : ""}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="glass-box org-fieldset">
+    <h2 class="org-section-title">Date &amp; time</h2>
+    <div class="org-fields cols-2">
+      <div class="form-group"><label class="form-label" for="e-date">Date<span class="req">*</span></label><input class="form-input" id="e-date" type="date" name="event_date" required value={v.event_date ?? ""} /></div>
+      <div class="form-group"><label class="form-label" for="e-time">Start time</label><input class="form-input" id="e-time" type="time" name="event_time" value={v.event_time ?? ""} /></div>
+      <div class="form-group"><label class="form-label" for="e-edate">End date <span class="text-muted text-small">(multi-day events)</span></label><input class="form-input" id="e-edate" type="date" name="end_date" value={v.end_date ?? ""} /></div>
+      <div class="form-group"><label class="form-label" for="e-etime">End time</label><input class="form-input" id="e-etime" type="time" name="end_time" value={v.end_time ?? ""} /></div>
+    </div>
+  </div>
+
+  <div class="glass-box org-fieldset">
+    <h2 class="org-section-title">Venue</h2>
+    <div class="org-fields">
+      <div class="form-group">
+        <label class="form-label" for="e-venue">Choose a venue</label>
+        <select class="form-input" id="e-venue" name="venue_id">
+          <option value="">— Add a new venue below —</option>
+          {options.venues.map((vn) => <option value={String(vn.id)} selected={v.venue_id === String(vn.id)}>{vn.name}{vn.area ? ` — ${vn.area}` : ""}</option>)}
+        </select>
+      </div>
+      <p class="org-note" style="margin:0">Can't find it? Leave the dropdown on "Add a new venue" and fill in the details:</p>
+      <div class="org-fields cols-2">
+        <div class="form-group"><label class="form-label" for="e-vname">Venue name</label><input class="form-input" id="e-vname" name="venue_name" maxlength="160" value={v.venue_name ?? ""} /></div>
+        <div class="form-group"><label class="form-label" for="e-varea">Area</label><input class="form-input" id="e-varea" name="venue_area" maxlength="120" value={v.venue_area ?? ""} placeholder="e.g. C-Scheme" /></div>
+      </div>
+      <div class="form-group"><label class="form-label" for="e-vaddr">Address</label><input class="form-input" id="e-vaddr" name="venue_address" maxlength="400" value={v.venue_address ?? ""} /></div>
+      <div class="form-group"><label class="form-label" for="e-vmaps">Google Maps link</label><input class="form-input" id="e-vmaps" type="url" name="venue_maps_url" maxlength="600" value={v.venue_maps_url ?? ""} placeholder="https://maps.google.com/…" /></div>
+    </div>
+  </div>
+
+  <div class="glass-box org-fieldset only-free">
+    <h2 class="org-section-title">Ticket link <span class="text-muted text-small">(optional)</span></h2>
+    <div class="form-group">
+      <input class="form-input" type="url" name="ticket_url" maxlength="600" value={v.ticket_url ?? ""} placeholder="https://… (leave empty for a free-entry event)" aria-label="Ticket link" />
+      <span class="hint">If your event is ticketed elsewhere, add the link. With no link the event is shown as free entry.</span>
+    </div>
+  </div>
+
+  <div class="glass-box org-fieldset only-ticketing">
+    <h2 class="org-section-title">Tickets</h2>
+    <TicketingEditor client:load tiers={tiers} questions={questions} coupons={coupons} />
+  </div>
+
+  <div class="org-form-actions">
+    <button class="btn btn-primary btn-lg" type="submit" name="_action" value="save">{submitLabel}</button>
+    <a href="/organizer/dashboard" class="btn btn-outline btn-lg">Cancel</a>
+    {canDelete && <button class="btn btn-outline btn-lg org-danger" type="submit" name="_action" value="delete" formnovalidate data-confirm="Delete this event permanently? This cannot be undone.">Delete event</button>}
+  </div>
+  <p class="org-note">New events and edits to rejected events are reviewed by our team before they go live. Listing is free.</p>
+</form>

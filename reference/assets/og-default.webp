@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jagruk Jaipur: Events, Concerts, Comedy Shows &amp; Things to Do</title>
+  <meta name="description" content="Discover the best events happening in Jaipur — concerts, comedy shows, food fests, art exhibitions, and more.">
+  <meta name="keywords" content="Jaipur events, things to do in Jaipur, concerts in Jaipur, comedy shows Jaipur, upcoming events Jaipur, weekend events Jaipur, Jagruk Jaipur">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <link rel="canonical" href="https://jagrukjaipur.com/assets/img/og-default.webp">
+  
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg">
+  <link rel="shortcut icon" href="/favicon/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-title" content="Jagruk Jaipur">
+  <link rel="manifest" href="/favicon/site.webmanifest">
+  <meta name="theme-color" content="#0D0814">
+
+  <!-- iOS PWA support -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <!-- Dark splash screen when launched from iOS / Android home screen -->
+  <style>
+    @media (display-mode: standalone) {
+      body::before {
+        content: '';
+        position: fixed; inset: 0;
+        background: #0D0814;
+        z-index: 99999;
+        pointer-events: none;
+        animation: pwa-splash-out 0.5s ease 0.9s forwards;
+      }
+      @keyframes pwa-splash-out { to { opacity: 0; } }
+    }
+  </style>
+
+
+  <!-- Open Graph -->
+  <meta property="og:title"       content="Jagruk Jaipur: Events, Concerts, Comedy Shows &amp; Things to Do">
+  <meta property="og:description" content="Don&#039;t miss out! Discover the hottest upcoming events, concerts, stand-up comedy, food fests, and workshops happening in the Pink City. 🎟️ Grab your tickets!">
+  <meta property="og:image"       content="https://jagrukjaipur.com/assets/img/og-home.webp">
+  <meta property="og:url"         content="https://jagrukjaipur.com/assets/img/og-default.webp">
+  <meta property="og:type"        content="website">
+  <meta property="og:site_name"   content="Jagruk Jaipur">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Jagruk Jaipur: Events, Concerts, Comedy Shows &amp; Things to Do">
+  <meta name="twitter:description" content="Don&#039;t miss out! Discover the hottest upcoming events, concerts, stand-up comedy, food fests, and workshops happening in the Pink City. 🎟️ Grab your tickets!">
+  <meta name="twitter:image" content="https://jagrukjaipur.com/assets/img/og-home.webp">
+
+  <!-- JSON-LD Global WebSite Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Jagruk Jaipur",
+    "url": "https:\/\/jagrukjaipur.com",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https:\/\/jagrukjaipur.com\/search.php?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+  <!-- JSON-LD SiteNavigationElement Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": [
+      {
+        "@type": "SiteNavigationElement",
+        "position": 1,
+        "name": "Today's Events",
+        "url": "https:\/\/jagrukjaipur.com\/events-in-jaipur-today"      },
+      {
+        "@type": "SiteNavigationElement",
+        "position": 2,
+        "name": "Weekend Events",
+        "url": "https:\/\/jagrukjaipur.com\/events-this-weekend-in-jaipur"      },
+      {
+        "@type": "SiteNavigationElement",
+        "position": 3,
+        "name": "Trending Events",
+        "url": "https:\/\/jagrukjaipur.com\/trending-events-in-jaipur"      },
+      {
+        "@type": "SiteNavigationElement",
+        "position": 4,
+        "name": "Comedy Shows",
+        "url": "https:\/\/jagrukjaipur.com\/category\/standups-comedy"      },
+      {
+        "@type": "SiteNavigationElement",
+        "position": 5,
+        "name": "Music Concerts",
+        "url": "https:\/\/jagrukjaipur.com\/category\/music-concerts"      },
+      {
+        "@type": "SiteNavigationElement",
+        "position": 6,
+        "name": "Art & Theatre",
+        "url": "https:\/\/jagrukjaipur.com\/category\/art-theatre"      }
+    ]
+  }
+  </script>
+  <!-- Styles -->
+  <link rel="stylesheet" href="/assets/css/style.css?v=1793880440">
+  <!-- Google Fonts (preconnect) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <!-- Microsoft Clarity -->
+  <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "wd6n4vl139");
+  </script>
+</head>
+<body>
+
+<!-- ─── Navbar ─────────────────────────────────────────────── -->
+<nav class="navbar" id="main-nav">
+  <div class="container">
+    <a href="/" class="logo" aria-label="Jagruk Jaipur Home">
+      <img src="/assets/img/logo.webp" alt="Jagruk Jaipur" class="navbar-logo-img">
+    </a>
+
+    <form class="nav-search" action="/search.php" method="GET" role="search">
+      <span class="nav-search-icon" aria-hidden="true">🔍</span>
+      <input type="search" name="q" id="nav-search-input"
+             placeholder="Search events & communities…"
+             value=""
+             autocomplete="off" aria-label="Search events and communities">
+    </form>
+
+    <div class="nav-actions">
+      <a href="/podcast" class="btn btn-outline btn-sm nav-desktop-btn" style="border-color: rgba(251, 146, 60, 0.4); color: #fb923c; display: inline-flex; align-items: center; gap: 0.35rem;" id="nav-podcast-btn">
+        🎙️ <span>Podcast</span>
+      </a>
+      <a href="/tickiting" class="btn btn-outline btn-sm nav-desktop-btn" style="border-color: rgba(124, 58, 237, 0.4); color: #a78bfa; display: inline-flex; align-items: center; gap: 0.35rem;" id="nav-sell-tickets-btn">
+        🎟️ <span>Sell Tickets</span>
+      </a>
+              <a href="#" class="btn btn-outline btn-sm needs-auth-ticket-btn" data-ticket-url="/assets/img/og-default.webp" data-source-page="/assets/img/og-default.webp" data-source-button="Header Profile Button" id="nav-profile-login-btn" style="border-color:rgba(255,255,255,0.2); color:var(--text-color); display: inline-flex; align-items: center; gap: 0.35rem;">
+          👤 <span class="nav-profile-name">Sign In</span>
+        </a>
+        <a href="#" class="btn btn-outline btn-sm needs-auth-ticket-btn" data-ticket-url="/search.php" data-source-page="/assets/img/og-default.webp" data-source-button="Mobile Search Button" aria-label="Search" id="mobile-search-btn">🔍</a>
+      
+      <!-- Hamburger Menu Toggle Button (Mobile) -->
+      <button class="hamburger-btn" id="mobile-menu-toggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-nav-drawer">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ─── Mobile Navigation Drawer ───────────────────────────── -->
+<div class="mobile-drawer-overlay" id="mobile-drawer-overlay" aria-hidden="true"></div>
+<aside class="mobile-drawer" id="mobile-nav-drawer" role="dialog" aria-modal="true" aria-label="Navigation Menu">
+  <div class="mobile-drawer-header">
+    <a href="/" class="mobile-drawer-logo" aria-label="Jagruk Jaipur Home">
+      <img src="/assets/img/logo.webp" alt="Jagruk Jaipur" style="height: 32px; width: auto; object-fit: contain;">
+    </a>
+    <button class="mobile-drawer-close" id="mobile-drawer-close" aria-label="Close menu">&times;</button>
+  </div>
+
+  <div class="mobile-drawer-body">
+    <!-- User / Auth Card -->
+          <div class="drawer-auth-card">
+        <div class="drawer-auth-title">Welcome to Jagruk Jaipur</div>
+        <div class="drawer-auth-sub">Log in to track your tickets, bookings &amp; preferences</div>
+        <a href="#" class="drawer-auth-btn needs-auth-ticket-btn" data-ticket-url="/assets/img/og-default.webp" data-source-page="Mobile Menu Drawer" data-source-button="Drawer Sign In Button">
+          <span>💬 Sign In with WhatsApp</span>
+          <span class="drawer-auth-arrow">&rarr;</span>
+        </a>
+      </div>
+    
+    <!-- Action Highlights -->
+    <a href="/tickiting" class="drawer-highlight-card drawer-card-tickets">
+      <div class="drawer-card-icon">🎟️</div>
+      <div class="drawer-card-body">
+        <div class="drawer-card-title">Sell Tickets &amp; Host Events</div>
+        <div class="drawer-card-desc">List free events or sell tickets easily</div>
+      </div>
+      <div class="drawer-card-arrow">&rarr;</div>
+    </a>
+
+    <a href="/podcast" class="drawer-highlight-card drawer-card-podcast">
+      <div class="drawer-card-icon">🎙️</div>
+      <div class="drawer-card-body">
+        <div class="drawer-card-title">Jaipur Podcast</div>
+        <div class="drawer-card-desc">Watch episodes &amp; apply as guest</div>
+      </div>
+      <div class="drawer-card-arrow">&rarr;</div>
+    </a>
+
+    <!-- Explore Jaipur -->
+    <div class="drawer-nav-section">
+      <div class="drawer-section-title">Explore Jaipur</div>
+      <ul class="drawer-nav-list">
+        <li><a href="/" class="drawer-nav-item"><span class="drawer-nav-icon">✨</span> All Events</a></li>
+        <li><a href="/trending-events-in-jaipur" class="drawer-nav-item"><span class="drawer-nav-icon">🔥</span> Trending Events</a></li>
+        <li><a href="/events-in-jaipur-today" class="drawer-nav-item"><span class="drawer-nav-icon">⚡</span> Events Today</a></li>
+        <li><a href="/events-this-weekend-in-jaipur" class="drawer-nav-item"><span class="drawer-nav-icon">🗓️</span> This Weekend</a></li>
+        <li><a href="/communities" class="drawer-nav-item"><span class="drawer-nav-icon">🤝</span> Communities &amp; Clubs</a></li>
+        <li><a href="/?free=1" class="drawer-nav-item"><span class="drawer-nav-icon">🟢</span> Free Events</a></li>
+      </ul>
+    </div>
+
+    <!-- Organizers & Creators -->
+    <div class="drawer-nav-section">
+      <div class="drawer-section-title">Organizers &amp; Creators</div>
+      <ul class="drawer-nav-list">
+        <li><a href="/organizer" class="drawer-nav-item"><span class="drawer-nav-icon">📊</span> Organizer Portal</a></li>
+        <li><a href="/tickiting" class="drawer-nav-item"><span class="drawer-nav-icon">🎪</span> List Your Event Free</a></li>
+        <li><a href="/podcast#guest-form" class="drawer-nav-item"><span class="drawer-nav-icon">🎙️</span> Apply as Podcast Guest</a></li>
+      </ul>
+    </div>
+
+    <!-- About & Help -->
+    <div class="drawer-nav-section">
+      <div class="drawer-section-title">About &amp; Help</div>
+      <ul class="drawer-nav-list">
+        <li><a href="/about.php" class="drawer-nav-item"><span class="drawer-nav-icon">ℹ️</span> About Us</a></li>
+        <li><a href="/contact.php" class="drawer-nav-item"><span class="drawer-nav-icon">💬</span> Contact &amp; Support</a></li>
+        <li><a href="/privacy.php" class="drawer-nav-item"><span class="drawer-nav-icon">🔒</span> Privacy Policy</a></li>
+      </ul>
+    </div>
+
+    <!-- Community & Social -->
+    <div class="drawer-footer-social">
+      <a href="https://whatsapp.com/channel/0029Vb7sCKPJENy09PC2ln1X" target="_blank" rel="noopener noreferrer" class="drawer-social-wa">
+        <span>💬 Join WhatsApp Channel</span>
+      </a>
+      <div class="drawer-social-row">
+        <a href="https://www.instagram.com/jagrukjaipur" target="_blank" rel="noopener noreferrer" class="drawer-social-icon" aria-label="Instagram">
+          <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm3.98-10.169a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@jagrukjaipur" target="_blank" rel="noopener noreferrer" class="drawer-social-icon" aria-label="YouTube">
+          <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+      </div>
+    </div>
+
+      </div>
+</aside>
+
+<!-- ─── Category Filter Bar ────────────────────────────────── -->
+<div class="filter-section" id="filter-bar" role="navigation" aria-label="Filter by category">
+  <div class="container">
+    <div class="filter-scroll" id="filter-scroll">
+            <a href="/"
+         class="filter-chip active"
+         id="cat-all"
+         aria-current="true">
+        <span aria-hidden="true">🌟</span>
+        All Events                <span class="cat-count" style="background:#6C3BE4cc; box-shadow:0 0 0 1px #6C3BE455;">28</span>
+              </a>
+            <a href="/trending-events-in-jaipur"
+         class="filter-chip "
+         id="cat-trending"
+         aria-current="false">
+        <span aria-hidden="true">🔥</span>
+        Trending
+      </a>
+      <a href="/podcast"
+         class="filter-chip "
+         id="cat-podcast"
+         aria-current="false">
+        <span aria-hidden="true">🎙️</span>
+        Podcast
+      </a>
+            <a href="/?free=1"
+         class="filter-chip "
+         id="cat-free"
+         aria-current="false">
+        <span aria-hidden="true">🟢</span>
+        Free Events
+        <span class="cat-count" style="background:#16a34acc; box-shadow:0 0 0 1px #16a34a55;">7</span>
+      </a>
+                        <a href="/category/art"
+         class="filter-chip "
+         id="cat-art"
+         aria-current="false">
+        <span aria-hidden="true">🎨</span>
+        Art &amp; Culture                <span class="cat-count" style="background:#00BCD4cc; box-shadow:0 0 0 1px #00BCD455;">13</span>
+              </a>
+                  <a href="/category/workshops"
+         class="filter-chip "
+         id="cat-workshops"
+         aria-current="false">
+        <span aria-hidden="true">📚</span>
+        Workshops                <span class="cat-count" style="background:#FF5722cc; box-shadow:0 0 0 1px #FF572255;">9</span>
+              </a>
+                  <a href="/category/comedy"
+         class="filter-chip "
+         id="cat-comedy"
+         aria-current="false">
+        <span aria-hidden="true">🎭</span>
+        Comedy                <span class="cat-count" style="background:#FF6B35cc; box-shadow:0 0 0 1px #FF6B3555;">5</span>
+              </a>
+                  <a href="/category/fests"
+         class="filter-chip "
+         id="cat-fests"
+         aria-current="false">
+        <span aria-hidden="true">🎉</span>
+        Fests &amp; Fairs                <span class="cat-count" style="background:#FF9800cc; box-shadow:0 0 0 1px #FF980055;">5</span>
+              </a>
+                  <a href="/category/music"
+         class="filter-chip "
+         id="cat-music"
+         aria-current="false">
+        <span aria-hidden="true">🎵</span>
+        Music &amp; Concerts                <span class="cat-count" style="background:#E91E8Ccc; box-shadow:0 0 0 1px #E91E8C55;">4</span>
+              </a>
+                  <a href="/category/nightlife"
+         class="filter-chip "
+         id="cat-nightlife"
+         aria-current="false">
+        <span aria-hidden="true">🌙</span>
+        Nightlife                <span class="cat-count" style="background:#9C27B0cc; box-shadow:0 0 0 1px #9C27B055;">4</span>
+              </a>
+                  <a href="/category/kids"
+         class="filter-chip "
+         id="cat-kids"
+         aria-current="false">
+        <span aria-hidden="true">👶</span>
+        Kids &amp; Family                <span class="cat-count" style="background:#FFEB3Bcc; box-shadow:0 0 0 1px #FFEB3B55;">4</span>
+              </a>
+                  <a href="/category/exhibition"
+         class="filter-chip "
+         id="cat-exhibition"
+         aria-current="false">
+        <span aria-hidden="true">🖼️</span>
+        Exhibition                <span class="cat-count" style="background:#3F51B5cc; box-shadow:0 0 0 1px #3F51B555;">4</span>
+              </a>
+                  <a href="/category/open-mic"
+         class="filter-chip "
+         id="cat-open-mic"
+         aria-current="false">
+        <span aria-hidden="true">🎤</span>
+        Open Mic                <span class="cat-count" style="background:#E91E8Ccc; box-shadow:0 0 0 1px #E91E8C55;">3</span>
+              </a>
+                  <a href="/category/poetry"
+         class="filter-chip "
+         id="cat-poetry"
+         aria-current="false">
+        <span aria-hidden="true">🎤</span>
+        Poetry                <span class="cat-count" style="background:#7c3aedcc; box-shadow:0 0 0 1px #7c3aed55;">3</span>
+              </a>
+                  <a href="/category/food"
+         class="filter-chip "
+         id="cat-food"
+         aria-current="false">
+        <span aria-hidden="true">🍽️</span>
+        Food &amp; Dining                <span class="cat-count" style="background:#4CAF50cc; box-shadow:0 0 0 1px #4CAF5055;">2</span>
+              </a>
+                  <a href="/category/networking"
+         class="filter-chip "
+         id="cat-networking"
+         aria-current="false">
+        <span aria-hidden="true">💼</span>
+        Networking                <span class="cat-count" style="background:#607D8Bcc; box-shadow:0 0 0 1px #607D8B55;">2</span>
+              </a>
+                  <a href="/category/theatre"
+         class="filter-chip "
+         id="cat-theatre"
+         aria-current="false">
+        <span aria-hidden="true">🎪</span>
+        Theatre &amp; Drama                <span class="cat-count" style="background:#795548cc; box-shadow:0 0 0 1px #79554855;">2</span>
+              </a>
+                  <a href="/category/wellness"
+         class="filter-chip "
+         id="cat-wellness"
+         aria-current="false">
+        <span aria-hidden="true">🧘</span>
+        Wellness &amp; Yoga                <span class="cat-count" style="background:#8BC34Acc; box-shadow:0 0 0 1px #8BC34A55;">1</span>
+              </a>
+                  <a href="/category/dance"
+         class="filter-chip "
+         id="cat-dance"
+         aria-current="false">
+        <span aria-hidden="true">💃</span>
+        Dance                <span class="cat-count" style="background:#7c3aedcc; box-shadow:0 0 0 1px #7c3aed55;">1</span>
+              </a>
+                </div>
+  </div>
+</div>
+
+<main id="main-content">
+
+<!-- Schema.org ItemList for Rich Events Listings -->
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"Jagruk Jaipur: Events, Concerts, Comedy Shows & Things to Do","description":"Discover the best events happening in Jaipur — concerts, comedy shows, food fests, art exhibitions, and more.","numberOfItems":12,"itemListElement":[{"@type":"ListItem","position":1,"url":"https://jagrukjaipur.com/event/rajasthan-virasat-yatra-202627","name":"Rajasthan Virasat Yatra 2026–27"},{"@type":"ListItem","position":2,"url":"https://jagrukjaipur.com/event/jaipur-design-festival","name":"Jaipur Design Festival"},{"@type":"ListItem","position":3,"url":"https://jagrukjaipur.com/event/sip-paint-weekday-sessions-at-the-messy-door-cafe","name":"Sip & Paint Weekday Sessions at The Messy Door Cafe"},{"@type":"ListItem","position":4,"url":"https://jagrukjaipur.com/event/thikri-love-workshop","name":"Thikri Love Workshop"},{"@type":"ListItem","position":5,"url":"https://jagrukjaipur.com/event/creative-workshops-at-nutmeg-cafe-jaipur-pottery-making-canvas-painting","name":"Creative Workshops at Nutmeg Cafe, Jaipur – Pottery Making & Canvas Painting"},{"@type":"ListItem","position":6,"url":"https://jagrukjaipur.com/event/comedy-unfiltered-a-standup-comedy-special","name":"Comedy Unfiltered - A Standup Comedy Special"},{"@type":"ListItem","position":7,"url":"https://jagrukjaipur.com/event/late-night-comedy","name":"Late Night Comedy"},{"@type":"ListItem","position":8,"url":"https://jagrukjaipur.com/event/farmers-market-jaipur-by-agarwal-organic-farms","name":"Farmers Market Jaipur by Agarwal Organic Farms"},{"@type":"ListItem","position":9,"url":"https://jagrukjaipur.com/event/sharing-circle-jaipur-weekly-community-listening-sharing-space","name":"Sharing Circle Jaipur | Weekly Community Listening & Sharing Space"},{"@type":"ListItem","position":10,"url":"https://jagrukjaipur.com/event/dark-jokes-only","name":"Dark Jokes Only!"},{"@type":"ListItem","position":11,"url":"https://jagrukjaipur.com/event/kythera-jam-rhythm-voice-community-circle-jaipur","name":"Kythera Jam – Rhythm, Voice & Community Circle (Jaipur)"},{"@type":"ListItem","position":12,"url":"https://jagrukjaipur.com/event/indian-folk-arts-exhibition-at-jawahar-kala-kendra","name":"Indian Folk Arts Exhibition at Jawahar Kala Kendra"}]}</script>
+
+
+<!-- ─── Hero ──────────────────────────────────────────────────── -->
+<section class="hero" aria-labelledby="hero-heading">
+  <div class="hero-slider">
+    <div class="hero-slide slide-1"></div>
+    <div class="hero-slide slide-2"></div>
+    <div class="hero-overlay"></div>
+  </div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-eyebrow" aria-hidden="true"><span></span> Jaipur's Event Guide</div>
+      <h1 class="heading-xl" id="hero-heading">
+        Your City.<br><em>Your Events.</em>
+      </h1>
+      <p class="hero-sub">
+        Never miss what's happening in Jaipur. Concerts, Comedy, Food Fests,
+        Art, Workshops &amp; everything in between — curated for you.
+      </p>
+      <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+        <a href="#events" class="btn btn-primary btn-lg" id="hero-explore-btn">
+          🎉 Explore Events
+        </a>
+        <a href="/communities" class="btn btn-lg" style="background: rgba(168, 85, 247, 0.15); border: 1px solid rgba(168, 85, 247, 0.4); color: white; transition: all 0.2s ease;" onmouseover="this.style.background='rgba(168, 85, 247, 0.3)'; this.style.borderColor='rgba(168, 85, 247, 0.6)';" onmouseout="this.style.background='rgba(168, 85, 247, 0.15)'; this.style.borderColor='rgba(168, 85, 247, 0.4)';">
+          🤝 Explore Communities
+        </a>
+                  <a href="#" class="btn btn-outline btn-lg needs-auth-ticket-btn" data-ticket-url="/search.php" data-source-page="Homepage" data-source-button="Hero: Search" id="hero-search-btn">
+            🔍 Search
+          </a>
+              </div>
+
+      <!-- Hero stats hidden as requested -->
+    </div>
+  </div>
+</section>
+
+<!-- ─── Featured Events ───────────────────────────────────────── -->
+
+<!-- ─── Upcoming Events Grid ──────────────────────────────────── -->
+<section class="section" id="events" aria-labelledby="events-heading">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title" id="events-heading">🗓 Upcoming Events</h2>
+      <span class="text-muted text-small">28 events found</span>
+    </div>
+
+        <div class="events-grid slide-up" id="events-grid">
+                    <a href="#"
+           class="event-card needs-auth-ticket-btn"
+           data-ticket-url="/event/rajasthan-virasat-yatra-202627"
+           data-source-page="Homepage"
+           data-source-button="Card: Rajasthan Virasat Yatra 2026–27"
+           id="event-card-297"
+           aria-label="Rajasthan Virasat Yatra 2026–27">
+                        <div class="ribbon-exclusive"><span>JJ Exclusive</span></div>
+                <div class="event-card-image">
+          <img src="https://jagrukjaipur.com/assets/img/uploads/thumb_event_6a840ce3982fc.webp"
+               alt="Rajasthan Virasat Yatra 2026–27"
+               loading="lazy">
+      </div>
+      <div class="event-card-body">
+        <div class="event-card-badges">
+                              <span class="badge badge-cat" style="background:#00BCD422; color:#00BCD4; border-color:#00BCD444;">
+            🎨 Art &amp; Culture          </span>
+                    <span class="badge badge-cat" style="background:#7c3aed22; color:#7c3aed; border-color:#7c3aed44;">
+            💃 Dance          </span>
+                                <span class="badge badge-free">FREE</span>
+                  </div>
+        <div class="event-card-date">
+          📅 02 Oct 2026 <span class="interest-chip">👍🏻 575 Interests</span>
+        </div>
+          <h3 class="event-card-title">Rajasthan Virasat Yatra 2026–27</h3>
+                    <div class="event-card-venue">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            GANDHI VATIKA            · Jawaharlal Nehru Marg          </div>
+                              <p class="event-card-desc">A long-running cultural celebration at Gandhi Vatika showcasing Rajasthan’s rich folk music, traditional arts and vibrant cultural heritage.</p>
+                  </div>
+        <div class="event-card-footer">
+          <span class="event-price free">
+            🟢 Free          </span>
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-left:auto;">
+            <button type="button" class="btn btn-icon share-event-card" aria-label="Share Event" 
+                    data-title="Rajasthan Virasat Yatra 2026–27 — Jagruk Jaipur" 
+                    data-url="https://jagrukjaipur.com/event/rajasthan-virasat-yatra-202627"
+                    data-text="Catch this amazing event! 🎉
+
+📅 Friday, 02 Oct 2026
+📍 GANDHI VATIKA, Jawaharlal Nehru Marg
+🎟️ Free Entry
+
+A long-running cultural celebration at Gandhi Vatika showcasing Rajasthan’s rich folk music, traditional arts and vibrant cultural heritage.
+
+👇 Get your tickets &amp; info here 👇">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+            </button>
+                      </div>
+        </div>
+      </a>
+                    <a href="#"
+           class="event-card needs-auth-ticket-btn"
+           data-ticket-url="/event/jaipur-design-festival"
+           data-source-page="Homepage"
+           data-source-button="Card: Jaipur Design Festival"
+           id="event-card-493"
+           aria-label="Jaipur Design Festival">
+                      <div class="event-card-image">
+          <img src="https://jagrukjaipur.com/assets/img/uploads/thumb_event_6af57bc5dedcb.webp"
+               alt="Jaipur Design Festival"
+               loading="lazy">
+      </div>
+      <div class="event-card-body">
+        <div class="event-card-badges">
+                              <span class="badge badge-cat" style="background:#00BCD422; color:#00BCD4; border-color:#00BCD444;">
+            🎨 Art &amp; Culture          </span>
+                    <span class="badge badge-cat" style="background:#FF572222; color:#FF5722; border-color:#FF572244;">
+            📚 Workshops          </span>
+                    <span class="badge badge-cat" style="background:#607D8B22; color:#607D8B; border-color:#607D8B44;">
+            💼 Networking          </span>
+                            </div>
+        <div class="event-card-date">
+          📅 16 Nov 2026 · 11:00 AM <span class="interest-chip">👍🏻 148 Interests</span>
+        </div>
+          <h3 class="event-card-title">Jaipur Design Festival</h3>
+                    <div class="event-card-venue">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            JAWAHAR KALA KENDRA            · Jhalana Doongri          </div>
+                              <p class="event-card-desc">Jaipur&#039;s first design festival. Three days at JKK for the people who shape the city, and the people who want to. It ends on 18 November, the day Jaipur turns 299.</p>
+                  </div>
+        <div class="event-card-footer">
+          <span class="event-price ">
+            🎟 ₹ Registration          </span>
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-left:auto;">
+            <button type="button" class="btn btn-icon share-event-card" aria-label="Share Event" 
+                    data-title="Jaipur Design Festival — Jagruk Jaipur" 
+                    data-url="https://jagrukjaipur.com/event/jaipur-design-festival"
+                    data-text="Catch this amazing event! 🎉
+
+📅 Monday, 16 Nov 2026 at 11:00 AM
+📍 JAWAHAR KALA KENDRA, Jhalana Doongri
+🎟️ Tickets from ₹Registration
+
+Jaipur&#039;s first design festival. Three days at JKK for the people who shape the city, and the people who want to. It ends on 18 November, the…
+
+👇 Get your tickets &amp; info here 👇">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+            </button>
+                                      <span class="btn btn-accent btn-sm needs-auth-ticket-btn" data-ticket-url="https://www.jaipurdesignfestival.co/passes" data-source-page="Homepage" data-source-button="Grid: Jaipur Design Festival" role="button">Get Tickets</span>
+                                  </div>
+        </div>
+      </a>
+                    <a href="#"
+           class="event-card needs-auth-ticket-btn"
+           data-ticket-url="/event/sip-paint-weekday-sessions-at-the-messy-door-cafe"
+           data-source-page="Homepage"
+           data-source-button="Card: Sip &amp; Paint Weekday Sessions at The Messy Door Cafe"
+           id="event-card-131"
+           aria-label="Sip &amp; Paint Weekday Sessions at The Messy Door Cafe">
+                        <div class="ribbon-exclusive"><span>JJ Exclusive</span></div>
+                <div class="event-card-image">
+          <img src="https://jagrukjaipur.com/assets/img/uploads/thumb_event_6a1577678412b.webp"
+               alt="Sip &amp; Paint Weekday Sessions at The Messy Door Cafe"
+               loading="lazy">
+      </div>
+      <div class="event-card-body">
+        <div class="event-card-badges">
+                              <span class="badge badge-cat" style="background:#00BCD422; color:#00BCD4; border-color:#00BCD444;">
+            🎨 Art &amp; Culture          </span>
+                    <span class="badge badge-cat" style="background:#FF572222; color:#FF5722; border-color:#FF572244;">
+            📚 Workshops          </span>
+                            </div>
+        <div class="event-card-date">
+          📅 17 Nov 2026 · 11:00 AM <span class="interest-chip">👍🏻 706 Interests</span>
+        </div>
+          <h3 class="event-card-title">Sip &amp; Paint Weekday Sessions at The Messy Door Cafe</h3>
+                    <div class="event-card-venue">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            The Messy Door Cafe            · Mansarovar          </div>
+                              <p class="event-card-desc">Unwind with creative Sip &amp; Paint weekday sessions at The Messy Door Cafe. Enjoy a relaxed painting experience with canvas, colors, and materials included — perfect for friends, couples, families, and solo creatives in Jaipur.</p>
+                  </div>
+        <div class="event-card-footer">
+          <span class="event-price ">
+            🎟 ₹ 199          </span>
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-left:auto;">
+            <button type="button" class="btn btn-icon share-event-card" aria-label="Share Event" 
+                    data-title="Sip &amp; Paint Weekday Sessions at The Messy Door Cafe — Jagruk Jaipur" 
+                    data-url="https://jagrukjaipur.com/event/sip-paint-weekday-sessions-at-the-messy-door-cafe"
+                    data-text="Catch this amazing event! 🎉
+
+📅 Tuesday, 17 Nov 2026 at 11:00 AM
+📍 The Messy Door Cafe, Mansarovar
+🎟️ Tickets from ₹199
+
+Unwind with creative Sip &amp; Paint weekday sessions at The Messy Door Cafe. Enjoy a relaxed painting experience with canvas, colors, and mater…
+
+👇 Get your tickets &amp; info here 👇">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+            </button>
+                                      <span class="btn btn-accent btn-sm needs-auth-ticket-btn" data-ticket-url="On Spot Booking" data-source-page="Homepage" data-source-button="Grid: Sip &amp; Paint Weekday Sessions at The Messy Door Cafe" role="button">Get Tickets</span>
+                                  </div>
+        </div>
+      </a>
+                    <a href="#"
+           class="event-card needs-auth-ticket-btn"
+           data-ticket-url="/event/thikri-love-workshop"
+           data-source-page="Homepage"
+           data-source-button="Card: Thikri Love Workshop"
+           id="event-card-220"
+           aria-label="Thikri Love Workshop">
+                      <div class="event-card-image">
+          <img src="https://jagrukjaipur.com/assets/img/uploads/thumb_event_6a5df6e427dcf.webp"
+               alt="Thikri Love Workshop"
+               loading="lazy">
+      </div>
+      <div class="event-card-body">
+        <div class="event-card-badges">
+                              <span class="badge badge-cat" style="background:#00BCD422; color:#00BCD4; border-color:#00BCD444;">
+            🎨 Art &amp; Culture          </span>
+                    <span class="badge badge-cat" style="background:#FF572222; color:#FF5722; border-color:#FF572244;">
+            📚 Workshops          </span>
+                            </div>
+        <div class="event-card-date">
+          📅 17 Nov 2026 · 2:00 PM <span class="interest-chip">👍🏻 518 Interests</span>
+        </div>
+          <h3 class="event-card-title">Thikri Love Workshop</h3>
+                    <div class="event-card-venue">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            Gallery of DoRo            · Civil Lines          </div>
+                              <p class="event-card-desc">Experience the timeless beauty of Thikri Art in Jaipur&#039;s first Thikri Love Workshop. Learn the traditional mirror inlay technique and create your own handcrafted mosaic artwork under expert guidance.</p>
+                  </div>
+        <div class="event-card-footer">
+          <span class="event-price ">
+            🎟 ₹ 3499          </span>
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-left:auto;">
+            <button type="button" class="btn btn-icon share-event-card" aria-label="Share Event" 
+                    data-title="Thikri Love Workshop — Jagruk Jaipur" 
+                    data-url="https://jagrukjaipur.com/event/thikri-love-workshop"
+                    data-text="Catch this amazing event! 🎉
+
+📅 Tuesday, 17 Nov 2026 at 2:00 PM
+📍 Gallery of DoRo, Civil Lines
+🎟️ Tickets from ₹3499
+
+Experience the timeless beauty of Thikri Art in Jaipur&#039;s first Thikri Love Workshop. Learn the traditional mirror inlay technique and create…
+
+👇 Get your tickets &amp; info here 👇">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+            </button>
+                                      <span class="btn btn-accent btn-sm needs-auth-ticket-btn" data-ticket-url="https://www.district.in/events/thikri-love-jun3-2026-buy-tickets" data-source-page="Homepage" data-source-button="Grid: Thikri Love Workshop" role="button">Get Tickets</span>
+                                  </div>
+        </div>
+      </a>
+                    <a href="#"
+           class="event-card needs-auth-ticket-btn"
+           data-ticket-url="/event/creative-workshops-at-nutmeg-cafe-jaipur-pottery-making-canvas-painting"
+           data-source-page="Homepage"
+           data-source-button="Card: Creative Workshops at Nutmeg Cafe, Jaipur – Pottery Making &amp; Canvas Painting"
+           id="event-card-72"
+           aria-label="Creative Workshops at Nutmeg Cafe, Jaipur – Pottery Making &amp; Canvas Painting">
+                        <div class="ribbon-exclusive"><span>JJ Exclusive</span></div>
+                <div class="event-card-image">
+          <img src="https://jagrukjaipur.com/assets/img/uploads/thumb_event_69f1ed6057fa1.webp"
+               alt="Creative Workshops at Nutmeg Cafe, Jaipur – Pottery Making &amp; Canvas Painting"
+               loading="lazy">
+      </div>
+      <div class="event-card-body">
+        <div class="event-card-badges">
+                              <span class="badge badge-cat" style="background:#00BCD422; color:#00BCD4; border-color:#00BCD444;">
+            🎨 Art &amp; Culture          </span>
+                    <span class="badge badge-cat" style="background:#FF572222; color:#FF5722; border-color:#FF572244;">
+            📚 Workshops          </span>
+                                <span class="badge badge-free">FREE</span>
+                  </div>
+        <div class="event-card-date">
+          📅 17 Nov 2026 · 5:00 PM <span class="interest-chip">👍🏻 1358 Interests</span>
+        </div>
+          <h3 class="event-card-title">Creative Workshops at Nutmeg Cafe, Jaipur – Pottery Making &amp; Canvas Painting</h3>
+                    <div class="event-card-venue">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            Nutmeg Cafe            · Vaishali Nagar          </div>
+                              <p class="event-card-desc">Join daily creative workshops at Nutmeg Cafe Jaipur featuring pottery making and canvas painting—perfect for beginners to relax, express, and create in a cozy café setting.</p>
+                  </div>
+        <div class="event-card-footer">
+          <span class="event-price free">
+            🟢 Free          </span>
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-left:auto;">
+            <button type="button" class="btn btn-icon share-event-card" aria-label="Share Event" 
+                    data-title="Creative Workshops at Nutmeg Cafe, Jaipur – Pottery Making &amp; Canvas Painting — Jagruk Jaipur" 
+                    data-url="https://jagrukjaipur.com/event/creative-workshops-at-nutmeg-cafe-jaipur-pottery-making-canvas-painting"
+                    data-text="Catch this amazing event! 🎉
+
+📅 Tuesday, 17 Nov 2026 at 5:00 PM
+📍 Nutmeg Cafe, Vaishali Nagar
+🎟️ Free Entry
+
+Join daily creative workshops at Nutmeg Cafe Jaipur featuring pottery making and canvas painting—perfect for beginners to relax, express, an…
+
+👇 Get your tickets &amp; info here 👇">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+            </button>
+                                      <span class="btn btn-accent btn-sm needs-auth-ticket-btn" data-ticket-url="https://www.instagram.com/nutmegcafejpr?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw==" data-source-page="Homepage" data-source-button="Grid: Creative Workshops at Nutmeg Cafe, Jaipur – Pottery Making &amp; Canvas Painting" role="button">Get Tickets</span>
+                                  </div>
+        </div>
+      </a>
+                    <a href="#"
+           class="event-card needs-auth-ticket-btn"
+           data-ticket-url="/event/comedy-unfiltered-a-standup-comedy-special"
+           data-source-page="Homepage"
+           data-source-button="Card: Comedy Unfiltered - A Standup Comedy Special"
+           id="event-card-27"
+           aria-label="Comedy Unfiltered - A Standup Comedy Special">
+                      <div class="event-card-image">
+          <img src="https://jagrukjaipur.com/assets/img/uploads/thumb_event_69e35256ca250.webp"
+               alt="Comedy Unfiltered - A Standup Comedy Special"
+               loading="lazy">
+      </div>
+      <div class="event-card-body">
+        <div class="event-card-badges">
+                              <span class="badge badge-cat" style="background:#FF6B3522; color:#FF6B35; border-color:#FF6B3544;">
+            🎭 Comedy          </span>
+                    <span class="badge badge-cat" style="background:#E91E8C22; color:#E91E8C; border-color:#E91E8C44;">
+            🎤 Open Mic          </span>
+                            </div>
+        <div class="event-card-date">
+          📅 17 Nov 2026 · 7:30 PM <span class="interest-chip">👍🏻 560 Interests</span>
+        </div>
+          <h3 class="event-card-title">Comedy Unfiltered - A Standup Comedy Special</h3>
+                    <div class="event-card-venue">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            Jaipur Comedy Club            · Malviya Nagar          </div>
+                              <p class="event-card-desc">Experience Comedy Unfiltered in Jaipur, a live standup comedy show featuring multiple comedians performing observational and improv acts at Jaipur Comedy Club.</p>
+                  </div>
+        <div class="event-card-footer">
+          <span class="event-price ">
+            🎟 ₹ 149          </span>
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-left:auto;">
+            <button type="button" class="btn btn-icon share-event-card" aria-label="Share Event" 
+                    data-title="Comedy Unfiltered - A Standup Comedy Special — Jagruk Jaipur" 
+                    data-url="https://jagrukjaipur.com/event/comedy-unfiltered-a-standup-comedy-special"
+                    data-text="Catch this amazing event! 🎉
+
+📅 Tuesday, 17 Nov 2026 at 7:30 PM
+📍 Jaipur Comedy Club, Malviya Nagar
+🎟️ Tickets from ₹149
+
+Experience Comedy Unfiltered in Jaipur, a live standup comedy show featuring multiple comedians performing observational and improv acts at …
+
+👇 Get your tickets &amp; info here 👇">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+            </button>
+                                      <span class="btn btn-accent btn-sm needs-auth-ticket-btn" data-ticket-url="https://in.bookmyshow.com/events/comedy-unfiltered-a-standup-comedy-show/ET00459789" data-source-page="Homepage" data-source-button="Grid: Comedy Unfiltered - A Standup Comedy Special" role="button">Get Tickets</span>
+                                  </div>
+        </div>
+      </a>
+                    <a href="#"
+           class="event-card needs-auth-ticket-btn"
+           data-ticket-url="/event/late-night-comedy"
+           data-source-page="Homepage"
+           data-source-button="Card: Late Night Comedy"
+           id="event-card-24"
+           aria-label="Late Night Comedy">
+                      <div class="event-card-image">
+          <img src="https://jagrukjaipur.com/assets/img/uploads/thumb_event_69e34f55e8907.webp"
+               alt="Late Night Comedy"
+               loading="lazy">
+      </div>
+      <div class="event-card-body">
+        <div class="event-card-badges">
+                              <span class="badge badge-cat" style="background:#FF6B3522; color:#FF6B35; border-color:#FF6B3544;">
+            🎭 Comedy          </span>
+                    <span class="badge badge-cat" style="background:#9C27B022; color:#9C27B0; border-color:#9C27B044;">
+            🌙 Nightlife          </span>
+                    <span class="badge badge-cat" style="background:#E91E8C22; color:#E91E8C; border-color:#E91E8C44;">
+            🎤 Open Mic          </span>
+                            </div>
+        <div class="event-card-date">
+          📅 17 Nov 2026 · 9:00 PM <span class="interest-chip">👍🏻 741 Interests</span>
+        </div>
+          <h3 class="event-card-title">Late Night Comedy</h3>
+                    <div class="event-card-venue">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            Jaipur Comedy Club            · Malviya Nagar          </div>
+                              <p class="event-card-desc">Enjoy a late-night comedy show in Jaipur at Jaipur Comedy Club, featuring live standup and open mic performances — the perfect night-out plan for laughter and entertainment.</p>
+                  </div>
+        <div class="event-card-footer">
+          <span class="event-price ">
+            🎟 ₹ 149          </span>
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-left:auto;">
+            <button type="button" class="btn btn-icon share-event-card" aria-label="Share Event" 
+                    data-title="Late Night Comedy — Jagruk Jaipur" 
+                    data-url="https://jagrukjaipur.com/event/late-night-comedy"
+                    data-text="Catch this amazing event! 🎉
+
+📅 Tuesday, 17 Nov 2026 at 9:00 PM
+📍 Jaipur Comedy Club, Malviya Nagar
+🎟️ Tickets from ₹149
+
+Enjoy a late-night comedy show in Jaipur at Jaipur Comedy Club, featuring live standup and open mic performances — the perfect night-out pla…
+
+👇 Get your tickets &amp; info here 👇">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+            </button>
+                                      <span class="btn btn-accent btn-sm needs-auth-ticket-btn" data-ticket-url="https://in.bookmyshow.com/events/late-night-comedy/ET00334259" data-source-page="Homepage" data-source-button="Grid: Late Night Comedy" role="button">Get Tickets</span>
+                                  </div>
+        </div>
+      </a>
+                    <a href="#"
+           class="event-card needs-auth-ticket-btn"
+           data-ticket-url="/event/farmers-market-jaipur-by-agarwal-organic-farms"
+           data-source-page="Homepage"
+           data-source-button="Card: Farmers Market Jaipur by Agarwal Organic Farms"
+           id="event-card-59"
+           aria-label="Farmers Market Jaipur by Agarwal Organic Farms">
+                        <div class="ribbon-exclusive"><span>JJ Exclusive</span></div>
+                <div class="event-card-image">
+          <img src="https://jagrukjaipur.com/assets/img/uploads/thumb_event_69f0a646aaf32.webp"
+               alt="Farmers Market Jaipur by Agarwal Organic Farms"
+               loading="lazy">
+      </div>
+      <div class="event-card-body">
+        <div class="event-card-badges">
+                              <span class="badge badge-cat" style="background:#FF980022; color:#FF9800; border-color:#FF980044;">
+            🎉 Fests &amp; Fairs          </span>
+                    <span class="badge badge-cat" style="background:#4CAF5022; color:#4CAF50; border-color:#4CAF5044;">
+            🍽️ Food &amp; Dining          </span>
+                                <span class="badge badge-free">FREE</span>
+                  </div>
+        <div class="event-card-date">
+          📅 18 Nov 2026 · 5:00 PM <span class="interest-chip">👍🏻 817 Interests</span>
+        </div>
+          <h3 class="event-card-title">Farmers Market Jaipur by Agarwal Organic Farms</h3>
+                    <div class="event-card-venue">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            Grand Uniara            · Tilak Nagar          </div>
+                              <p class="event-card-desc">Shop fresh, local and organic farm produce at Farmers Market Jaipur, held every Wednesday and Saturday evening at JLN Marg.</p>
+                  </div>
+        <div class="event-card-footer">
+          <span class="event-price free">
+            🟢 Free          </span>
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-left:auto;">
+            <button type="button" class="btn btn-icon share-event-card" aria-label="Share Event" 
+                    data-title="Farmers Market Jaipur by Agarwal Organic Farms — Jagruk Jaipur" 
+                    data-url="https://jagrukjaipur.com/event/farmers-market-jaipur-by-agarwal-organic-farms"
+                    data-text="Catch this amazing event! 🎉
+
+📅 Wednesday, 18 Nov 2026 at 5:00 PM
+📍 Grand Uniara, Tilak Nagar
+🎟️ Free Entry
+
+Shop fresh, local and organic farm produce at Farmers Market Jaipur, held every Wednesday and Saturday evening at JLN Marg.
+
+👇 Get your tickets &amp; info here 👇">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+            </button>
+                      </div>
+        </div>
+      </a>
+                    <a href="#"
+           class="event-card needs-auth-ticket-btn"
+           data-ticket-url="/event/sharing-circle-jaipur-weekly-community-listening-sharing-space"
+           data-source-page="Homepage"
+           data-source-button="Card: Sharing Circle Jaipur | Weekly Community Listening &amp; Sharing Space"
+           id="event-card-121"
+           aria-label="Sharing Circle Jaipur | Weekly Community Listening &amp; Sharing Space">
+                        <div class="ribbon-exclusive"><span>JJ Exclusive</span></div>
+                <div class="event-card-image">
+          <img src="https://jagrukjaipur.com/assets/img/uploads/thumb_event_6a103f15dc888.webp"
+               alt="Sharing Circle Jaipur | Weekly Community Listening &amp; Sharing Space"
+               loading="lazy">
+      </div>
+      <div class="event-card-body">
+        <div class="event-card-badges">
+                              <span class="badge badge-cat" style="background:#8BC34A22; color:#8BC34A; border-color:#8BC34A44;">
+            🧘 Wellness &amp; Yoga          </span>
+                    <span class="badge badge-cat" style="background:#607D8B22; color:#607D8B; border-color:#607D8B44;">
+            💼 Networking          </span>
+                            </div>
+        <div class="event-card-date">
+          📅 18 Nov 2026 · 7:00 PM <span class="interest-chip">👍🏻 499 Interests</span>
+        </div>
+          <h3 class="event-card-title">Sharing Circle Jaipur | Weekly Community Listening &amp; Sharing Space</h3>
+                    <div class="event-card-venue">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            Anandmai - Sustainable Living Spaces            · Lal Kothi          </div>
+                              <p class="event-card-desc">Join the weekly Sharing Circle at Anandmai Jaipur — a warm community space for listening, expressing, connecting, and meaningful conversations in a safe and welcoming environment.</p>
+                  </div>
+        <div class="event-card-footer">
+          <span class="event-price ">
+                      </span>
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-left:auto;">
+            <button type="button" class="btn btn-icon share-event-card" aria-label="Share Event" 
+                    data-title="Sharing Circle Jaipur | Weekly Community Listening &amp; Sharing Space — Jagruk Jaipur" 
+                    data-url="https://jagrukjaipur.com/event/sharing-circle-jaipur-weekly-community-listening-sharing-space"
+                    data-text="Catch this amazing event! 🎉
+
+📅 Wednesday, 18 Nov 2026 at 7:00 PM
+📍 Anandmai - Sustainable Living Spaces, Lal Kothi
+
+Join the weekly Sharing Circle at Anandmai Jaipur — a warm community space for listening, expressing, connecting, and meaningful conversatio…
+
+👇 Get your tickets &amp; info here 👇">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+            </button>
+                                      <span class="btn btn-accent btn-sm needs-auth-ticket-btn" data-ticket-url="To participate, please register via call – 9782169011" data-source-page="Homepage" data-source-button="Grid: Sharing Circle Jaipur | Weekly Community Listening &amp; Sharing Space" role="button">Get Tickets</span>
+                                  </div>
+        </div>
+      </a>
+                    <a href="#"
+           class="event-card needs-auth-ticket-btn"
+           data-ticket-url="/event/dark-jokes-only"
+           data-source-page="Homepage"
+           data-source-button="Card: Dark Jokes Only!"
+           id="event-card-30"
+           aria-label="Dark Jokes Only!">
+                      <div class="event-card-image">
+          <img src="https://jagrukjaipur.com/assets/img/uploads/thumb_event_69e357f99a9a2.webp"
+               alt="Dark Jokes Only!"
+               loading="lazy">
+      </div>
+      <div class="event-card-body">
+        <div class="event-card-badges">
+                              <span class="badge badge-cat" style="background:#FF6B3522; color:#FF6B35; border-color:#FF6B3544;">
+            🎭 Comedy          </span>
+                    <span class="badge badge-cat" style="background:#9C27B022; color:#9C27B0; border-color:#9C27B044;">
+            🌙 Nightlife          </span>
+                            </div>
+        <div class="event-card-date">
+          📅 19 Nov 2026 · 7:30 PM <span class="interest-chip">👍🏻 533 Interests</span>
+        </div>
+          <h3 class="event-card-title">Dark Jokes Only!</h3>
+                    <div class="event-card-venue">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            Jaipur Comedy Club            · Malviya Nagar          </div>
+                              <p class="event-card-desc">Attend Dark Jokes Only! a late-evening standup comedy shows in Jaipur featuring edgy humor and bold performances at Jaipur Comedy Club.</p>
+                  </div>
+        <div class="event-card-footer">
+          <span class="event-price ">
+            🎟 ₹ 149 onwards          </span>
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-left:auto;">
+            <button type="button" class="btn btn-icon share-event-card" aria-label="Share Event" 
+                    data-title="Dark Jokes Only! — Jagruk Jaipur" 
+                    data-url="https://jagrukjaipur.com/event/dark-jokes-only"
+                    data-text="Catch this amazing event! 🎉
+
+📅 Thursday, 19 Nov 2026 at 7:30 PM
+📍 Jaipur Comedy Club, Malviya Nagar
+🎟️ Tickets from ₹149 onwards
+
+Attend Dark Jokes Only! a late-evening standup comedy shows in Jaipur featuring edgy humor and bold performances at Jaipur Comedy Club.
+
+👇 Get your tickets &amp; info here 👇">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+            </button>
+                                      <span class="btn btn-accent btn-sm needs-auth-ticket-btn" data-ticket-url="https://in.bookmyshow.com/events/dark-jokes-only/ET00336228" data-source-page="Homepage" data-source-button="Grid: Dark Jokes Only!" role="button">Get Tickets</span>
+                                  </div>
+        </div>
+      </a>
+                    <a href="#"
+           class="event-card needs-auth-ticket-btn"
+           data-ticket-url="/event/kythera-jam-rhythm-voice-community-circle-jaipur"
+           data-source-page="Homepage"
+           data-source-button="Card: Kythera Jam – Rhythm, Voice &amp; Community Circle (Jaipur)"
+           id="event-card-70"
+           aria-label="Kythera Jam – Rhythm, Voice &amp; Community Circle (Jaipur)">
+                        <div class="ribbon-exclusive"><span>JJ Exclusive</span></div>
+                <div class="event-card-image">
+          <img src="https://jagrukjaipur.com/assets/img/uploads/thumb_event_69f1ea781498a.webp"
+               alt="Kythera Jam – Rhythm, Voice &amp; Community Circle (Jaipur)"
+               loading="lazy">
+      </div>
+      <div class="event-card-body">
+        <div class="event-card-badges">
+                              <span class="badge badge-cat" style="background:#E91E8C22; color:#E91E8C; border-color:#E91E8C44;">
+            🎵 Music &amp; Concerts          </span>
+                    <span class="badge badge-cat" style="background:#FFEB3B22; color:#FFEB3B; border-color:#FFEB3B44;">
+            👶 Kids &amp; Family          </span>
+                                <span class="badge badge-free">FREE</span>
+                  </div>
+        <div class="event-card-date">
+          📅 19 Nov 2026 · 7:30 PM <span class="interest-chip">👍🏻 726 Interests</span>
+        </div>
+          <h3 class="event-card-title">Kythera Jam – Rhythm, Voice &amp; Community Circle (Jaipur)</h3>
+                    <div class="event-card-venue">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            Prarthana Yoga Studio            · Bajaj Nagar          </div>
+                              <p class="event-card-desc">Experience Kythera Jam in Jaipur—a community-driven rhythm and voice circle where music, expression, and connection come alive in a collaborative jam session.</p>
+                  </div>
+        <div class="event-card-footer">
+          <span class="event-price free">
+            🟢 Free          </span>
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-left:auto;">
+            <button type="button" class="btn btn-icon share-event-card" aria-label="Share Event" 
+                    data-title="Kythera Jam – Rhythm, Voice &amp; Community Circle (Jaipur) — Jagruk Jaipur" 
+                    data-url="https://jagrukjaipur.com/event/kythera-jam-rhythm-voice-community-circle-jaipur"
+                    data-text="Catch this amazing event! 🎉
+
+📅 Thursday, 19 Nov 2026 at 7:30 PM
+📍 Prarthana Yoga Studio, Bajaj Nagar
+🎟️ Free Entry
+
+Experience Kythera Jam in Jaipur—a community-driven rhythm and voice circle where music, expression, and connection come alive in a collabor…
+
+👇 Get your tickets &amp; info here 👇">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+            </button>
+                                      <span class="btn btn-accent btn-sm needs-auth-ticket-btn" data-ticket-url="https://luma.com/kythera.city" data-source-page="Homepage" data-source-button="Grid: Kythera Jam – Rhythm, Voice &amp; Community Circle (Jaipur)" role="button">Get Tickets</span>
+                                  </div>
+        </div>
+      </a>
+                    <a href="#"
+           class="event-card needs-auth-ticket-btn"
+           data-ticket-url="/event/indian-folk-arts-exhibition-at-jawahar-kala-kendra"
+           data-source-page="Homepage"
+           data-source-button="Card: Indian Folk Arts Exhibition at Jawahar Kala Kendra"
+           id="event-card-435"
+           aria-label="Indian Folk Arts Exhibition at Jawahar Kala Kendra">
+                        <div class="ribbon-exclusive"><span>JJ Exclusive</span></div>
+                <div class="event-card-image">
+          <img src="https://jagrukjaipur.com/assets/img/uploads/thumb_event_6acdedc27df7d.webp"
+               alt="Indian Folk Arts Exhibition at Jawahar Kala Kendra"
+               loading="lazy">
+      </div>
+      <div class="event-card-body">
+        <div class="event-card-badges">
+                              <span class="badge badge-cat" style="background:#00BCD422; color:#00BCD4; border-color:#00BCD444;">
+            🎨 Art &amp; Culture          </span>
+                    <span class="badge badge-cat" style="background:#3F51B522; color:#3F51B5; border-color:#3F51B544;">
+            🖼️ Exhibition          </span>
+                                <span class="badge badge-free">FREE</span>
+                  </div>
+        <div class="event-card-date">
+          📅 20 Nov 2026 · 11:00 AM <span class="interest-chip">👍🏻 313 Interests</span>
+        </div>
+          <h3 class="event-card-title">Indian Folk Arts Exhibition at Jawahar Kala Kendra</h3>
+                    <div class="event-card-venue">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            JAWAHAR KALA KENDRA            · Jhalana Doongri          </div>
+                              <p class="event-card-desc">Explore the vibrant colors, rich traditions, and timeless beauty of India&#039;s folk art at the Prtha exhibition at Jawahar Kala Kendra, Jaipur.</p>
+                  </div>
+        <div class="event-card-footer">
+          <span class="event-price free">
+            🟢 Free          </span>
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-left:auto;">
+            <button type="button" class="btn btn-icon share-event-card" aria-label="Share Event" 
+                    data-title="Indian Folk Arts Exhibition at Jawahar Kala Kendra — Jagruk Jaipur" 
+                    data-url="https://jagrukjaipur.com/event/indian-folk-arts-exhibition-at-jawahar-kala-kendra"
+                    data-text="Catch this amazing event! 🎉
+
+📅 Friday, 20 Nov 2026 at 11:00 AM
+📍 JAWAHAR KALA KENDRA, Jhalana Doongri
+🎟️ Free Entry
+
+Explore the vibrant colors, rich traditions, and timeless beauty of India&#039;s folk art at the Prtha exhibition at Jawahar Kala Kendra, Jaipur.
+
+👇 Get your tickets &amp; info here 👇">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+            </button>
+                      </div>
+        </div>
+      </a>
+          </div>
+
+        <div class="pagination" aria-label="Pagination">
+      <a href="/?page=2" class="btn btn-outline btn-sm" id="load-more-btn">Load More Events</a>
+    </div>
+        
+    <div id="end-of-events" class="slide-up" style="display: none; text-align:center; padding: 4rem 1rem 2rem;">
+      <div style="font-size:3rem; margin-bottom:1rem;">🏁</div>
+      <h3 style="margin-bottom:0.5rem; font-size:1.8rem;">That's all, folks!</h3>
+      <p style="color:var(--text-muted); margin-bottom:2rem; max-width:500px; margin-left:auto; margin-right:auto; line-height:1.6;">
+        You've reached the end of the lineup. Still looking for plans? Pick a vibe and explore what else Jaipur has to offer:
+      </p>
+      <div style="display:flex; flex-wrap:wrap; gap:0.75rem; justify-content:center; max-width: 800px; margin: 0 auto;">
+                  <a href="/category/art" class="filter-chip" style="background:#00BCD415; color:#00BCD4; border:1px solid #00BCD444; margin:0;">
+            <span aria-hidden="true">🎨</span> Art &amp; Culture          </a>
+                  <a href="/category/workshops" class="filter-chip" style="background:#FF572215; color:#FF5722; border:1px solid #FF572244; margin:0;">
+            <span aria-hidden="true">📚</span> Workshops          </a>
+                  <a href="/category/comedy" class="filter-chip" style="background:#FF6B3515; color:#FF6B35; border:1px solid #FF6B3544; margin:0;">
+            <span aria-hidden="true">🎭</span> Comedy          </a>
+                  <a href="/category/fests" class="filter-chip" style="background:#FF980015; color:#FF9800; border:1px solid #FF980044; margin:0;">
+            <span aria-hidden="true">🎉</span> Fests &amp; Fairs          </a>
+                  <a href="/category/music" class="filter-chip" style="background:#E91E8C15; color:#E91E8C; border:1px solid #E91E8C44; margin:0;">
+            <span aria-hidden="true">🎵</span> Music &amp; Concerts          </a>
+                  <a href="/category/nightlife" class="filter-chip" style="background:#9C27B015; color:#9C27B0; border:1px solid #9C27B044; margin:0;">
+            <span aria-hidden="true">🌙</span> Nightlife          </a>
+                  <a href="/category/kids" class="filter-chip" style="background:#FFEB3B15; color:#FFEB3B; border:1px solid #FFEB3B44; margin:0;">
+            <span aria-hidden="true">👶</span> Kids &amp; Family          </a>
+                  <a href="/category/exhibition" class="filter-chip" style="background:#3F51B515; color:#3F51B5; border:1px solid #3F51B544; margin:0;">
+            <span aria-hidden="true">🖼️</span> Exhibition          </a>
+                  <a href="/category/open-mic" class="filter-chip" style="background:#E91E8C15; color:#E91E8C; border:1px solid #E91E8C44; margin:0;">
+            <span aria-hidden="true">🎤</span> Open Mic          </a>
+                  <a href="/category/poetry" class="filter-chip" style="background:#7c3aed15; color:#7c3aed; border:1px solid #7c3aed44; margin:0;">
+            <span aria-hidden="true">🎤</span> Poetry          </a>
+                  <a href="/category/food" class="filter-chip" style="background:#4CAF5015; color:#4CAF50; border:1px solid #4CAF5044; margin:0;">
+            <span aria-hidden="true">🍽️</span> Food &amp; Dining          </a>
+                  <a href="/category/networking" class="filter-chip" style="background:#607D8B15; color:#607D8B; border:1px solid #607D8B44; margin:0;">
+            <span aria-hidden="true">💼</span> Networking          </a>
+                  <a href="/category/theatre" class="filter-chip" style="background:#79554815; color:#795548; border:1px solid #79554844; margin:0;">
+            <span aria-hidden="true">🎪</span> Theatre &amp; Drama          </a>
+                  <a href="/category/wellness" class="filter-chip" style="background:#8BC34A15; color:#8BC34A; border:1px solid #8BC34A44; margin:0;">
+            <span aria-hidden="true">🧘</span> Wellness &amp; Yoga          </a>
+                  <a href="/category/dance" class="filter-chip" style="background:#7c3aed15; color:#7c3aed; border:1px solid #7c3aed44; margin:0;">
+            <span aria-hidden="true">💃</span> Dance          </a>
+              </div>
+    </div>
+    
+    <!-- ─── Live Ticketing & Event Listing Announcement Banner ──────────────── -->
+    <div class="submit-event-cta slide-up" style="padding: 3.5rem 1.5rem; background: linear-gradient(135deg, rgba(124, 58, 237, 0.15) 0%, rgba(236, 72, 153, 0.08) 100%); border: 1px solid rgba(124, 58, 237, 0.35); border-radius: 24px; margin: 3rem 0; text-align: center; position: relative; overflow: hidden; box-shadow: 0 12px 40px rgba(0,0,0,0.3);">
+      <div style="position: absolute; top:-50px; right:-50px; width:200px; height:200px; background:radial-gradient(circle, rgba(124,58,237,0.3) 0%, transparent 70%); pointer-events:none;"></div>
+      
+      <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(74, 222, 128, 0.15); border: 1px solid rgba(74, 222, 128, 0.4); color: #4ade80; padding: 0.35rem 1rem; border-radius: 50px; font-size: 0.85rem; font-weight: 700; margin-bottom: 1.25rem; letter-spacing: 0.03em;">
+        <span style="width:8px; height:8px; background:#4ade80; border-radius:50%; display:inline-block; box-shadow:0 0 8px #4ade80; animation: pulse 1.5s infinite;"></span>
+        NOW LIVE: TICKET SALES & EVENT LISTINGS
+      </div>
+
+      <h2 style="font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; margin-bottom: 0.75rem; color: #fff; line-height: 1.2;">
+        Host Events & Sell Tickets in Jaipur 🎟️
+      </h2>
+      <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 650px; margin: 0 auto 2rem; line-height: 1.6;">
+        Organizers, venues, artists & creators can now list events on Jagruk Jaipur and sell tickets effortlessly to thousands of Jaipur event lovers!
+      </p>
+
+      <!-- Highlights Grid -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; max-width: 900px; margin: 0 auto 2.5rem; text-align: left;">
+        <div style="background: rgba(0, 0, 0, 0.25); border: 1px solid rgba(255, 255, 255, 0.08); padding: 1rem 1.25rem; border-radius: 14px;">
+          <div style="font-size: 1.4rem; margin-bottom: 0.3rem;">💬</div>
+          <div style="font-weight: 700; font-size: 0.95rem; color: #fff; margin-bottom: 0.2rem;">WhatsApp & Email Passes</div>
+          <div style="font-size: 0.8rem; color: var(--text-muted);">Instant PDF & QR code tickets sent directly to buyers.</div>
+        </div>
+        <div style="background: rgba(0, 0, 0, 0.25); border: 1px solid rgba(255, 255, 255, 0.08); padding: 1rem 1.25rem; border-radius: 14px;">
+          <div style="font-size: 1.4rem; margin-bottom: 0.3rem;">📷</div>
+          <div style="font-weight: 700; font-size: 0.95rem; color: #fff; margin-bottom: 0.2rem;">Instant Door Scanner</div>
+          <div style="font-size: 0.8rem; color: var(--text-muted);">&lt; 1 sec QR gate entry app for mobile smartphones.</div>
+        </div>
+        <div style="background: rgba(0, 0, 0, 0.25); border: 1px solid rgba(255, 255, 255, 0.08); padding: 1rem 1.25rem; border-radius: 14px;">
+          <div style="font-size: 1.4rem; margin-bottom: 0.3rem;">📊</div>
+          <div style="font-weight: 700; font-size: 0.95rem; color: #fff; margin-bottom: 0.2rem;">Live Sales Dashboard</div>
+          <div style="font-size: 0.8rem; color: var(--text-muted);">Real-time revenue, booking logs, and CSV guest exports.</div>
+        </div>
+        <div style="background: rgba(0, 0, 0, 0.25); border: 1px solid rgba(255, 255, 255, 0.08); padding: 1rem 1.25rem; border-radius: 14px;">
+          <div style="font-size: 1.4rem; margin-bottom: 0.3rem;">💰</div>
+          <div style="font-weight: 700; font-size: 0.95rem; color: #fff; margin-bottom: 0.2rem;">Transparent Settlements</div>
+          <div style="font-size: 0.8rem; color: var(--text-muted);">Low commission with direct bank transfers.</div>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                  <a href="#" class="btn btn-primary btn-lg needs-auth-ticket-btn" data-ticket-url="/organizer/register.php" data-source-page="Homepage" data-source-button="Banner: Sell Tickets" id="home-sell-tickets-btn" style="box-shadow: 0 8px 24px rgba(124, 58, 237, 0.35);">
+            🚀 Start Selling Tickets Now
+          </a>
+                
+        <a href="/tickiting" class="btn btn-outline btn-lg" style="border-color: rgba(255, 255, 255, 0.25); color: #fff;">
+          ⚡ Explore Ticketing Features →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  document.body.addEventListener('click', async (e) => {
+    const btn = e.target.closest('#load-more-btn');
+    if (!btn) return;
+    
+    e.preventDefault();
+    
+    const originalText = btn.innerText;
+    btn.innerText = 'Loading...';
+    btn.style.pointerEvents = 'none';
+    btn.style.opacity = '0.7';
+    
+    try {
+      const res = await fetch(btn.href);
+      if (!res.ok) throw new Error('Network response was not ok');
+      const html = await res.text();
+      
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      
+      const newEvents = doc.querySelectorAll('#events-grid .event-card');
+      const eventsGrid = document.getElementById('events-grid');
+      
+      if (eventsGrid && newEvents.length > 0) {
+        newEvents.forEach(card => {
+          if (typeof revealObserver !== 'undefined') {
+            revealObserver.observe(card);
+          }
+          eventsGrid.appendChild(card);
+        });
+      }
+      
+      const newPagination = doc.querySelector('.pagination');
+      const currentPagination = btn.closest('.pagination');
+      
+      if (newPagination && currentPagination) {
+        currentPagination.innerHTML = newPagination.innerHTML;
+      } else if (currentPagination) {
+        currentPagination.remove();
+        const endMsg = document.getElementById('end-of-events');
+        if (endMsg) {
+          endMsg.style.display = 'block';
+          if (typeof revealObserver !== 'undefined') revealObserver.observe(endMsg);
+        }
+      }
+      
+    } catch (err) {
+      console.error('Failed to load more events', err);
+      btn.innerText = originalText;
+      btn.style.pointerEvents = 'auto';
+      btn.style.opacity = '1';
+    }
+  });
+});
+</script>
+
+
+
+<!-- ─── Communities Spotlight ────────────────────────────────── -->
+<section class="section" id="communities-spotlight" aria-labelledby="communities-heading" style="padding: 2rem 0 4rem; background: rgba(124, 58, 237, 0.03); border-top: 1px solid rgba(124, 58, 237, 0.1);">
+  <div class="container">
+    <style>
+      @media (max-width: 768px) {
+        .comm-card-extra { display: none !important; }
+      }
+    </style>
+    <div class="section-header">
+      <h2 class="section-title" id="communities-heading" style="margin: 0;">🤝 Active Communities</h2>
+      <a href="/communities" class="btn btn-outline btn-sm" style="border-color:rgba(124,58,237,0.4); color:var(--text-color);">Explore All →</a>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:1.25rem; margin-top:2rem;">
+            <a href="/organizer/happy-huddle" class="slide-up " style="display:flex; align-items:center; gap:1.25rem; background:var(--bg-card); border:1px solid var(--border-color); border-radius:18px; padding:1.25rem; text-decoration:none; color:var(--text-color); transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 12px rgba(0,0,0,0.1);" onmouseover="this.style.borderColor='rgba(124,58,237,0.5)'; this.style.transform='translateY(-5px)'; this.style.boxShadow='0 12px 24px rgba(124,58,237,0.15)';" onmouseout="this.style.borderColor='var(--border-color)'; this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)';">
+                <img src="https://jagrukjaipur.com/assets/img/uploads/org_logo_69f9e7273865e.webp" alt="Happy Huddle"
+             style="width:56px; height:56px; border-radius:50%; object-fit:cover; border:2px solid rgba(124,58,237,0.3); flex-shrink:0;">
+                <div style="min-width:0;">
+          <div style="font-weight:700; font-size:1.05rem; margin-bottom:0.25rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Happy Huddle</div>
+                    <div style="font-size:0.8rem; color:var(--text-muted); display:flex; gap:0.5rem; flex-wrap:wrap;">
+                          <span>📚 Workshops</span>
+                          <span>👶 Kids & Family</span>
+                      </div>
+                  </div>
+      </a>
+            <a href="/organizer/indie-beer-community" class="slide-up " style="display:flex; align-items:center; gap:1.25rem; background:var(--bg-card); border:1px solid var(--border-color); border-radius:18px; padding:1.25rem; text-decoration:none; color:var(--text-color); transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 12px rgba(0,0,0,0.1);" onmouseover="this.style.borderColor='rgba(124,58,237,0.5)'; this.style.transform='translateY(-5px)'; this.style.boxShadow='0 12px 24px rgba(124,58,237,0.15)';" onmouseout="this.style.borderColor='var(--border-color)'; this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)';">
+                <img src="https://jagrukjaipur.com/assets/img/uploads/org_logo_69fafb846e091.webp" alt="Indie Beer Community"
+             style="width:56px; height:56px; border-radius:50%; object-fit:cover; border:2px solid rgba(124,58,237,0.3); flex-shrink:0;">
+                <div style="min-width:0;">
+          <div style="font-weight:700; font-size:1.05rem; margin-bottom:0.25rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Indie Beer Community</div>
+                    <div style="font-size:0.8rem; color:var(--text-muted); display:flex; gap:0.5rem; flex-wrap:wrap;">
+                          <span>🎵 Music & Concerts</span>
+                          <span>🍽️ Food & Dining</span>
+                      </div>
+                  </div>
+      </a>
+            <a href="/organizer/jaipur-coffee-community" class="slide-up " style="display:flex; align-items:center; gap:1.25rem; background:var(--bg-card); border:1px solid var(--border-color); border-radius:18px; padding:1.25rem; text-decoration:none; color:var(--text-color); transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 12px rgba(0,0,0,0.1);" onmouseover="this.style.borderColor='rgba(124,58,237,0.5)'; this.style.transform='translateY(-5px)'; this.style.boxShadow='0 12px 24px rgba(124,58,237,0.15)';" onmouseout="this.style.borderColor='var(--border-color)'; this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)';">
+                <img src="https://jagrukjaipur.com/assets/img/uploads/org_logo_69f9e80089aaf.webp" alt="Jaipur Coffee Community"
+             style="width:56px; height:56px; border-radius:50%; object-fit:cover; border:2px solid rgba(124,58,237,0.3); flex-shrink:0;">
+                <div style="min-width:0;">
+          <div style="font-weight:700; font-size:1.05rem; margin-bottom:0.25rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Jaipur Coffee Community</div>
+                    <div style="font-size:0.8rem; color:var(--text-muted); display:flex; gap:0.5rem; flex-wrap:wrap;">
+                          <span>🍽️ Food & Dining</span>
+                          <span>📚 Workshops</span>
+                      </div>
+                  </div>
+      </a>
+            <a href="/organizer/jaipur-crochet-community" class="slide-up " style="display:flex; align-items:center; gap:1.25rem; background:var(--bg-card); border:1px solid var(--border-color); border-radius:18px; padding:1.25rem; text-decoration:none; color:var(--text-color); transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 12px rgba(0,0,0,0.1);" onmouseover="this.style.borderColor='rgba(124,58,237,0.5)'; this.style.transform='translateY(-5px)'; this.style.boxShadow='0 12px 24px rgba(124,58,237,0.15)';" onmouseout="this.style.borderColor='var(--border-color)'; this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)';">
+                <img src="https://jagrukjaipur.com/assets/img/uploads/org_logo_69f9e9555a5ad.webp" alt="Jaipur Crochet Community"
+             style="width:56px; height:56px; border-radius:50%; object-fit:cover; border:2px solid rgba(124,58,237,0.3); flex-shrink:0;">
+                <div style="min-width:0;">
+          <div style="font-weight:700; font-size:1.05rem; margin-bottom:0.25rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Jaipur Crochet Community</div>
+                    <div style="font-size:0.8rem; color:var(--text-muted); display:flex; gap:0.5rem; flex-wrap:wrap;">
+                          <span>📚 Workshops</span>
+                          <span>👶 Kids & Family</span>
+                      </div>
+                  </div>
+      </a>
+            <a href="/organizer/jaipur-trekkers-community" class="slide-up comm-card-extra" style="display:flex; align-items:center; gap:1.25rem; background:var(--bg-card); border:1px solid var(--border-color); border-radius:18px; padding:1.25rem; text-decoration:none; color:var(--text-color); transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 12px rgba(0,0,0,0.1);" onmouseover="this.style.borderColor='rgba(124,58,237,0.5)'; this.style.transform='translateY(-5px)'; this.style.boxShadow='0 12px 24px rgba(124,58,237,0.15)';" onmouseout="this.style.borderColor='var(--border-color)'; this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)';">
+                <img src="https://jagrukjaipur.com/assets/img/uploads/org_logo_69fafc50d73aa.webp" alt="Jaipur Trekkers Community"
+             style="width:56px; height:56px; border-radius:50%; object-fit:cover; border:2px solid rgba(124,58,237,0.3); flex-shrink:0;">
+                <div style="min-width:0;">
+          <div style="font-weight:700; font-size:1.05rem; margin-bottom:0.25rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Jaipur Trekkers Community</div>
+                  </div>
+      </a>
+            <a href="/organizer/kythera" class="slide-up comm-card-extra" style="display:flex; align-items:center; gap:1.25rem; background:var(--bg-card); border:1px solid var(--border-color); border-radius:18px; padding:1.25rem; text-decoration:none; color:var(--text-color); transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 12px rgba(0,0,0,0.1);" onmouseover="this.style.borderColor='rgba(124,58,237,0.5)'; this.style.transform='translateY(-5px)'; this.style.boxShadow='0 12px 24px rgba(124,58,237,0.15)';" onmouseout="this.style.borderColor='var(--border-color)'; this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)';">
+                <img src="https://jagrukjaipur.com/assets/img/uploads/org_logo_69f9e283e8314.webp" alt="Kythera"
+             style="width:56px; height:56px; border-radius:50%; object-fit:cover; border:2px solid rgba(124,58,237,0.3); flex-shrink:0;">
+                <div style="min-width:0;">
+          <div style="font-weight:700; font-size:1.05rem; margin-bottom:0.25rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Kythera</div>
+                    <div style="font-size:0.8rem; color:var(--text-muted); display:flex; gap:0.5rem; flex-wrap:wrap;">
+                          <span>🎵 Music & Concerts</span>
+                          <span>📚 Workshops</span>
+                      </div>
+                  </div>
+      </a>
+          </div>
+
+    <div style="text-align:center; margin-top:3rem; padding-top:2.5rem; border-top:1px solid rgba(124, 58, 237, 0.08);">
+      <h3 style="font-size:1.4rem; margin-bottom:0.75rem;">Discover all the communities in Jaipur</h3>
+      <p style="color:var(--text-muted); margin-bottom:1.75rem; max-width:520px; margin-left:auto; margin-right:auto; line-height:1.6;">
+        From fitness groups to creative hubs, find and join communities that match your passion.
+      </p>
+      <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap; margin-top:1.75rem;">
+        <a href="/communities" class="btn btn-primary btn-lg" style="padding-left:2.5rem; padding-right:2.5rem; box-shadow: 0 10px 20px rgba(124,58,237,0.2);">
+          🌐 Explore All Communities
+        </a>
+                  <a href="#" class="btn btn-outline btn-lg needs-auth-ticket-btn" data-ticket-url="/contact.php?subject=Submit+Community" data-source-page="Homepage" data-source-button="CTA: Submit Community" style="border-color:rgba(124,58,237,0.4); color:var(--text-color);">
+            🤝 Submit Your Community
+          </a>
+              </div>
+    </div>
+  </div>
+</section>
+
+</main><!-- end #main-content -->
+
+<!-- ─── Footer ──────────────────────────────────────────────── -->
+<footer class="footer" id="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="logo" aria-label="Jagruk Jaipur Home">
+          <img src="/assets/img/logo.webp" alt="Jagruk Jaipur" style="height: 40px; width: auto; object-fit: contain;">
+        </a>
+        <p>Your one-stop guide to everything happening in the Pink City.<br>
+          Curated events, every week.</p>
+        <div class="footer-social">
+          <a href="https://www.youtube.com/@jagrukjaipur" target="_blank" rel="noopener" class="social-btn"
+            aria-label="YouTube">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+            </svg>
+          </a>
+          <a href="https://www.instagram.com/jagrukjaipur" target="_blank" rel="noopener" class="social-btn"
+            aria-label="Instagram">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm3.98-10.169a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="/">All Events</a></li>
+          <li><a href="/podcast">Jaipur Podcast 🎙️</a></li>
+          <li><a href="/events-in-jaipur-today">Events Today</a></li>
+          <li><a href="/events-this-weekend-in-jaipur">Weekend Events</a></li>
+          <li><a href="/communities">Communities</a></li>
+          <li><a href="/trending-events-in-jaipur">Trending Events</a></li>
+          <li><a href="/category/comedy">Comedy</a></li>
+          <li><a href="/category/music">Music & Concerts</a></li>
+          <li><a href="/category/food">Food & Dining</a></li>
+          <li><a href="/category/art">Art & Culture</a></li>
+          <li><a href="/category/workshops">Workshops</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Info</h4>
+        <ul>
+          <li><a href="/about.php">About Us</a></li>
+          <li><a href="/podcast">Jaipur Podcast &amp; Guest Application 🎙️</a></li>
+          <li><a href="/tickiting">Sell Tickets &amp; Host Events 🎟️</a></li>
+          <li><a href="/organizer">Organizer Portal 📊</a></li>
+          <li><a href="/tickiting">List Your Event</a></li>
+          <li><a href="/contact.php">Contact</a></li>
+          <li><a href="/privacy.php">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Jagruk Jaipur. Made with ❤️ in Jaipur.</span>
+      <span>🏙️ Jaipur, Rajasthan, India</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ─── Scroll-to-top button ────────────────────────────────── -->
+<button class="scroll-top" id="scroll-top-btn" aria-label="Scroll to top" title="Back to top">↑</button>
+
+<!-- ─── PWA Install Banner ──────────────────────────────────── -->
+<!-- Android: shown automatically when browser fires beforeinstallprompt -->
+<div class="install-banner" id="install-banner" style="display:none;" role="banner" aria-live="polite">
+  <span style="font-size:2rem;">📱</span>
+  <p><strong>Add to Home Screen</strong>Get quick access to Jaipur events</p>
+  <button class="btn btn-primary btn-sm" id="install-btn">Install</button>
+  <button class="btn btn-outline btn-sm" id="install-dismiss" aria-label="Dismiss">✕</button>
+</div>
+
+<!-- iOS: manual guide shown in Safari only (iOS doesn't support auto-prompt) -->
+<div id="ios-install-banner" style="display:none;" role="banner" aria-live="polite">
+  <button id="ios-install-dismiss" aria-label="Dismiss">&times;</button>
+  <div style="display:flex; align-items:center; gap:0.75rem;">
+    <img src="/favicon/apple-touch-icon.png" alt="Jagruk Jaipur" width="44" height="44"
+      style="border-radius:10px; flex-shrink:0;">
+    <div>
+      <div style="font-weight:700; font-size:0.95rem;">Add to Home Screen</div>
+      <div style="font-size:0.8rem; opacity:0.7; margin-top:2px;">Get quick access to Jaipur events</div>
+    </div>
+  </div>
+  <div style="margin-top:0.75rem; font-size:0.82rem; line-height:1.7; opacity:0.85;">
+    Tap the <strong>Share</strong> button
+    <svg style="display:inline; vertical-align:middle; margin:0 2px;" width="16" height="16" fill="currentColor"
+      viewBox="0 0 50 50">
+      <path
+        d="M30.3 8.5l-5.3-5.3-5.3 5.3 1.4 1.4 2.9-2.9V28h2V7l2.9 2.9 1.4-1.4zM10 15v27h30V15H10zm28 25H12V17h26v23z" />
+    </svg>
+    at the bottom of Safari, then tap <strong>"Add to Home Screen"</strong> and tap <strong>"Add"</strong>.
+  </div>
+  <!-- Arrow pointing to bottom of screen where Safari share button is -->
+  <div id="ios-share-arrow" aria-hidden="true">↓</div>
+</div>
+
+<style>
+  #ios-install-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(20, 10, 35, 0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(124, 58, 237, 0.3);
+    color: #fff;
+    padding: 1rem 1.25rem 1.5rem;
+    z-index: 9998;
+    font-family: 'Outfit', sans-serif;
+    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.4);
+    animation: ios-banner-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  @keyframes ios-banner-in {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  #ios-install-dismiss {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.75rem;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1.4rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  #ios-share-arrow {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-top: 0.5rem;
+    animation: ios-arrow-bounce 1s ease-in-out infinite;
+    color: var(--primary-light, #a78bfa);
+  }
+
+  @keyframes ios-arrow-bounce {
+
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(6px);
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    // Only run once per session
+    if (sessionStorage.getItem('pwa_banner_dismissed')) return;
+    // Don't show if already running as installed PWA
+    if (window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches) return;
+
+    var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+    var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+    if (isIOS && isSafari) {
+      // Show iOS banner after 3 seconds
+      setTimeout(function () {
+        var banner = document.getElementById('ios-install-banner');
+        if (banner) banner.style.display = 'block';
+      }, 3000);
+      var dismiss = document.getElementById('ios-install-dismiss');
+      if (dismiss) {
+        dismiss.addEventListener('click', function () {
+          document.getElementById('ios-install-banner').style.display = 'none';
+          sessionStorage.setItem('pwa_banner_dismissed', '1');
+        });
+      }
+    }
+    // Android banner is handled by main.js via beforeinstallprompt
+  })();
+</script>
+
+<!-- ─── WhatsApp Floating Bubble ─────────────────────────── -->
+<a href="https://whatsapp.com/channel/0029Vb7sCKPJENy09PC2ln1X" target="_blank" rel="noopener noreferrer"
+  class="wa-bubble" id="wa-bubble" aria-label="Follow us on WhatsApp Channel">
+  <svg width="28" height="28" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path
+      d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a5.8 5.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+  </svg>
+  <span class="wa-label">WhatsApp</span>
+</a>
+
+<style>
+  .wa-bubble {
+    position: fixed;
+    bottom: 5rem;
+    right: 1.5rem;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #25D366;
+    color: #fff;
+    border-radius: 50px;
+    padding: 0.75rem 1.1rem;
+    font-weight: 700;
+    font-size: 0.9rem;
+    font-family: 'Outfit', sans-serif;
+    text-decoration: none;
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.45);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    animation: wa-pop-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    animation-delay: 1.5s;
+  }
+
+  .wa-bubble:hover {
+    transform: scale(1.08) translateY(-2px);
+    box-shadow: 0 8px 32px rgba(37, 211, 102, 0.6);
+  }
+
+  @keyframes wa-pop-in {
+    from {
+      opacity: 0;
+      transform: scale(0.5) translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .wa-bubble .wa-label {
+      display: none;
+    }
+
+    .wa-bubble {
+      width: 48px;
+      height: 48px;
+      padding: 0;
+      border-radius: 50%;
+      justify-content: center;
+      bottom: 5.5rem;
+      /* sits 48px + 0.5rem gap above scroll-top at 1.5rem */
+      right: 1.5rem;
+    }
+  }
+
+  /* Category count badge */
+  .cat-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(124, 58, 237, 0.75);
+    color: #fff;
+    font-size: 0.68rem;
+    font-weight: 800;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50px;
+    padding: 0 5px;
+    margin-left: 4px;
+    line-height: 1;
+    letter-spacing: 0;
+    box-shadow: 0 0 0 1px rgba(167, 139, 250, 0.3);
+  }
+
+  .filter-chip.active .cat-count {
+    background: rgba(255, 255, 255, 0.3);
+    color: #fff;
+    box-shadow: none;
+  }
+
+  /* Auth Modal CSS */
+  .auth-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(10, 5, 20, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+  }
+
+  .auth-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .auth-modal {
+    background: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    width: 90%;
+    max-width: 400px;
+    padding: 2rem;
+    position: relative;
+    transform: translateY(20px);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .auth-modal-overlay.active .auth-modal {
+    transform: translateY(0);
+  }
+
+  .auth-modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .auth-modal-step {
+    display: none;
+  }
+
+  .auth-modal-step.active {
+    display: block;
+  }
+</style>
+
+<!-- ─── Scripts ─────────────────────────────────────────────── -->
+<script src="/assets/js/main.js?v=1793880956" defer></script>
+<script src="/assets/js/auth.js?v=1791793311" defer></script>
+</body>
+
+</html>

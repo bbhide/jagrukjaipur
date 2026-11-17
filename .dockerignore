@@ -1,0 +1,11 @@
+**/node_modules
+**/dist
+**/.astro
+.git
+.env
+.env.*
+reference
+data
+docs
+apps/web/public/uploads
+**/test-results

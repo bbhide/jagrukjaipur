@@ -1,0 +1,45 @@
+---
+import Admin from "@/layouts/Admin.astro";
+import { adminApi, handlePost } from "@/lib/admin";
+
+const res = await handlePost(Astro, async (form) => {
+  if (form.get("action") === "delete") {
+    await adminApi(Astro, `/venues/${Number(form.get("id"))}`, { method: "DELETE" });
+    return { message: "Venue deleted." };
+  }
+});
+if (res) return res;
+const { items } = await adminApi<{ items: any[] }>(Astro, "/venues");
+---
+<Admin title="Venues" active="venues">
+  <div class="page-title-row">
+    <div><div class="page-title">Venues</div><div class="page-subtitle">{items.length} venues</div></div>
+    <a href="/admin/venues/new" class="a-btn a-btn-primary">+ Add Venue</a>
+  </div>
+  <div class="a-card">
+    <div class="a-table-wrap">
+      <table class="a-table">
+        <thead><tr><th>Venue Name</th><th>Area</th><th>Address</th><th>Maps</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody>
+          {items.length === 0 && <tr><td colspan="6" style="text-align:center; color:var(--a-muted); padding:2rem;">No venues yet.</td></tr>}
+          {items.map((v) => (
+            <tr>
+              <td style="font-weight:600;">{v.name}</td>
+              <td>{v.area ?? "—"}</td>
+              <td style="max-width:280px; color:var(--a-muted);">{v.address ?? "—"}</td>
+              <td>{v.maps_url ? <a href={v.maps_url} target="_blank" rel="noopener noreferrer" style="color:var(--a-primary);">📍 Map</a> : "—"}</td>
+              <td><span class={`status-badge ${v.is_active ? "status-published" : "status-draft"}`}>{v.is_active ? "Active" : "Inactive"}</span></td>
+              <td><div class="actions-cell">
+                <a href={`/admin/venues/${v.id}`} class="a-btn a-btn-outline a-btn-sm" title="Edit">✏️</a>
+                <form method="POST" data-confirm="Delete this venue? Events at this venue will be left without a venue.">
+                  <input type="hidden" name="action" value="delete" /><input type="hidden" name="id" value={v.id} />
+                  <button type="submit" class="a-btn a-btn-danger a-btn-sm" title="Delete">🗑</button>
+                </form>
+              </div></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</Admin>

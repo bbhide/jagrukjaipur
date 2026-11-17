@@ -1,0 +1,18 @@
+{
+  "name": "jagrukjaipur",
+  "private": true,
+  "type": "module",
+  "workspaces": ["apps/*"],
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "dev": "npm run dev -w @jj/api & npm run dev -w @jj/web",
+    "dev:api": "npm run dev -w @jj/api",
+    "dev:web": "npm run dev -w @jj/web",
+    "build": "npm run build -w @jj/api && npm run build -w @jj/web",
+    "db:up": "docker compose up -d db",
+    "db:migrate": "npm run migrate -w @jj/api",
+    "db:seed": "npm run seed -w @jj/api",
+    "test": "npm test -w @jj/api",
+    "test:e2e": "npm run test:e2e -w @jj/web"
+  }
+}

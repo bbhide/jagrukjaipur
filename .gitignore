@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+# reference capture of the legacy site (large, regenerable)
+reference/snapshot/
+# user uploads and imported media
+apps/web/public/uploads/
+test-results/
+playwright-report/
+reference/visual/

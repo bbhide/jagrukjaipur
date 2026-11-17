@@ -1,0 +1,25 @@
+---
+import Admin from "@/layouts/Admin.astro";
+import OrganizerForm from "@/components/admin/OrganizerForm.astro";
+import { adminApi, handlePost } from "@/lib/admin";
+import { loadOrFlash } from "@/components/admin/helpers";
+
+const id = Number(Astro.params.id);
+if (!Number.isInteger(id) || id < 1) return Astro.redirect("/admin/organizers", 303);
+const res = await handlePost(Astro, async (form) => {
+  if (form.get("action") === "delete") {
+    await adminApi(Astro, `/organizers/${id}`, { method: "DELETE" });
+    return { message: "Organiser deleted.", redirect: "/admin/organizers" };
+  }
+  await adminApi(Astro, `/organizers/${id}`, { method: "PUT", body: form });
+  return { message: "Organiser updated.", redirect: "/admin/organizers" };
+});
+if (res) return res;
+const organizer = await loadOrFlash(Astro, () => adminApi(Astro, `/organizers/${id}`), "Organiser not found.");
+if (!organizer) return Astro.redirect("/admin/organizers", 303);
+const { categories } = await adminApi<{ categories: any[] }>(Astro, "/events/form-options");
+---
+<Admin title="Edit Organiser" active="organizers">
+  <div class="page-title-row"><div class="page-title">Edit Organiser</div><a href="/admin/organizers" class="a-btn a-btn-outline">← Back</a></div>
+  <OrganizerForm mode="edit" organizer={organizer} categories={categories} />
+</Admin>

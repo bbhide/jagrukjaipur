@@ -1,0 +1,68 @@
+---
+import Icon from "./Icon.astro";
+import { site } from "@/lib/format";
+interface Props { userName: string | null; path: string }
+const { userName, path } = Astro.props;
+const groups = [
+  { title: "Explore Jaipur", links: [
+    ["✨", "All Events", "/"], ["🔥", "Trending Events", "/trending-events-in-jaipur"], ["⚡", "Events Today", "/events-in-jaipur-today"],
+    ["🗓️", "This Weekend", "/events-this-weekend-in-jaipur"], ["🤝", "Communities & Clubs", "/communities"], ["🟢", "Free Events", "/?free=1"] ] },
+  { title: "Organizers & Creators", links: [
+    ["📊", "Organizer Portal", "/organizer"], ["🎪", "List Your Event Free", "/tickiting"], ["🎙️", "Apply as Podcast Guest", "/podcast#guest-form"] ] },
+  { title: "About & Help", links: [ ["ℹ️", "About Us", "/about"], ["💬", "Contact & Support", "/contact"], ["🔒", "Privacy Policy", "/privacy"] ] },
+];
+---
+<div class="mobile-drawer-overlay" id="mobile-drawer-overlay" aria-hidden="true"></div>
+<aside class="mobile-drawer" id="mobile-nav-drawer" role="dialog" aria-modal="true" aria-label="Navigation Menu">
+  <div class="mobile-drawer-header">
+    <a href="/" class="mobile-drawer-logo" aria-label="Jagruk Jaipur Home"><img src="/img/logo.webp" alt="Jagruk Jaipur" class="h-8 w-auto object-contain" /></a>
+    <button class="mobile-drawer-close" id="mobile-drawer-close" aria-label="Close menu">&times;</button>
+  </div>
+  <div class="mobile-drawer-body">
+    {userName ? (
+      <a href="#" class="drawer-user-card" id="drawer-profile-btn" data-open-profile>
+        <div class="drawer-user-avatar">👤</div>
+        <div class="drawer-user-info">
+          <div class="drawer-user-name nav-profile-name">{userName}</div>
+          <div class="drawer-user-action">Manage Profile &amp; Preferences &rarr;</div>
+        </div>
+      </a>
+    ) : (
+      <div class="drawer-auth-card">
+        <div class="drawer-auth-title">Welcome to Jagruk Jaipur</div>
+        <div class="drawer-auth-sub">Log in to track your tickets, bookings &amp; preferences</div>
+        <a href="#" class="drawer-auth-btn needs-auth-ticket-btn" data-ticket-url={path} data-source-page="Mobile Menu Drawer" data-source-button="Drawer Sign In Button">
+          <span>💬 Sign In with WhatsApp</span><span class="drawer-auth-arrow">&rarr;</span>
+        </a>
+      </div>
+    )}
+
+    <a href="/tickiting" class="drawer-highlight-card drawer-card-tickets">
+      <div class="drawer-card-icon">🎟️</div>
+      <div class="drawer-card-body"><div class="drawer-card-title">Sell Tickets &amp; Host Events</div><div class="drawer-card-desc">List free events or sell tickets easily</div></div>
+      <div class="drawer-card-arrow">&rarr;</div>
+    </a>
+    <a href="/podcast" class="drawer-highlight-card drawer-card-podcast">
+      <div class="drawer-card-icon">🎙️</div>
+      <div class="drawer-card-body"><div class="drawer-card-title">Jaipur Podcast</div><div class="drawer-card-desc">Watch episodes &amp; apply as guest</div></div>
+      <div class="drawer-card-arrow">&rarr;</div>
+    </a>
+
+    {groups.map((g) => (
+      <div class="drawer-nav-section">
+        <div class="drawer-section-title">{g.title}</div>
+        <ul class="drawer-nav-list">
+          {g.links.map(([icon, label, href]) => <li><a href={href} class="drawer-nav-item"><span class="drawer-nav-icon">{icon}</span> {label}</a></li>)}
+        </ul>
+      </div>
+    ))}
+
+    <div class="drawer-footer-social">
+      <a href={site.whatsapp} target="_blank" rel="noopener noreferrer" class="drawer-social-wa"><span>💬 Join WhatsApp Channel</span></a>
+      <div class="drawer-social-row">
+        <a href={site.instagram} target="_blank" rel="noopener noreferrer" class="drawer-social-icon" aria-label="Instagram"><Icon name="instagram" size={18} /></a>
+        <a href={site.youtube} target="_blank" rel="noopener noreferrer" class="drawer-social-icon" aria-label="YouTube"><Icon name="youtube" size={18} /></a>
+      </div>
+    </div>
+  </div>
+</aside>

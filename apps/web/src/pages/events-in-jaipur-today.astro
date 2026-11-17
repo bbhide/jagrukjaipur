@@ -1,0 +1,52 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/components/PageHeader.astro";
+import EventGrid from "@/components/EventGrid.astro";
+import EmptyState from "@/components/EmptyState.astro";
+import { api } from "@/lib/api";
+import { loadShell } from "@/lib/page";
+import { dateFull, eventUrl, site } from "@/lib/format";
+import type { EventList } from "@/lib/types";
+
+const [{ siteData, me }, events] = await Promise.all([
+  loadShell(Astro),
+  api<EventList>("/events", { query: { scope: "today", per_page: 200 } }),
+]);
+const today = dateFull(siteData.today);
+const n = events.total;
+const title = `Events in Jaipur Today — ${today} — ${site.name}`;
+const description = `Looking for things to do in Jaipur today? Here are ${n} events happening on ${today}. Concerts, comedy shows, workshops & more — curated by ${site.name}.`;
+const listLd = {
+  "@context": "https://schema.org", "@type": "ItemList", name: `Events in Jaipur Today — ${today}`, description, numberOfItems: events.items.length,
+  itemListElement: events.items.map((e, i) => ({ "@type": "ListItem", position: i + 1, url: site.url + eventUrl(e.slug), name: e.title })),
+};
+---
+<Base title={title} description={description} canonical="/events-in-jaipur-today" siteData={siteData} me={me} jsonLd={[listLd]}>
+  <PageHeader icon="📅" sub={today} count={`${n} ${n === 1 ? "event" : "events"} happening today`}>
+    Events in Jaipur <span class="text-muted">Today</span>
+  </PageHeader>
+
+  <section class="section">
+    <div class="container">
+      {n === 0 ? (
+        <EmptyState icon="📅" title="No events today" text="Nothing is scheduled for today. Check the weekend lineup or browse all upcoming events.">
+          <div class="flex flex-wrap justify-center gap-4">
+            <a href="/events-this-weekend-in-jaipur" class="btn btn-primary">🗓 This Weekend</a>
+            <a href="/" class="btn btn-outline">📋 All Upcoming Events</a>
+          </div>
+        </EmptyState>
+      ) : (
+        <>
+          <EventGrid events={events.items} sourcePage="Today's Events" id="today-events-grid" />
+          <div class="mt-12 pt-8 text-center">
+            <p class="mb-4 text-muted">Looking for more events in Jaipur?</p>
+            <div class="flex flex-wrap justify-center gap-4">
+              <a href="/events-this-weekend-in-jaipur" class="btn btn-outline">🗓 Weekend Events</a>
+              <a href="/" class="btn btn-outline">📋 All Upcoming Events</a>
+            </div>
+          </div>
+        </>
+      )}
+    </div>
+  </section>
+</Base>

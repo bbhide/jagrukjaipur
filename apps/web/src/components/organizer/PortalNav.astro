@@ -1,0 +1,11 @@
+---
+interface Props { active: "dashboard" | "new" | "scanner" | "payouts" | "profile" | "" }
+const { active } = Astro.props;
+const items = [
+  ["dashboard", "/organizer/dashboard", "📊 Dashboard"], ["new", "/organizer/events/new", "➕ Create Event"], ["scanner", "/organizer/scanner", "📷 Scan Tickets"],
+  ["payouts", "/organizer/payouts", "💸 Payouts"], ["profile", "/organizer/profile", "👤 Profile"],
+] as const;
+---
+<nav class="org-nav" aria-label="Organiser portal">
+  {items.map(([key, href, label]) => <a href={href} aria-current={active === key ? "page" : undefined}>{label}</a>)}
+</nav>

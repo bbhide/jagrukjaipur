@@ -1,0 +1,16 @@
+---
+/** "Login Required" lock-screen card, used by members-only pages. */
+interface Props { ticketUrl: string; sourcePage: string; sourceButton: string; text?: string }
+const { ticketUrl, sourcePage, sourceButton, text = "Please verify your WhatsApp number to search events & communities on Jagruk Jaipur." } = Astro.props;
+---
+<div class="container">
+  <div class="glass-box slide-up mx-auto my-16 max-w-[500px] rounded-[18px] border border-white/10 bg-white/[0.03] px-8 py-16 text-center">
+    <div class="mb-4 text-[4rem]">🔐</div>
+    <h2 class="mb-2">Login Required</h2>
+    <p class="mb-8 leading-[1.6] text-muted">{text}</p>
+    <button type="button" class="btn btn-primary btn-lg needs-auth-ticket-btn w-full justify-center !p-[0.95rem] text-[1.1rem] leading-[normal]"
+            data-ticket-url={ticketUrl} data-source-page={sourcePage} data-source-button={sourceButton}>
+      Log in via WhatsApp
+    </button>
+  </div>
+</div>

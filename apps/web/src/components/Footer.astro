@@ -1,0 +1,29 @@
+---
+import Icon from "./Icon.astro";
+import { site } from "@/lib/format";
+const explore = [["All Events", "/"], ["Jaipur Podcast 🎙️", "/podcast"], ["Events Today", "/events-in-jaipur-today"], ["Weekend Events", "/events-this-weekend-in-jaipur"],
+  ["Communities", "/communities"], ["Trending Events", "/trending-events-in-jaipur"], ["Comedy", "/category/comedy"], ["Music & Concerts", "/category/music"],
+  ["Food & Dining", "/category/food"], ["Art & Culture", "/category/art"], ["Workshops", "/category/workshops"]];
+const info = [["About Us", "/about"], ["Jaipur Podcast & Guest Application 🎙️", "/podcast"], ["Sell Tickets & Host Events 🎟️", "/tickiting"], ["Organizer Portal 📊", "/organizer"],
+  ["List Your Event", "/tickiting"], ["Contact", "/contact"], ["Privacy Policy", "/privacy"]];
+---
+<footer class="footer" id="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="logo" aria-label="Jagruk Jaipur Home"><img src="/img/logo.webp" alt="Jagruk Jaipur" class="h-10 w-auto max-w-none object-contain" style="height:40px" /></a>
+        <p>Your one-stop guide to everything happening in the Pink City.<br />Curated events, every week.</p>
+        <div class="footer-social">
+          <a href={site.youtube} target="_blank" rel="noopener" class="social-btn" aria-label="YouTube"><Icon name="youtube" /></a>
+          <a href={site.instagram} target="_blank" rel="noopener" class="social-btn" aria-label="Instagram"><Icon name="instagram" /></a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Explore</h4><ul>{explore.map(([l, h]) => <li><a href={h}>{l}</a></li>)}</ul></div>
+      <div class="footer-col"><h4>Info</h4><ul>{info.map(([l, h]) => <li><a href={h}>{l}</a></li>)}</ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© {new Date().getFullYear()} Jagruk Jaipur. Made with ❤️ in Jaipur.</span>
+      <span>🏙️ Jaipur, Rajasthan, India</span>
+    </div>
+  </div>
+</footer>

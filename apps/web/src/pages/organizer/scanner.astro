@@ -1,0 +1,26 @@
+---
+// Layout inferred — the legacy organiser portal was not observable (see docs/01-reconnaissance.md §6)
+import "@/styles/pages/organizer.css";
+import Base from "@/layouts/Base.astro";
+import LoginRequired from "@/components/organizer/LoginRequired.astro";
+import PortalNav from "@/components/organizer/PortalNav.astro";
+import TicketScanner from "@/components/vue/TicketScanner.vue";
+import { loadPortal } from "@/components/organizer/guard";
+
+const p = await loadPortal(Astro);
+if (p.redirect) return p.redirect;
+---
+<Base title="Scan Tickets | Organizer Portal" canonical="/organizer/scanner" siteData={p.siteData} me={p.me} noindex>
+  {!p.me || !p.organizer ? <LoginRequired /> : (
+    <div class="container section">
+      <div class="org-wrap">
+        <PortalNav active="scanner" />
+        <div class="scanner-wrap">
+          <h1 class="org-page-title" style="margin-bottom:0.5rem">Scan tickets</h1>
+          <p class="text-muted" style="margin-bottom:1.25rem">Point your phone's camera at the attendee's QR ticket. Already-used and unknown tickets are flagged instantly.</p>
+          <TicketScanner client:only="vue" />
+        </div>
+      </div>
+    </div>
+  )}
+</Base>

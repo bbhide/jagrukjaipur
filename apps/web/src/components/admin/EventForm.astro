@@ -1,0 +1,293 @@
+---
+/** Shared add/edit form for events. Posts back to the page that renders it (multipart). */
+import "@/styles/admin-extra-1.css";
+interface Props {
+  event?: Record<string, any> | null;
+  options: { categories: { id: number; name: string; icon: string }[]; organizers: { id: number; name: string; contact: string | null }[]; venues: { id: number; name: string }[] };
+  mode: "new" | "edit";
+  aiEnabled?: boolean;
+  submissionId?: number | null;
+  /** Read-only key/value dump of a public submission shown above the form. */
+  submissionInfo?: [string, string][];
+}
+const { event = null, options, mode, aiEnabled = false, submissionId = null, submissionInfo = [] } = Astro.props;
+const e = event ?? {};
+const hhmm = (t?: string | null) => (t ? t.slice(0, 5) : "");
+const selectedCats: number[] = e.category_ids ?? [];
+const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const recDays: number[] = e.recurrence_days ?? [];
+const statuses = mode === "edit" ? ["draft", "published", "cancelled", "past"] : ["draft", "published", "cancelled"];
+const card = "margin-bottom:1.25rem;";
+const tick = (name: string, checked: boolean, label: string, hint?: string, id?: string) => ({ name, checked, label, hint, id });
+const options3 = [
+  tick("is_featured", !!e.is_featured, "⭐ Featured", "Highlighted on the home page."),
+  tick("is_exclusive", !!e.is_exclusive, "💎 Exclusive", "Shows an Exclusive badge on the event."),
+  tick("is_recurring", !!e.is_recurring, "🔁 Recurring Event", "Repeats weekly or monthly.", "is_recurring"),
+];
+---
+<form method="POST" enctype="multipart/form-data" id="event-form">
+  {submissionId && <input type="hidden" name="submission_id" value={submissionId} />}
+
+  {submissionInfo.length > 0 && (
+    <div class="a-card" style={card}>
+      <div class="a-card-header" style="margin-bottom:.75rem;"><div class="a-card-title">📥 Public submission #{submissionId}</div></div>
+      <div style="display:grid; grid-template-columns:max-content 1fr; gap:.3rem 1rem; font-size:.85rem;">
+        {submissionInfo.map(([k, v]) => (<><span style="color:var(--a-muted);">{k}</span><span style="word-break:break-word;">{v}</span></>))}
+      </div>
+      <p class="form-hint">The form below has been pre-filled from this submission. Saving the event marks it as added.</p>
+    </div>
+  )}
+
+  {aiEnabled && (
+    <div class="a-card" style={card} id="ai-panel" data-endpoint="/api/admin/ai/extract-event">
+      <div class="a-card-header" style="margin-bottom:1rem;"><div class="a-card-title">✨ Gemini AI assistant</div></div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label" for="ai-poster">Poster image</label>
+          <input class="form-input" type="file" id="ai-poster" accept="image/jpeg,image/png,image/webp,image/gif" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="ai-text">Or paste the event text</label>
+          <textarea class="form-textarea" id="ai-text" rows="3" placeholder="Paste event details here…"></textarea>
+        </div>
+      </div>
+      <div class="form-actions" style="margin-top:1rem;">
+        <button type="button" class="a-btn a-btn-outline" id="ai-run" data-loading-text="Reading…">✨ Auto-fill form</button>
+        <span class="form-hint" id="ai-status" role="status"></span>
+      </div>
+    </div>
+  )}
+
+  <div class="a-card" style={card}>
+    <div class="a-card-header"><div class="a-card-title">📝 Basic Information</div></div>
+    <div class="form-grid">
+      <div class="form-group full">
+        <label class="form-label" for="title">Title<span class="req">*</span></label>
+        <input class="form-input" id="title" name="title" maxlength="300" required value={e.title ?? ""} placeholder="e.g. Sunday Stand-up Night" />
+      </div>
+      <div class="form-group full">
+        <span class="form-label">Categories<span class="req">*</span></span>
+        <div id="category-box" style="display:flex; flex-wrap:wrap; gap:.5rem;">
+          {options.categories.map((c) => (
+            <label class="cat-chip">
+              <input type="checkbox" name="category_id[]" value={c.id} checked={selectedCats.includes(c.id)} />
+              <span>{c.icon} {c.name}</span>
+            </label>
+          ))}
+        </div>
+        <span class="form-hint" id="category-hint">Choose 1 to 3 categories.</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="status">Status</label>
+        <select class="form-select" id="status" name="status">
+          {statuses.map((s) => <option value={s} selected={(e.status ?? "draft") === s}>{s[0].toUpperCase() + s.slice(1)}</option>)}
+        </select>
+      </div>
+      <div class="form-group full">
+        <label class="form-label" for="short_description">Short Description</label>
+        <textarea class="form-textarea" id="short_description" name="short_description" rows="2" maxlength="500" style="min-height:70px;" placeholder="One or two lines shown on event cards (max 500 characters)">{e.short_description ?? ""}</textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="a-card" style={card}>
+    <div class="a-card-header"><div class="a-card-title">📄 Full Description</div></div>
+    <div class="form-group">
+      <label class="form-label" for="description">Description (HTML)</label>
+      <textarea class="form-textarea" id="description" name="description" rows="10" style="font-family:ui-monospace,monospace; font-size:.85rem;">{e.description ?? ""}</textarea>
+      <span class="form-hint">Allowed tags: &lt;p&gt; &lt;br&gt; &lt;strong&gt; &lt;b&gt; &lt;em&gt; &lt;i&gt; &lt;u&gt; &lt;ul&gt; &lt;ol&gt; &lt;li&gt; &lt;h2&gt;–&lt;h4&gt; &lt;a href&gt; &lt;blockquote&gt; &lt;span&gt;. Anything else is removed on save.</span>
+    </div>
+  </div>
+
+  <div class="a-card" style={card}>
+    <div class="a-card-header"><div class="a-card-title">📅 Date &amp; Time</div></div>
+    <div class="form-grid">
+      <div class="form-group"><label class="form-label" for="event_date">Event Date<span class="req">*</span></label><input class="form-input" type="date" id="event_date" name="event_date" required value={e.event_date ?? ""} /></div>
+      <div class="form-group"><label class="form-label" for="event_time">Event Time</label><input class="form-input" type="time" id="event_time" name="event_time" value={hhmm(e.event_time)} /></div>
+      <div class="form-group"><label class="form-label" for="end_date">End Date</label><input class="form-input" type="date" id="end_date" name="end_date" value={e.end_date ?? ""} /></div>
+      <div class="form-group"><label class="form-label" for="end_time">End Time</label><input class="form-input" type="time" id="end_time" name="end_time" value={hhmm(e.end_time)} /></div>
+    </div>
+  </div>
+
+  <div class="a-card" style={card}>
+    <div class="a-card-header"><div class="a-card-title">🎤 Organiser</div></div>
+    <div class="form-group">
+      <label class="form-label" for="organizer_id">Organiser</label>
+      <select class="form-select" id="organizer_id" name="organizer_id">
+        <option value="">— No organiser —</option>
+        {options.organizers.map((o) => <option value={o.id} selected={e.organizer_id === o.id}>{o.name}{o.contact ? ` (${o.contact})` : ""}</option>)}
+      </select>
+    </div>
+  </div>
+
+  <div class="a-card" style={card}>
+    <div class="a-card-header"><div class="a-card-title">🖼 Event Image</div></div>
+    <div class="image-upload-area" id="image-upload-area">
+      <div id="upload-placeholder" style={e.image_path ? "display:none;" : ""}>
+        <div class="image-upload-icon">🖼</div>
+        <div>Click or drag &amp; drop an image</div>
+        <div class="form-hint">JPEG, PNG, WebP or GIF · max 5 MB</div>
+      </div>
+      <input type="file" id="image-input" name="image" accept="image/jpeg,image/png,image/webp,image/gif" />
+      <img id="image-preview" class="image-preview" alt="Event image preview" src={e.image_path ?? ""} style={e.image_path ? "display:block;" : ""} />
+    </div>
+    {mode === "edit" && e.image_path && <span class="form-hint">Leave empty to keep the current image.</span>}
+  </div>
+
+  <div class="a-card" style={card}>
+    <div class="a-card-header"><div class="a-card-title">📍 Venue</div></div>
+    <div class="form-group">
+      <label class="form-label" for="venue_id">Venue</label>
+      <select class="form-select" id="venue_id" name="venue_id">
+        <option value="">No venue / TBA</option>
+        {options.venues.map((v) => <option value={v.id} selected={e.venue_id === v.id}>{v.name}</option>)}
+      </select>
+    </div>
+  </div>
+
+  <div class="a-card" style={card}>
+    <div class="a-card-header"><div class="a-card-title">🎟 Ticket Info</div></div>
+    <div class="form-grid">
+      <div class="form-group full">
+        <div class="toggle-group">
+          <label class="toggle"><input type="checkbox" name="is_free" id="is_free" checked={!!e.is_free} /><span class="toggle-slider"></span></label>
+          <label for="is_free" style="font-weight:600;">🟢 Free Event</label>
+        </div>
+      </div>
+      <div id="ticket-block" class="form-grid full" style="grid-column:1 / -1;">
+        <div class="form-group full">
+          <label class="form-label" for="ticket_url">Ticket URL</label>
+          <input class="form-input" type="url" id="ticket_url" name="ticket_url" value={e.ticket_url ?? ""} placeholder="https://…" />
+          <span class="form-hint">The ticket button only appears on the event page when a URL is set.</span>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="button_text">Button Text</label>
+          <select class="form-select" id="button_text" name="button_text">
+            {["Get Tickets", "Register Now", "Buy Now", "Book Now", "Donate"].map((t) => <option selected={(e.button_text ?? "Get Tickets") === t}>{t}</option>)}
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="ticket_price">Ticket Price</label>
+          <input class="form-input" id="ticket_price" name="ticket_price" maxlength="60" value={e.ticket_price ?? ""} placeholder="e.g. 499 onwards" />
+          <span class="form-hint">Free-text label shown on the card.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="a-card" style={card}>
+    <div class="a-card-header"><div class="a-card-title">⚙️ Options</div></div>
+    <div style="display:flex; flex-direction:column; gap:1rem;">
+      {options3.map((o) => (
+        <div>
+          <div class="toggle-group">
+            <label class="toggle"><input type="checkbox" name={o.name} id={o.id ?? o.name} checked={o.checked} /><span class="toggle-slider"></span></label>
+            <label for={o.id ?? o.name} style="font-weight:600;">{o.label}</label>
+          </div>
+          <span class="form-hint">{o.hint}</span>
+        </div>
+      ))}
+      <div id="recurrence-fields" class="form-grid" style="display:none;">
+        <div class="form-group">
+          <label class="form-label" for="recurrence_type">Repeats</label>
+          <select class="form-select" id="recurrence_type" name="recurrence_type">
+            <option value="weekly" selected={e.recurrence_type !== "monthly"}>Weekly</option>
+            <option value="monthly" selected={e.recurrence_type === "monthly"}>Monthly</option>
+          </select>
+        </div>
+        <div class="form-group" id="rec-weekly">
+          <span class="form-label">On days</span>
+          <div style="display:flex; flex-wrap:wrap; gap:.5rem;">
+            {days.map((d, i) => (
+              <label class="cat-chip"><input type="checkbox" name="recurrence_days[]" value={i} checked={recDays.includes(i)} /><span>{d}</span></label>
+            ))}
+          </div>
+        </div>
+        <div class="form-group" id="rec-monthly" style="display:none;">
+          <label class="form-label" for="recurrence_day_of_month">Day of month</label>
+          <input class="form-input" type="number" min="1" max="31" id="recurrence_day_of_month" name="recurrence_day_of_month" value={e.recurrence_day_of_month ?? ""} />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    {mode === "new" ? (
+      <>
+        <button type="submit" name="submit_status" value="published" class="a-btn a-btn-primary a-btn-lg">🚀 Publish Event</button>
+        <button type="submit" name="submit_status" value="draft" class="a-btn a-btn-outline a-btn-lg">💾 Save as Draft</button>
+        <a href="/admin/events" class="a-btn a-btn-outline a-btn-lg">Cancel</a>
+      </>
+    ) : (
+      <>
+        <button type="submit" class="a-btn a-btn-primary a-btn-lg">💾 Update Event</button>
+        <a href={`/event/${e.slug}`} target="_blank" rel="noopener" class="a-btn a-btn-outline a-btn-lg">👁 View Live</a>
+        <button type="submit" form="event-delete-form" class="a-btn a-btn-danger a-btn-lg" style="margin-left:auto;">🗑 Delete Event</button>
+      </>
+    )}
+  </div>
+</form>
+{mode === "edit" && (
+  <form method="POST" id="event-delete-form" data-confirm="Delete this event? This cannot be undone." data-no-loading>
+    <input type="hidden" name="action" value="delete" />
+  </form>
+)}
+
+<script>
+  const form = document.getElementById("event-form") as HTMLFormElement;
+  const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T | null;
+
+  // Categories: at most three.
+  const cats = [...form.querySelectorAll<HTMLInputElement>('input[name="category_id[]"]')];
+  const syncCats = () => {
+    const n = cats.filter((c) => c.checked).length;
+    cats.forEach((c) => { c.disabled = !c.checked && n >= 3; c.closest("label")?.classList.toggle("disabled", c.disabled); });
+    const hint = $("category-hint"); if (hint) hint.textContent = `Choose 1 to 3 categories. ${n} selected.`;
+  };
+  cats.forEach((c) => c.addEventListener("change", syncCats)); syncCats();
+  form.addEventListener("submit", (e) => {
+    if (!cats.some((c) => c.checked)) { e.preventDefault(); e.stopImmediatePropagation(); alert("Please choose at least one category."); $("category-box")?.scrollIntoView({ behavior: "smooth", block: "center" }); }
+  }, true);
+
+  // Free event hides the ticket block (legacy toggleTicketUrl).
+  const free = $<HTMLInputElement>("is_free")!, block = $("ticket-block")!;
+  const syncFree = () => { block.style.display = free.checked ? "none" : ""; };
+  free.addEventListener("change", syncFree); syncFree();
+
+  // Recurrence.
+  const rec = $<HTMLInputElement>("is_recurring")!, recBox = $("recurrence-fields")!, recType = $<HTMLSelectElement>("recurrence_type")!;
+  const syncRec = () => {
+    recBox.style.display = rec.checked ? "" : "none";
+    $("rec-weekly")!.style.display = recType.value === "weekly" ? "" : "none";
+    $("rec-monthly")!.style.display = recType.value === "monthly" ? "" : "none";
+  };
+  rec.addEventListener("change", syncRec); recType.addEventListener("change", syncRec); syncRec();
+
+  // Optional Gemini assistant (panel only exists when the API reports AI as configured).
+  const panel = $("ai-panel");
+  if (panel) {
+    const status = $("ai-status")!;
+    const set = (name: string, value: unknown) => {
+      if (value === undefined || value === null || value === "") return;
+      const el = form.elements.namedItem(name) as HTMLInputElement | null;
+      if (el && "value" in el) el.value = String(value);
+    };
+    $("ai-run")!.addEventListener("click", async () => {
+      const file = ($("ai-poster") as HTMLInputElement).files?.[0];
+      const text = ($("ai-text") as HTMLTextAreaElement).value.trim();
+      if (!file && !text) { status.textContent = "Add a poster or paste some text first."; return; }
+      const fd = new FormData(); if (file) fd.append("image", file); if (text) fd.append("text", text);
+      status.textContent = "Reading…";
+      try {
+        const res = await fetch(panel.dataset.endpoint!, { method: "POST", body: fd, credentials: "same-origin" });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error ?? "Could not read the event.");
+        const ev = data.event ?? data;
+        for (const k of ["title", "short_description", "description", "event_date", "event_time", "end_date", "end_time", "ticket_url", "ticket_price"]) set(k, ev[k]);
+        if (ev.is_free) { free.checked = true; syncFree(); }
+        status.textContent = "Form filled — please review before saving.";
+      } catch (err: any) { status.textContent = err.message; }
+    });
+  }
+</script>
+

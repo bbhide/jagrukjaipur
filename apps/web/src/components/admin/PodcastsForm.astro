@@ -1,0 +1,36 @@
+---
+interface Props { type: "episode" | "guest"; item?: any; error?: string }
+const { type, item } = Astro.props;
+const s = item?.socials ?? {};
+---
+{type === "episode" ? (
+  <form method="POST">
+    <div class="form-grid">
+      <div class="form-group"><label class="form-label" for="episode_number">Episode Number<span class="req">*</span></label><input class="form-input" type="number" min="0" id="episode_number" name="episode_number" required value={item?.episode_number ?? ""} /></div>
+      <div class="form-group"><label class="form-label" for="release_date">Release Date</label><input class="form-input" type="date" id="release_date" name="release_date" value={item?.release_date ?? ""} /></div>
+      <div class="form-group full"><label class="form-label" for="title">Title<span class="req">*</span></label><input class="form-input" id="title" name="title" required maxlength="300" value={item?.title ?? ""} /></div>
+      <div class="form-group full"><label class="form-label" for="youtube">YouTube URL or Video ID<span class="req">*</span></label><input class="form-input" id="youtube" name="youtube" required placeholder="https://www.youtube.com/watch?v=… or dQw4w9WgXcQ" value={item?.youtube_url || item?.youtube_id || ""} /><span class="form-hint">The 11-character video id is extracted automatically.</span></div>
+      <div class="form-group"><label class="form-label" for="guest_name">Guest Name</label><input class="form-input" id="guest_name" name="guest_name" value={item?.guest_name ?? ""} /></div>
+      <div class="form-group"><label class="form-label" for="guest_title">Guest Title</label><input class="form-input" id="guest_title" name="guest_title" value={item?.guest_title ?? ""} /></div>
+      <div class="form-group"><label class="form-label" for="category">Category</label><input class="form-input" id="category" name="category" value={item?.category ?? ""} /></div>
+      <div class="form-group"><label class="form-label">Active</label><div class="toggle-group"><label class="toggle"><input type="checkbox" name="is_active" checked={item ? item.is_active : true} /><span class="toggle-slider"></span></label><span class="a-muted">Visible on the public podcast page</span></div></div>
+      <div class="form-group full"><label class="form-label" for="description">Description</label><textarea class="form-textarea" id="description" name="description" rows="5">{item?.description ?? ""}</textarea></div>
+    </div>
+    <div class="form-actions"><button class="a-btn a-btn-primary a-btn-lg" type="submit">{item ? "💾 Update Episode" : "➕ Add Episode"}</button><a class="a-btn a-btn-outline a-btn-lg" href="/admin/podcasts?tab=episodes">Cancel</a></div>
+  </form>
+) : (
+  <form method="POST" enctype="multipart/form-data">
+    <div class="form-grid">
+      <div class="form-group"><label class="form-label" for="name">Guest Name<span class="req">*</span></label><input class="form-input" id="name" name="name" required maxlength="200" value={item?.name ?? ""} /></div>
+      <div class="form-group"><label class="form-label" for="designation">Designation</label><input class="form-input" id="designation" name="designation" value={item?.designation ?? ""} /></div>
+      <div class="form-group full"><label class="form-label" for="bio">Bio</label><textarea class="form-textarea" id="bio" name="bio" rows="4">{item?.bio ?? ""}</textarea></div>
+      <div class="form-group"><label class="form-label" for="photo">Photo</label>{item?.photo_path && <img class="a-avatar" src={item.photo_path} alt="" />}<input class="form-input" type="file" id="photo" name="photo" accept="image/jpeg,image/png,image/webp,image/gif" /><span class="form-hint">JPEG, PNG, WebP or GIF, up to 5 MB.{item?.photo_path ? " Leave empty to keep the current photo." : ""}</span></div>
+      <div class="form-group"><label class="form-label" for="sort_order">Sort Order</label><input class="form-input" type="number" min="0" id="sort_order" name="sort_order" value={item?.sort_order ?? 0} /><span class="form-hint">Lower numbers appear first.</span></div>
+      <div class="form-group"><label class="form-label" for="instagram">Instagram</label><input class="form-input" id="instagram" name="instagram" placeholder="https://instagram.com/…" value={s.instagram ?? ""} /></div>
+      <div class="form-group"><label class="form-label" for="linkedin">LinkedIn</label><input class="form-input" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/…" value={s.linkedin ?? ""} /></div>
+      <div class="form-group"><label class="form-label" for="twitter">Twitter / X</label><input class="form-input" id="twitter" name="twitter" placeholder="https://x.com/…" value={s.twitter ?? ""} /></div>
+      <div class="form-group"><label class="form-label" for="website">Website</label><input class="form-input" id="website" name="website" placeholder="https://…" value={s.website ?? ""} /></div>
+    </div>
+    <div class="form-actions"><button class="a-btn a-btn-primary a-btn-lg" type="submit">{item ? "💾 Update Guest" : "➕ Add Guest"}</button><a class="a-btn a-btn-outline a-btn-lg" href="/admin/podcasts?tab=guests">Cancel</a></div>
+  </form>
+)}

@@ -1,0 +1,127 @@
+---
+/**
+ * Booking confirmation / ticket pass for the logged-in owner.
+ * DESIGN NOTE: this screen was not observable on the legacy site (it sits behind a login and a real booking), so it is
+ * designed here in the site's visual language (glass-box cards, purple/orange accents) rather than copied from it.
+ */
+import QRCode from "qrcode";
+import Base from "@/layouts/Base.astro";
+import LoginRequired from "@/components/LoginRequired.astro";
+import { api, ApiError } from "@/lib/api";
+import { loadShell } from "@/lib/page";
+import { dateFull, eventUrl, time12 } from "@/lib/format";
+
+const { reference } = Astro.params;
+const { siteData, me } = await loadShell(Astro);
+Astro.response.headers.set("Cache-Control", "no-store");
+
+interface BookingRes {
+  booking: { reference: string; status: string; quantity: number; attendee_name: string; attendee_email: string | null; attendee_phone: string | null;
+             subtotal: number; discount: number; customer_fee: number; total: number; created_at: string; confirmed_at: string | null; tier_name: string };
+  event: { title: string; slug: string; event_date: string; event_time: string | null; end_date: string | null; image_path: string | null; thumb_path: string | null;
+           venue_name: string | null; venue_area: string | null; venue_address: string | null };
+  tickets: { code: string; checked_in_at: string | null }[];
+}
+
+let data: BookingRes | null = null;
+let loginRequired = false;
+try {
+  data = await api<BookingRes>(`/bookings/${encodeURIComponent(reference ?? "")}`, { request: Astro.request });
+} catch (e) {
+  if (e instanceof ApiError && e.status === 401) loginRequired = true;
+  else if (e instanceof ApiError && e.status === 404) return Astro.rewrite("/404");
+  else throw e;
+}
+
+// One QR per ticket, rendered server-side as inline SVG (white tile so scanners read it on the dark theme).
+const qrs = data
+  ? await Promise.all(data.tickets.map((t) => QRCode.toString(t.code, { type: "svg", margin: 1, errorCorrectionLevel: "M", color: { dark: "#0d0814", light: "#ffffff" } })))
+  : [];
+
+const inr = (n: number) => `₹${Number(n).toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+const statusInfo: Record<string, { label: string; cls: string; note: string }> = {
+  confirmed: { label: "Confirmed", cls: "bg-success/15 text-success border-success/40", note: "" },
+  pending: { label: "Awaiting payment", cls: "bg-accent/15 text-accent-light border-accent/40", note: "We have not received your payment yet. If you were charged, this page updates once the payment is confirmed." },
+  failed: { label: "Payment failed", cls: "bg-danger/15 text-danger border-danger/40", note: "The payment could not be verified. If money was deducted it will be refunded automatically." },
+  cancelled: { label: "Cancelled", cls: "bg-danger/15 text-danger border-danger/40", note: "This booking was cancelled." },
+  refunded: { label: "Refunded", cls: "bg-white/10 text-muted border-line-light", note: "This booking was refunded." },
+};
+const st = data ? (statusInfo[data.booking.status] ?? statusInfo.pending!) : null;
+---
+<Base title="Your Booking | Jagruk Jaipur" canonical={`/booking/${reference}`} noindex siteData={siteData} me={me}>
+  {loginRequired ? (
+    <LoginRequired ticketUrl={Astro.url.pathname} sourcePage="Booking" sourceButton="Booking Pass Login"
+      text="Please verify your WhatsApp number to view your booking and tickets." />
+  ) : data && st && (
+    <div class="container">
+      <div class="mx-auto max-w-[860px] py-10">
+        <div class="mb-8 text-center">
+          <div class="mb-2 text-[3rem]">{data.booking.status === "confirmed" ? "🎉" : "🎟"}</div>
+          <h1 class="text-[clamp(1.6rem,4vw,2.3rem)]">{data.booking.status === "confirmed" ? "You're in!" : "Your booking"}</h1>
+          <p class="mt-1 text-muted">Booking reference <strong class="font-mono tracking-wider text-ink">{data.booking.reference}</strong></p>
+          <span class={`mt-3 inline-block rounded-pill border px-4 py-1 text-[0.8rem] font-bold uppercase tracking-wider ${st.cls}`}>{st.label}</span>
+          {st.note && <p class="mx-auto mt-3 max-w-[520px] text-[0.9rem] text-muted">{st.note}</p>}
+        </div>
+
+        <!-- Event -->
+        <div class="glass-box mb-6 flex gap-5 max-sm:flex-col">
+          {(data.event.thumb_path ?? data.event.image_path) && (
+            <img src={data.event.thumb_path ?? data.event.image_path!} alt="" class="h-[110px] w-[180px] shrink-0 rounded-card object-cover max-sm:h-auto max-sm:w-full" />
+          )}
+          <div class="min-w-0">
+            <h2 class="mb-2 text-[1.3rem]"><a href={eventUrl(data.event.slug)} class="hover:text-primary-light">{data.event.title}</a></h2>
+            <div class="flex flex-col gap-1 text-[0.92rem] text-muted">
+              <div>📅 {dateFull(data.event.event_date)}{data.event.event_time && ` · ${time12(data.event.event_time)}`}</div>
+              {data.event.venue_name && <div>📍 {data.event.venue_name}{data.event.venue_area && `, ${data.event.venue_area}`}</div>}
+              {data.event.venue_address && <div class="text-[0.82rem]">{data.event.venue_address}</div>}
+            </div>
+          </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="glass-box mb-6">
+          <div class="mb-3 text-[0.72rem] font-bold uppercase tracking-[0.08em] text-faint">Booking summary</div>
+          <dl class="grid grid-cols-[auto_1fr] gap-x-6 gap-y-2 text-[0.92rem]">
+            <dt class="text-muted">Ticket</dt><dd class="text-right font-semibold">{data.booking.tier_name} × {data.booking.quantity}</dd>
+            <dt class="text-muted">Attendee</dt><dd class="text-right font-semibold">{data.booking.attendee_name}</dd>
+            {data.booking.attendee_email && <><dt class="text-muted">Email</dt><dd class="break-all text-right">{data.booking.attendee_email}</dd></>}
+            {data.booking.subtotal > 0 && <><dt class="text-muted">Subtotal</dt><dd class="text-right">{inr(data.booking.subtotal)}</dd></>}
+            {data.booking.discount > 0 && <><dt class="text-muted">Discount</dt><dd class="text-right text-[#4ade80]">-{inr(data.booking.discount)}</dd></>}
+            {data.booking.customer_fee > 0 && <><dt class="text-muted">Convenience fee &amp; GST</dt><dd class="text-right">{inr(data.booking.customer_fee)}</dd></>}
+            <dt class="border-t border-line pt-3 font-bold">{data.booking.status === "confirmed" ? "Amount paid" : "Amount"}</dt>
+            <dd class="border-t border-line pt-3 text-right text-[1.1rem] font-bold">{data.booking.total > 0 ? inr(data.booking.total) : "Free"}</dd>
+          </dl>
+        </div>
+
+        <!-- Tickets -->
+        {data.tickets.length > 0 && (
+          <div class="mb-8">
+            <div class="mb-3 flex items-center justify-between gap-3">
+              <h2 class="text-[1.3rem]">Your tickets</h2>
+              <button type="button" id="print-pass" class="btn btn-outline btn-sm">🖨 Print / Save</button>
+            </div>
+            <p class="mb-4 text-[0.9rem] text-muted">Show the QR code at the entrance. Each code admits one person and works once.</p>
+            <div class="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-4">
+              {data.tickets.map((t, i) => (
+                <div class="glass-box flex flex-col items-center text-center">
+                  <div class="mb-3 text-[0.72rem] font-bold uppercase tracking-[0.08em] text-faint">Ticket {i + 1} of {data!.tickets.length}</div>
+                  <div class="w-[200px] max-w-full overflow-hidden rounded-card bg-white p-1 [&_svg]:block [&_svg]:h-auto [&_svg]:w-full" role="img" aria-label={`QR code for ticket ${i + 1}`} set:html={qrs[i]} />
+                  <div class="mt-3 break-all font-mono text-[0.72rem] text-muted">{t.code}</div>
+                  {t.checked_in_at && <div class="mt-2 text-[0.8rem] font-semibold text-success">✓ Checked in</div>}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div class="text-center">
+          <a href="/" class="btn btn-primary">Discover more events</a>
+        </div>
+      </div>
+    </div>
+  )}
+</Base>
+
+<script>
+  document.getElementById("print-pass")?.addEventListener("click", () => window.print());
+</script>

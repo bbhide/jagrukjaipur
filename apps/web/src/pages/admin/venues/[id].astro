@@ -1,0 +1,25 @@
+---
+import Admin from "@/layouts/Admin.astro";
+import VenueForm from "@/components/admin/VenueForm.astro";
+import { adminApi, handlePost } from "@/lib/admin";
+import { formToJson, loadOrFlash } from "@/components/admin/helpers";
+
+const id = Number(Astro.params.id);
+if (!Number.isInteger(id) || id < 1) return Astro.redirect("/admin/venues", 303);
+const res = await handlePost(Astro, async (form) => {
+  if (form.get("action") === "delete") {
+    await adminApi(Astro, `/venues/${id}`, { method: "DELETE" });
+    return { message: "Venue deleted.", redirect: "/admin/venues" };
+  }
+  await adminApi(Astro, `/venues/${id}`, { method: "PUT", body: formToJson(form, ["is_active"]) });
+  return { message: "Venue updated.", redirect: "/admin/venues" };
+});
+if (res) return res;
+const venue = await loadOrFlash(Astro, () => adminApi(Astro, `/venues/${id}`), "Venue not found.");
+if (!venue) return Astro.redirect("/admin/venues", 303);
+const { areas } = await adminApi<{ areas: string[] }>(Astro, "/venues/areas");
+---
+<Admin title="Edit Venue" active="venues">
+  <div class="page-title-row"><div class="page-title">Edit Venue</div><a href="/admin/venues" class="a-btn a-btn-outline">← Back</a></div>
+  <VenueForm mode="edit" venue={venue} areas={areas} />
+</Admin>

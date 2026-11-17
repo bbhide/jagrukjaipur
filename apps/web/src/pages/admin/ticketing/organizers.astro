@@ -1,0 +1,63 @@
+---
+import Admin from "@/layouts/Admin.astro";
+import { adminApi, handlePost } from "@/lib/admin";
+import "@/styles/admin-extra-2.css";
+
+const res = await handlePost(Astro, async (form) => {
+  const id = Number(form.get("id"));
+  await adminApi(Astro, `/ticketing/organizers/${id}`, { method: "PUT", body: {
+    commission_rate: String(form.get("commission_rate")), absorption_mode: String(form.get("absorption_mode")),
+    ticketing_enabled: form.get("ticketing_enabled") === "on", approval_status: String(form.get("approval_status")),
+    gstin: String(form.get("gstin") ?? ""), state: String(form.get("state") ?? ""),
+  } });
+  return { message: "Organiser updated.", redirect: "/admin/ticketing/organizers" };
+});
+if (res) return res;
+
+const { organizers } = await adminApi<{ organizers: any[] }>(Astro, "/ticketing/organizers");
+const editId = Number(Astro.url.searchParams.get("edit_id"));
+const editing = organizers.find((o) => o.id === editId);
+const modeLabel: Record<string, string> = { organiser: "Organiser absorbs fees", customer: "Customer pays fees", split: "Split 50/50" };
+const approvalBadge: Record<string, string> = { approved: "a-badge-success", pending: "a-badge-warn", rejected: "a-badge-danger" };
+---
+<Admin title="Ticket Organisers" active="ticketing_organizers">
+  <div class="page-title-row"><div><h1 class="page-title">Ticket Organisers</h1><p class="page-subtitle">{organizers.length} registered for ticketing</p></div></div>
+
+  {editing && (
+    <div class="a-card" id="edit-form" style="margin-bottom:1.25rem;">
+      <div class="a-card-header"><h2 class="a-card-title">✏️ Edit: {editing.name}</h2></div>
+      <form method="POST" class="a-pad">
+        <input type="hidden" name="id" value={editing.id} />
+        <div class="form-grid">
+          <div class="form-group"><label class="form-label" for="commission_rate">Commission Rate (%)<span class="req">*</span></label><input class="form-input" type="number" step="0.01" min="0" max="100" id="commission_rate" name="commission_rate" required value={editing.commission_rate} /></div>
+          <div class="form-group"><label class="form-label" for="absorption_mode">Absorption Mode</label>
+            <select class="form-select" id="absorption_mode" name="absorption_mode">{Object.entries(modeLabel).map(([v, l]) => <option value={v} selected={v === editing.absorption_mode}>{l}</option>)}</select>
+            <span class="form-hint">Who pays the platform commission and GST.</span></div>
+          <div class="form-group"><label class="form-label" for="approval_status">Approval Status</label>
+            <select class="form-select" id="approval_status" name="approval_status">{["pending", "approved", "rejected"].map((v) => <option value={v} selected={v === editing.approval_status}>{v[0]!.toUpperCase() + v.slice(1)}</option>)}</select></div>
+          <div class="form-group"><label class="form-label">Ticketing Sales</label><div class="toggle-group"><label class="toggle"><input type="checkbox" name="ticketing_enabled" checked={editing.ticketing_enabled} /><span class="toggle-slider"></span></label><span class="a-muted">Enabled</span></div></div>
+          <div class="form-group"><label class="form-label" for="gstin">GSTIN</label><input class="form-input" id="gstin" name="gstin" maxlength="20" value={editing.gstin ?? ""} /></div>
+          <div class="form-group"><label class="form-label" for="state">State</label><input class="form-input" id="state" name="state" maxlength="60" value={editing.state ?? ""} /></div>
+        </div>
+        <div class="form-actions"><button class="a-btn a-btn-primary" type="submit">💾 Save Changes</button><a class="a-btn a-btn-outline" href="/admin/ticketing/organizers">Cancel</a></div>
+      </form>
+    </div>
+  )}
+
+  <div class="a-card">
+    {organizers.length === 0 ? <div class="a-empty">No ticketing organisers registered yet.</div> : (
+      <div class="a-table-wrap"><table class="a-table">
+        <thead><tr><th>ID</th><th>Brand / Entity Name</th><th>Contact</th><th>GSTIN / State</th><th>Commission</th><th>Absorption Mode</th><th>Ticketing Sales</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody>{organizers.map((o) => (
+          <tr>
+            <td>{o.id}</td><td><strong>{o.name}</strong></td>
+            <td>{o.email ?? "—"}{o.contact && <div class="a-muted">{o.contact}</div>}</td>
+            <td>{o.gstin ?? "—"}<div class="a-muted">{o.state ?? "—"}</div></td>
+            <td>{o.commission_rate}%</td><td>{modeLabel[o.absorption_mode]}</td>
+            <td><span class:list={["a-badge", o.ticketing_enabled ? "a-badge-success" : "a-badge-muted"]}>{o.ticketing_enabled ? "Enabled" : "Disabled"}</span></td>
+            <td><span class={`a-badge ${approvalBadge[o.approval_status]}`}>{o.approval_status[0].toUpperCase() + o.approval_status.slice(1)}</span></td>
+            <td><a class="a-btn a-btn-outline a-btn-sm" href={`/admin/ticketing/organizers?edit_id=${o.id}#edit-form`}>✏️ Edit</a></td>
+          </tr>))}</tbody>
+      </table></div>)}
+  </div>
+</Admin>

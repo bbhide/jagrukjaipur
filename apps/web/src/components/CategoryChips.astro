@@ -1,0 +1,13 @@
+---
+/** Coloured category chips shown at the end of a listing ("pick a vibe"). */
+import type { Category } from "@/lib/types";
+interface Props { categories: Category[] }
+const { categories } = Astro.props;
+---
+<div class="mx-auto flex max-w-[800px] flex-wrap justify-center gap-3">
+  {categories.map((c) => (
+    <a href={`/category/${c.slug}`} class="filter-chip" style={`background:${c.color}15; color:${c.color}; border:1px solid ${c.color}44; margin:0;`}>
+      <span aria-hidden="true">{c.icon}</span> {c.name}
+    </a>
+  ))}
+</div>

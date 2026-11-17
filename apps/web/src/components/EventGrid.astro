@@ -1,0 +1,9 @@
+---
+import type { EventCardData } from "@/lib/types";
+import EventCard from "./EventCard.astro";
+interface Props { events: EventCardData[]; sourcePage: string; showArea?: boolean; id?: string; reveal?: boolean }
+const { events, sourcePage, showArea = true, id, reveal = true } = Astro.props;
+---
+<div class:list={["events-grid", { "slide-up": reveal }]} id={id}>
+  {events.map((event) => <EventCard event={event} sourcePage={sourcePage} showArea={showArea} />)}
+</div>

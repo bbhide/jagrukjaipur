@@ -1,0 +1,84 @@
+---
+import Admin from "@/layouts/Admin.astro";
+import Pager from "@/components/admin/Pager.astro";
+import { adminApi, handlePost } from "@/lib/admin";
+import { pageParam } from "@/components/admin/helpers";
+import { dateShort } from "@/lib/format";
+
+const res = await handlePost(Astro, async (form) => {
+  if (form.get("action") === "delete") {
+    await adminApi(Astro, `/events/${Number(form.get("id"))}`, { method: "DELETE" });
+    return { message: "Event deleted." };
+  }
+});
+if (res) return res;
+
+const q = Astro.url.searchParams.get("q")?.trim() ?? "";
+const status = Astro.url.searchParams.get("status") ?? "";
+const page = pageParam(Astro.url);
+const data = await adminApi<{ items: any[]; total: number; pages: number; page: number }>(Astro, "/events", { query: { q, status, page } });
+const chip = "display:inline-block; font-size:.65rem; font-weight:700; padding:.1rem .45rem; border-radius:50px; margin:.15rem .25rem 0 0; background:rgba(255,255,255,.08); color:var(--a-text);";
+---
+<Admin title="Events" active="events">
+  <div class="page-title-row">
+    <div>
+      <div class="page-title">Events</div>
+      <div class="page-subtitle">{data.total} events total</div>
+    </div>
+    <a href="/admin/events/new" class="a-btn a-btn-primary">+ Add Event</a>
+  </div>
+
+  <div class="a-card">
+    <form method="GET" class="a-card-header" style="flex-wrap:wrap; justify-content:flex-start;">
+      <div class="a-search" style="flex:1; min-width:200px;">
+        <span class="a-search-icon">🔍</span>
+        <input type="search" name="q" value={q} placeholder="Search events…" aria-label="Search events" />
+      </div>
+      <select name="status" class="form-select" style="width:auto;" data-autosubmit aria-label="Status filter">
+        <option value="">All Status</option>
+        {["draft", "published", "cancelled", "past"].map((s) => <option value={s} selected={status === s}>{s[0].toUpperCase() + s.slice(1)}</option>)}
+      </select>
+      <button type="submit" class="a-btn a-btn-outline">Filter</button>
+    </form>
+
+    <div class="a-table-wrap">
+      <table class="a-table" id="events-table">
+        <thead><tr><th>Image</th><th>Title</th><th>Category</th><th>Date</th><th>Venue</th><th>Status</th><th>Featured</th><th>Views</th><th>Actions</th></tr></thead>
+        <tbody>
+          {data.items.length === 0 && <tr><td colspan="9" style="text-align:center; color:var(--a-muted); padding:2rem;">No events found.</td></tr>}
+          {data.items.map((e) => (
+            <tr>
+              <td>{e.thumb_path || e.image_path ? <img src={e.thumb_path ?? e.image_path} alt="" loading="lazy" /> : <span style="color:var(--a-muted);">—</span>}</td>
+              <td style="font-weight:600; max-width:260px;">
+                {e.title}
+                <div>
+                  {e.is_exclusive && <span style={chip}>💎 Exclusive</span>}
+                  {e.is_recurring && <span style={chip}>🔁 Recurring</span>}
+                  {e.is_free && <span style={chip}>🟢 Free</span>}
+                  {e.has_ticketing && <span style={chip}>🎫 Ticketing</span>}
+                </div>
+              </td>
+              <td>{e.category ?? "—"}</td>
+              <td class="nowrap">{dateShort(e.event_date)}</td>
+              <td>{e.venue_name ?? "—"}</td>
+              <td><span class={`status-badge status-${e.status}`}>{e.status}</span></td>
+              <td>{e.is_featured ? "⭐" : "—"}</td>
+              <td>{Number(e.views).toLocaleString("en-IN")}</td>
+              <td>
+                <div class="actions-cell">
+                  <a href={`/admin/events/${e.id}`} class="a-btn a-btn-outline a-btn-sm" title="Edit">✏️</a>
+                  <a href={`/event/${e.slug}`} target="_blank" rel="noopener" class="a-btn a-btn-outline a-btn-sm" title="View on site">👁</a>
+                  <form method="POST" data-confirm="Delete this event? This cannot be undone.">
+                    <input type="hidden" name="action" value="delete" /><input type="hidden" name="id" value={e.id} />
+                    <button type="submit" class="a-btn a-btn-danger a-btn-sm" title="Delete">🗑</button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <Pager page={data.page} pages={data.pages} params={{ q, status }} />
+  </div>
+</Admin>

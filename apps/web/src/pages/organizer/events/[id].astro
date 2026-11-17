@@ -1,0 +1,84 @@
+---
+// Layout inferred — the legacy organiser portal was not observable (see docs/01-reconnaissance.md §6)
+import "@/styles/pages/organizer.css";
+import Base from "@/layouts/Base.astro";
+import LoginRequired from "@/components/organizer/LoginRequired.astro";
+import PortalNav from "@/components/organizer/PortalNav.astro";
+import EventForm from "@/components/organizer/EventForm.astro";
+import ConfirmScript from "@/components/organizer/ConfirmScript.astro";
+import { eventFormData, formValues, loadPortal, portalFail, valuesFromEvent, type FormOptions } from "@/components/organizer/guard";
+import { api, ApiError } from "@/lib/api";
+
+const p = await loadPortal(Astro);
+if (p.redirect) return p.redirect;
+const id = encodeURIComponent(Astro.params.id ?? "");
+
+let options: FormOptions = { categories: [], venues: [] };
+let ev: any = null;
+let error = "";
+let values: Record<string, string> = {};
+let categoryIds: string[] = [];
+let tiers: any[] | undefined, questions: any[] | undefined, coupons: any[] | undefined;
+if (p.organizer) {
+  try {
+    [options, { event: ev }] = await Promise.all([
+      api<FormOptions>("/organizer/form-options", { request: Astro.request }),
+      api<{ event: any }>(`/organizer/events/${id}`, { request: Astro.request }),
+    ]);
+  } catch (e) { return portalFail(Astro, e); }
+  values = valuesFromEvent(ev);
+  categoryIds = ev.category_ids.map(String);
+  tiers = ev.tiers; questions = ev.questions; coupons = ev.coupons.map((c: any) => ({ ...c, valid_until: c.valid_until ?? "" }));
+
+  if (Astro.request.method === "POST") {
+    const form = await Astro.request.formData();
+    if (form.get("_action") === "delete") {
+      try {
+        await api(`/organizer/events/${id}`, { method: "DELETE", request: Astro.request });
+        return Astro.redirect("/organizer/dashboard?ok=deleted", 303);
+      } catch (e) {
+        if (!(e instanceof ApiError) || [401, 403, 404].includes(e.status) || e.status >= 500) return portalFail(Astro, e);
+        error = e.message;
+      }
+    } else {
+      values = formValues(form);
+      categoryIds = form.getAll("category_id[]").map(String);
+      const parse = (k: string) => { try { return JSON.parse(values[k] ?? "[]"); } catch { return undefined; } };
+      // Keep the sold counts so locked tiers stay locked when the form is re-rendered after an error.
+      const sold = new Map<number, number>((ev.tiers as any[]).map((t) => [t.id, t.sold]));
+      tiers = (parse("tiers") ?? tiers)?.map((t: any) => ({ ...t, sold: t.id ? sold.get(t.id) : undefined }));
+      questions = parse("questions") ?? questions; coupons = parse("coupons") ?? coupons;
+      try {
+        await api(`/organizer/events/${id}`, { method: "PUT", body: eventFormData(form), request: Astro.request });
+        return Astro.redirect(`/organizer/events/${id}?ok=1`, 303);
+      } catch (e) {
+        if (!(e instanceof ApiError) || [401, 403, 404].includes(e.status) || e.status >= 500) return portalFail(Astro, e);
+        error = e.message;
+      }
+    }
+  }
+}
+const saved = Astro.url.searchParams.get("ok") === "1";
+const approvalClass = ev?.approval_status === "approved" ? "ok" : ev?.approval_status === "rejected" ? "bad" : "warn";
+---
+<Base title="Edit Event | Organizer Portal" canonical={`/organizer/events/${id}`} siteData={p.siteData} me={p.me} noindex>
+  {!p.me || !p.organizer || !ev ? <LoginRequired /> : (
+    <div class="container section">
+      <div class="org-wrap org-narrow">
+        <PortalNav active="" />
+        <a href="/organizer/dashboard" class="org-back">← Back to dashboard</a>
+        <div class="organizer-header-row">
+          <div>
+            <h1 class="org-page-title">Edit event</h1>
+            <p><span class={`org-badge ${approvalClass}`}>{ev.approval_status}</span> <span class="org-badge muted">{ev.status}</span></p>
+            {ev.approval_status === "rejected" && ev.rejection_reason && <p class="flash flash-error" style="margin-top:0.75rem">Rejected: {ev.rejection_reason}. Edit and save to re-submit for review.</p>}
+          </div>
+          {ev.listing_type === "ticketing" && <a href={`/organizer/events/${ev.id}/bookings`} class="btn btn-outline">Guest list</a>}
+        </div>
+        {saved && !error && <div class="flash flash-success org-flash">Event saved.</div>}
+        <EventForm values={values} categoryIds={categoryIds} options={options} tiers={tiers} questions={questions} coupons={coupons} imagePath={ev.image_path} error={error} submitLabel="Save changes" canDelete />
+      </div>
+    </div>
+  )}
+</Base>
+<ConfirmScript />

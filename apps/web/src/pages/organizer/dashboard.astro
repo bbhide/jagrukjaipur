@@ -1,0 +1,97 @@
+---
+// Layout inferred — the legacy organiser portal was not observable (see docs/01-reconnaissance.md §6)
+import "@/styles/pages/organizer.css";
+import Base from "@/layouts/Base.astro";
+import LoginRequired from "@/components/organizer/LoginRequired.astro";
+import PortalNav from "@/components/organizer/PortalNav.astro";
+import { loadPortal, portalFail, rupees } from "@/components/organizer/guard";
+import { api } from "@/lib/api";
+import { dateShort, time12 } from "@/lib/format";
+
+const p = await loadPortal(Astro);
+if (p.redirect) return p.redirect;
+
+interface Row { id: number; title: string; slug: string; event_date: string; event_time: string | null; status: string; approval_status: string; rejection_reason: string | null; has_ticketing: boolean; sold: number; gross: number }
+let data: { organizer: { name: string }; totals: Record<string, number>; events: Row[] } | null = null;
+if (p.organizer) {
+  try { data = await api("/organizer/dashboard", { request: Astro.request }); }
+  catch (e) { return portalFail(Astro, e); }
+}
+const t = data?.totals;
+const stats = t ? [
+  ["Events", String(t.events), ""], ["Tickets sold", String(t.tickets_sold), ""], ["Gross sales", rupees(t.gross_sales), "is-accent"],
+  ["Net payout", rupees(t.net_payout), ""], ["Paid out", rupees(t.settled), "is-ok"], ["Outstanding", rupees(t.outstanding), "is-accent"],
+] : [];
+const approvalClass = (s: string) => (s === "approved" ? "ok" : s === "rejected" ? "bad" : "warn");
+const statusClass = (s: string) => (s === "published" ? "ok" : s === "cancelled" ? "bad" : "muted");
+const welcome = Astro.url.searchParams.get("ok") === "registered";
+const deleted = Astro.url.searchParams.get("ok") === "deleted";
+---
+<Base title="Organizer Dashboard | Jagruk Jaipur" canonical="/organizer/dashboard" siteData={p.siteData} me={p.me} noindex>
+  {!p.me || !data ? <LoginRequired /> : (
+    <div class="container section">
+      <div class="org-wrap">
+        <PortalNav active="dashboard" />
+        {welcome && <div class="flash flash-success org-flash">Welcome aboard! Your organiser account is ready — create your first event below.</div>}
+        {deleted && <div class="flash flash-success org-flash">Event deleted.</div>}
+        <div class="organizer-header-row">
+          <div>
+            <h1 class="org-page-title">Organizer Dashboard</h1>
+            <p class="text-muted">{data.organizer.name}</p>
+          </div>
+          <div class="organizer-action-btns">
+            <a href="/organizer/events/new" class="btn btn-primary">➕ Create Event</a>
+            <a href="/organizer/scanner" class="btn btn-outline">📷 Scan Tickets</a>
+            <a href="/organizer/payouts" class="btn btn-outline">💸 Payouts</a>
+            <a href="/organizer/profile" class="btn btn-outline">👤 Edit Profile</a>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          {stats.map(([label, value, cls]) => (
+            <div class="analytics-card"><div class="card-label">{label}</div><div class={`card-value ${cls}`}>{value}</div></div>
+          ))}
+        </div>
+
+        <h2 class="org-section-title">Your events</h2>
+        <div class="glass-box org-table-card">
+          {data.events.length === 0 ? (
+            <div class="org-empty">
+              <p style="margin-bottom:1rem">You haven't created any events yet.</p>
+              <a href="/organizer/events/new" class="btn btn-primary">➕ Create your first event</a>
+            </div>
+          ) : (
+            <div class="table-responsive">
+              <table class="dashboard-table">
+                <thead><tr><th>Event</th><th>Date</th><th>Status</th><th>Approval</th><th class="num">Sold</th><th class="num">Gross</th><th></th></tr></thead>
+                <tbody>
+                  {data.events.map((e) => (
+                    <tr>
+                      <td><strong>{e.title}</strong><div class="sub">{e.has_ticketing ? "🎟 Ticketing" : "📋 Free listing"}</div></td>
+                      <td>{dateShort(e.event_date)}{e.event_time && <div class="sub">{time12(e.event_time)}</div>}</td>
+                      <td><span class={`org-badge ${statusClass(e.status)}`}>{e.status}</span></td>
+                      <td>
+                        <span class={`org-badge ${approvalClass(e.approval_status)}`}>{e.approval_status}</span>
+                        {e.approval_status === "rejected" && e.rejection_reason && <div class="reason">Reason: {e.rejection_reason}</div>}
+                      </td>
+                      <td class="num">{e.sold}</td>
+                      <td class="num">{rupees(e.gross)}</td>
+                      <td>
+                        <div class="organizer-action-btns">
+                          <a href={`/organizer/events/${e.id}`} class="btn btn-outline btn-sm">Edit</a>
+                          {e.has_ticketing && <a href={`/organizer/events/${e.id}/bookings`} class="btn btn-outline btn-sm">Guest list</a>}
+                          {e.approval_status === "approved" && e.status === "published" && <a href={`/event/${e.slug}`} class="btn btn-outline btn-sm">View</a>}
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+        <p class="org-note" style="margin-top:1rem">New and edited events are reviewed by our team before they appear on the site. Gross sales are ticket revenue after promo discounts.</p>
+      </div>
+    </div>
+  )}
+</Base>

@@ -1,0 +1,34 @@
+---
+/**
+ * Card for a finished event ("Past Events" on organiser and venue pages). Unlike EventCard it is a plain link —
+ * past events are not auth-gated — with a greyscale image, a "Past" badge, muted text and no footer.
+ * The legacy inline styles reference undefined CSS variables, so the badges render with no background and muted text/border.
+ */
+import type { EventCardData } from "@/lib/types";
+import { cardDate, eventUrl } from "@/lib/format";
+
+interface Props { event: EventCardData }
+const { event: e } = Astro.props;
+---
+<a href={eventUrl(e.slug)} class="event-card" aria-label={e.title}>
+  {e.is_exclusive && <div class="ribbon-exclusive"><span>JJ Exclusive</span></div>}
+  <div class="event-card-image">
+    {(e.thumb_path || e.image_path) && <img src={e.thumb_path ?? e.image_path} alt={e.title} loading="lazy" style="filter: grayscale(80%);" />}
+  </div>
+  <div class="event-card-body">
+    <div class="event-card-badges">
+      <span class="badge" style="background:#555; color:#fff;">Past</span>
+      {e.categories.map((c) => <span class="badge badge-cat" style="background:transparent; color:var(--text-muted); border-color:var(--text-muted);">{c.icon} {c.name}</span>)}
+    </div>
+    <div class="event-card-date" style="color:var(--text-muted);">
+      📅 {cardDate(e)} {e.interests > 0 && <span class="interest-chip">👍🏻 {e.interests} Interests</span>}
+    </div>
+    <h3 class="event-card-title">{e.title}</h3>
+    {e.venue_name && (
+      <div class="event-card-venue" style="color:var(--text-muted);">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z" /><circle cx="12" cy="9" r="2.5" /></svg>
+        {e.venue_name}
+      </div>
+    )}
+  </div>
+</a>

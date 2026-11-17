@@ -1,0 +1,367 @@
+---
+import Base from "@/layouts/Base.astro";
+import { api, ApiError } from "@/lib/api";
+import { loadShell } from "@/lib/page";
+import { dateCompact, site } from "@/lib/format";
+import "@/styles/pages/podcast.css";
+
+interface Episode {
+  id: number; episode_number: number; title: string; youtube_id: string; youtube_url: string | null;
+  guest_name: string | null; guest_title: string | null; category: string | null; description: string | null; release_date: string | null;
+}
+interface Guest { id: number; name: string; designation: string | null; bio: string | null; photo_path: string | null; socials: Record<string, string> | null }
+
+const FIELDS = ["name", "phone", "email", "designation", "topic", "bio"] as const;
+let values: Record<string, string> = {};
+let success = false;
+let errors: string[] = [];
+
+if (Astro.request.method === "POST") {
+  const form = await Astro.request.formData();
+  for (const f of FIELDS) values[f] = String(form.get(f) ?? "").trim();
+  const honeypot = String(form.get("website_url") ?? "");
+  const phone = values.phone.replace(/[\s-]/g, "").replace(/^(\+91|91|0)(?=\d{10}$)/, "");
+  if (!/^\d{10}$/.test(phone)) errors.push("Please enter a valid 10-digit mobile number.");
+  else {
+    try {
+      await api("/podcast/applications", { body: { ...values, phone, website_url: honeypot }, request: Astro.request });
+      success = true;
+      values = {};
+    } catch (e) {
+      if (e instanceof ApiError) {
+        errors = e.fields?.length ? e.fields.map((f) => f.message) : [e.message];
+        if (e.status === 429) Astro.response.status = 429;
+      } else throw e;
+    }
+  }
+  if (!success && Astro.response.status === 200) Astro.response.status = 400;
+}
+
+const [{ siteData, me }, podcast] = await Promise.all([
+  loadShell(Astro),
+  api<{ episodes: Episode[]; guests: Guest[]; featured: Episode | null }>("/podcast"),
+]);
+const { episodes, guests, featured } = podcast;
+
+const title = "Podcast in Jaipur | #1 Jaipur Podcast, Talk Shows & Guest Stories — Jagruk Jaipur";
+const description = "Discover the #1 Podcast in Jaipur by Jagruk Jaipur. Watch video podcasts & talk shows featuring Jaipur's top entrepreneurs, artists, cultural icons, and change-makers.";
+const faqLd = [
+  ["What is the Jagruk Jaipur Podcast?", "The Jagruk Jaipur Podcast is the premier video podcast and talk show series in Jaipur, featuring in-depth interviews with Pink City entrepreneurs, artists, cultural icons, startup founders, and community leaders."],
+  ["How can I watch or listen to the Podcast in Jaipur?", "You can watch full video episodes for free on our official website at jagrukjaipur.com/podcast or on the Jagruk Jaipur YouTube channel (@jagrukjaipur)."],
+  ["How can I apply to be a guest on the Jaipur Podcast?", "Fill out the Podcast Guest Application form on jagrukjaipur.com/podcast with your name, WhatsApp number, background, and proposed topic. Our production team reviews applications within 48 hours."],
+  ["Is there any fee to be featured as a guest on the Jagruk Jaipur Podcast?", "No, guest nominations and applications are reviewed 100% free based on story value, local impact, and relevance to the Jaipur community."],
+  ["What topics are covered on the Jaipur Podcast?", "Episodes cover Jaipur startup growth, food & hospitality stories, Rajasthani art and craft heritage, stand-up comedy, music, photography, and city culture."],
+];
+const jsonLd = [{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "PodcastSeries", "@id": `${site.url}/podcast#series`, name: "Jagruk Jaipur Podcast — Top Podcast in Jaipur",
+      url: `${site.url}/podcast`, description, inLanguage: "en-IN", genre: ["Talk Show", "Business", "Culture", "Entertainment"],
+      publisher: { "@type": "Organization", name: site.name, url: site.url, logo: `${site.url}/assets/img/logo.webp` },
+      ...(episodes.length ? { episode: episodes.map((e) => ({
+        "@type": "PodcastEpisode", episodeNumber: e.episode_number, name: e.title, url: e.youtube_url ?? `https://www.youtube.com/watch?v=${e.youtube_id}`,
+        ...(e.description ? { description: e.description } : {}), ...(e.release_date ? { datePublished: e.release_date } : {}),
+      })) } : {}),
+    },
+    { "@type": "BreadcrumbList", itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: site.url },
+      { "@type": "ListItem", position: 2, name: "Podcast in Jaipur", item: `${site.url}/podcast` },
+    ] },
+    { "@type": "FAQPage", mainEntity: faqLd.map(([name, text]) => ({ "@type": "Question", name, acceptedAnswer: { "@type": "Answer", text } })) },
+  ],
+}];
+const thumb = (id: string) => `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+const ytLink = (e: Episode) => e.youtube_url || `https://www.youtube.com/watch?v=${e.youtube_id}`;
+const pillars = [
+  ["🎭", "Culture & Heritage", "Highlighting Jaipur's rich art, food, architecture, performing arts, and heritage conservationists."],
+  ["🚀", "Startups & Business", "Insider stories of Jaipur entrepreneurs, D2C brands, tech innovators, and business visionaries."],
+  ["🎤", "Creators & Artists", "Spotlighting local musicians, comedians, content creators, photographers, and youth icons."],
+];
+const faqs: { q: string; a: string }[] = [
+  { q: "What is the Jagruk Jaipur Podcast?", a: "The Jagruk Jaipur Podcast is the premier video talk show in Jaipur. We host authentic, unscripted conversations with Pink City entrepreneurs, startup founders, cultural icons, artists, and visionaries shaping Rajasthan's future." },
+  { q: "How can I watch or listen to the Podcast in Jaipur?", a: "" },
+  { q: "How can I apply to be a guest on the Jaipur Podcast?", a: "" },
+  { q: "Is there any fee to be featured as a guest on the podcast?", a: "No! Guest nominations and applications are reviewed 100% free based on merit, story depth, and value for our audience in Jaipur." },
+  { q: "What topics are covered on the Jaipur Podcast?", a: "Our episodes cover Jaipur's booming startup ecosystem, heritage craftsmanship, food culture, stand-up comedy, music, fashion, architectural conservation, and inspiring personal success stories." },
+];
+---
+<Base title={title} description={description} canonical="/podcast" siteData={siteData} me={me} activeFilter="podcast" jsonLd={jsonLd}>
+  <div class="podcast-page">
+
+    <!-- 1. Hero -->
+    <section class="podcast-hero">
+      <div class="container">
+        <div class="podcast-hero-grid">
+          <div class="podcast-hero-text">
+            <span class="podcast-pill">🎙️ The Official Jaipur Podcast</span>
+            <h1 class="podcast-hero-title">The Voice of <span class="gradient-text">Pink City</span></h1>
+            <p class="podcast-hero-subtitle">Deep conversations with Jaipur’s most inspiring entrepreneurs, cultural curators, artists, leaders, and change-makers. Uncovering authentic stories that shape Rajasthan.</p>
+            <div class="podcast-stats-bar">
+              <div class="stat-item"><span class="stat-num">50K+</span><span class="stat-lbl">Listeners &amp; Viewers</span></div>
+              <div class="stat-divider"></div>
+              <div class="stat-item"><span class="stat-num">100%</span><span class="stat-lbl">Jaipur Stories</span></div>
+              <div class="stat-divider"></div>
+              <div class="stat-item"><span class="stat-num">#1</span><span class="stat-lbl">Jaipur Talk Show</span></div>
+            </div>
+            <div class="pc-actions">
+              <a href="#episodes-section" class="btn btn-primary btn-lg">▶️ Watch All Episodes</a>
+              <a href="#become-guest-section" class="btn btn-outline btn-lg">✨ Be Our Next Guest</a>
+            </div>
+          </div>
+          <div class="podcast-hero-media">
+            {featured && (
+              <div class="featured-video-card">
+                <div class="video-container-embed">
+                  <iframe src={`https://www.youtube.com/embed/${featured.youtube_id}?rel=0&modestbranding=1`} title={featured.title}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="featured-video-info">
+                  <span class="badge pc-badge-featured">🔥 Featured Episode #{featured.episode_number}</span>
+                  <h3 class="pc-featured-title">{featured.title}</h3>
+                  {featured.guest_name && (
+                    <p class="pc-featured-guest">Guest: {featured.guest_name}{featured.guest_title ? ` — ${featured.guest_title}` : ""}</p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. About -->
+    <section class="section pc-band pc-band-both">
+      <div class="container">
+        <div class="pc-about">
+          <span class="badge pc-badge pc-badge-purple">📖 Who We Are &amp; What We Do</span>
+          <h2 class="heading-lg pc-h2" style="margin-bottom:1.5rem">Unfiltering Stories of <span class="gradient-text">Jaipur’s Trailblazers</span></h2>
+          <p class="pc-lead"><strong>Jagruk Jaipur Podcast</strong> is the premier audio-visual interview series dedicated to celebrating the people, culture, innovation, and vibrant spirit of Jaipur.</p>
+          <p class="pc-lead-2">From traditional artisans preserving age-old Rajasthani crafts to tech founders building global startups out of C-Scheme and Malviya Nagar, our podcast brings you unscripted, raw, and value-packed conversations with leaders shaping the destiny of the Pink City.</p>
+          <div class="pc-pillars">
+            {pillars.map(([icon, h, p]) => (
+              <div class="glass-box pc-pillar"><div class="pc-pillar-icon">{icon}</div><h4>{h}</h4><p>{p}</p></div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Episodes -->
+    <section id="episodes-section" class="section">
+      <div class="container">
+        <div class="pc-head">
+          <div>
+            <span class="badge pc-badge-green">📺 Full Episodes</span>
+            <h2 class="heading-lg pc-h2">Watch Latest <span class="gradient-text">Jaipur Podcast</span> Episodes</h2>
+          </div>
+        </div>
+        {episodes.length > 0 && (
+          <div class="podcast-grid">
+            {episodes.map((e) => (
+              <div class="podcast-card glass-box">
+                <button type="button" class="podcast-thumb-wrap js-podcast-open" data-youtube-id={e.youtube_id} data-title={e.title} aria-label={`Play episode: ${e.title}`}>
+                  <img src={thumb(e.youtube_id)} alt={e.title} loading="lazy" class="podcast-thumb-img" />
+                  <span class="play-overlay"><span class="play-btn-circle">▶</span></span>
+                  <span class="ep-badge">EP #{e.episode_number}</span>
+                </button>
+                <div class="podcast-card-body">
+                  <div class="pc-card-meta">
+                    {e.category ? <span class="podcast-cat-tag">{e.category}</span> : <span></span>}
+                    {e.release_date && <span class="pc-card-date">{dateCompact(e.release_date)}</span>}
+                  </div>
+                  <h3 class="podcast-card-title js-podcast-open" data-youtube-id={e.youtube_id} data-title={e.title} role="button" tabindex="0">{e.title}</h3>
+                  {e.guest_name && (
+                    <div class="podcast-card-guest">
+                      👤 <strong>Guest:</strong> {e.guest_name}
+                      {e.guest_title && <span class="pc-guest-role"> ({e.guest_title})</span>}
+                    </div>
+                  )}
+                  {e.description && <p class="podcast-card-desc">{e.description}</p>}
+                  <div class="pc-card-foot">
+                    <button type="button" class="btn btn-primary btn-sm js-podcast-open" data-youtube-id={e.youtube_id} data-title={e.title}>▶ Watch Episode</button>
+                    <a href={ytLink(e)} target="_blank" rel="noopener" class="pc-yt-link">YouTube ↗</a>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+
+    <!-- 4. Guests -->
+    {guests.length > 0 && (
+      <section class="section pc-band">
+        <div class="container">
+          <div class="pc-section-head">
+            <span class="badge pc-badge pc-badge-gold">🌟 Distinguished Guests</span>
+            <h2 class="heading-lg pc-h2">Featured <span class="gradient-text">Podcast Guests</span></h2>
+            <p>Inspiring leaders, creators, entrepreneurs, and visionaries who have joined us on the mic.</p>
+          </div>
+          <div class="guests-grid">
+            {guests.map((g) => (
+              <div class="guest-card glass-box">
+                <div class="guest-avatar-wrap">
+                  {g.photo_path
+                    ? <img src={g.photo_path} alt={g.name} class="guest-avatar-img" loading="lazy" />
+                    : <div class="guest-avatar-placeholder">{g.name.charAt(0).toUpperCase()}</div>}
+                </div>
+                <h3 class="guest-name">{g.name}</h3>
+                {g.designation && <div class="guest-title">{g.designation}</div>}
+                {g.bio && <p class="guest-bio">{g.bio}</p>}
+                <div class="guest-socials">
+                  {Object.entries(g.socials ?? {}).filter(([, url]) => url).map(([k, url]) => (
+                    <a href={url} target="_blank" rel="noopener" style="color:#a78bfa">{k.charAt(0).toUpperCase() + k.slice(1)}</a>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- 5. Guest application -->
+    <section id="become-guest-section" class="section">
+      <div class="container">
+        <div class="pc-apply-wrap">
+          <div id="guest-form" class="glass-box slide-up pc-apply-box">
+            <div class="pc-apply-glow"></div>
+            <div class="pc-apply-head">
+              <span class="badge pc-badge pc-badge-violet">✨ Podcast Guest Application</span>
+              <h2 class="heading-lg pc-h2" style="margin-bottom:0.75rem">Be Our Next <span class="gradient-text">Podcast Guest</span> 🎙️</h2>
+              <p>Are you building an innovative startup in Jaipur, creating unique art, preserving heritage, or leading a transformative initiative? We want to share your journey with Jaipur!</p>
+            </div>
+
+            {success && (
+              <div class="pc-alert pc-alert-ok" role="status">
+                <strong>🎉 Application Submitted!</strong>
+                Thank you for applying to be a guest on the Jagruk Jaipur Podcast. Our production team will review your application and get back to you within 48 hours.
+              </div>
+            )}
+            {errors.length > 0 && (
+              <div class="pc-alert pc-alert-err" role="alert">
+                {errors.length === 1 ? errors[0] : <ul>{errors.map((m) => <li>{m}</li>)}</ul>}
+              </div>
+            )}
+
+            {!success && (
+              <form method="POST" action="/podcast#become-guest-section" id="podcast-guest-form">
+                <input type="hidden" name="action" value="apply_podcast_guest" />
+                <div class="pc-hp" aria-hidden="true"><input type="text" name="website_url" tabindex="-1" autocomplete="off" /></div>
+
+                <div class="grid-col-2">
+                  <div class="form-group">
+                    <label class="form-label" for="app_name">Full Name <span class="pc-req">*</span></label>
+                    <input class="form-input" type="text" id="app_name" name="name" value={values.name ?? ""} required placeholder="e.g. Dr. Radhika Sharma" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="app_phone">WhatsApp / Mobile Number <span class="pc-req">*</span></label>
+                    <input class="form-input" type="tel" id="app_phone" name="phone" value={values.phone ?? ""} required placeholder="10-digit mobile number" inputmode="numeric" />
+                  </div>
+                </div>
+                <div class="grid-col-2">
+                  <div class="form-group">
+                    <label class="form-label" for="app_email">Email Address <span class="pc-req">*</span></label>
+                    <input class="form-input" type="email" id="app_email" name="email" value={values.email ?? ""} required placeholder="you@example.com" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="app_designation">Designation / Company / Profession</label>
+                    <input class="form-input" type="text" id="app_designation" name="designation" value={values.designation ?? ""} placeholder="e.g. Founder at Jaipur Artisans" />
+                  </div>
+                </div>
+                <div class="form-group" style="margin-bottom:1.5rem">
+                  <label class="form-label" for="app_topic">Proposed Podcast Topic / Headline <span class="pc-req">*</span></label>
+                  <input class="form-input" type="text" id="app_topic" name="topic" value={values.topic ?? ""} required placeholder="e.g. How we are scaling sustainable block printing from Jaipur to 20+ countries" />
+                </div>
+                <div class="form-group" style="margin-bottom:2rem">
+                  <label class="form-label" for="app_bio">Brief Bio &amp; Why you'd be a great guest <span class="pc-req">*</span></label>
+                  <textarea class="form-input" id="app_bio" name="bio" rows="4" required placeholder="Tell us briefly about your background, journey, and key takeaways for our listeners...">{values.bio ?? ""}</textarea>
+                </div>
+                <button type="submit" id="podcast_guest_btn" class="btn btn-primary btn-lg pc-submit" data-loading-text="Submitting Application...">Submit Podcast Guest Application 🚀</button>
+                <div id="podcast-submitting-banner" class="form-submitting-banner">
+                  <span class="btn-spinner"></span>
+                  Submitting your application to the Jagruk Jaipur podcast team...
+                </div>
+              </form>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. FAQ -->
+    <section class="section pc-band" style="padding:4rem 0">
+      <div class="container pc-faq-wrap">
+        <div class="pc-faq-head">
+          <span class="badge pc-badge pc-badge-lilac">❓ Frequently Asked Questions</span>
+          <h2 class="heading-lg pc-h2" style="margin-bottom:0.5rem">Everything About <span class="gradient-text">Podcast in Jaipur</span></h2>
+          <p>Common questions about our show, guest invitations, recording, and media coverage.</p>
+        </div>
+        <div class="pc-faq-list">
+          {faqs.map((f, i) => (
+            <details class="pc-faq">
+              <summary>{f.q}<span class="faq-icon">+</span></summary>
+              <div class="pc-faq-body">
+                {i === 1 ? (<Fragment>You can watch full video podcast episodes directly on our website at <a href="/podcast">jagrukjaipur.com/podcast</a> or subscribe to our official YouTube channel at <a href={site.youtube} target="_blank" rel="noopener">@jagrukjaipur</a>.</Fragment>)
+                  : i === 2 ? (<Fragment>Simply fill in our <a href="#become-guest-section">Podcast Guest Application Form</a> above with your background, achievements, and proposed topic. Our production team reviews applications and responds within 48 hours.</Fragment>)
+                  : f.a}
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- YouTube modal -->
+  <div id="podcast-video-modal" class="podcast-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-video-title" aria-hidden="true">
+    <div class="podcast-modal-content">
+      <button type="button" class="podcast-modal-close" aria-label="Close video">&times;</button>
+      <div id="modal-video-title" class="podcast-modal-title"></div>
+      <div class="video-container-embed">
+        <iframe id="modal-youtube-iframe" src="" title="Podcast episode video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</Base>
+
+<script>
+  const modal = document.getElementById("podcast-video-modal")!;
+  const iframe = document.getElementById("modal-youtube-iframe") as HTMLIFrameElement;
+  const titleEl = document.getElementById("modal-video-title")!;
+  const closeBtn = modal.querySelector<HTMLButtonElement>(".podcast-modal-close")!;
+  let trigger: HTMLElement | null = null;
+
+  function open(el: HTMLElement) {
+    trigger = el;
+    titleEl.textContent = el.dataset.title ?? "";
+    iframe.src = `https://www.youtube.com/embed/${el.dataset.youtubeId}?autoplay=1&rel=0&modestbranding=1`;
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    closeBtn.focus();
+  }
+  function close() {
+    if (!modal.classList.contains("is-open")) return;
+    iframe.src = "";
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+    trigger?.focus();
+    trigger = null;
+  }
+  document.addEventListener("click", (e) => {
+    const t = e.target as HTMLElement;
+    const el = t.closest<HTMLElement>(".js-podcast-open");
+    if (el) return open(el);
+    if (t === modal || t.closest(".podcast-modal-close")) close();
+  });
+  document.addEventListener("keydown", (e) => {
+    const t = e.target as HTMLElement;
+    if (e.key === "Escape") close();
+    else if (e.key === "Tab" && modal.classList.contains("is-open")) { e.preventDefault(); closeBtn.focus(); }
+    else if ((e.key === "Enter" || e.key === " ") && t.matches?.("h3.js-podcast-open")) { e.preventDefault(); open(t); }
+  });
+</script>

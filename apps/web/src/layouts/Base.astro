@@ -1,0 +1,106 @@
+---
+import "@/styles/global.css";
+import Navbar from "@/components/Navbar.astro";
+import MobileDrawer from "@/components/MobileDrawer.astro";
+import FilterBar from "@/components/FilterBar.astro";
+import Footer from "@/components/Footer.astro";
+import FloatingWidgets from "@/components/FloatingWidgets.astro";
+import AuthModals from "@/components/vue/AuthModals.vue";
+import { site } from "@/lib/format";
+import type { Me, SiteData } from "@/lib/types";
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Path of the canonical URL; defaults to the current path. */
+  canonical?: string;
+  ogImage?: string;
+  ogType?: string;
+  noindex?: boolean;
+  siteData: SiteData;
+  me: Me | null;
+  /** Filter-bar chip to highlight: "all", "free", "trending", "podcast" or a category slug. */
+  activeFilter?: string;
+  searchValue?: string;
+  jsonLd?: object[];
+}
+const {
+  title, description = "Discover the best events happening in Jaipur — concerts, comedy shows, food fests, art exhibitions, and more.",
+  canonical = Astro.url.pathname, ogImage = "/img/og-default.webp", ogType = "website", noindex = false,
+  siteData, me, activeFilter = "", searchValue, jsonLd = [],
+} = Astro.props;
+
+const abs = (p: string) => (p.startsWith("http") ? p : `${site.url}${p}`);
+const canonicalUrl = abs(canonical === "/" ? "/" : canonical.replace(/\/$/, ""));
+const path = Astro.url.pathname + Astro.url.search;
+
+const globalLd = [
+  { "@context": "https://schema.org", "@type": "WebSite", name: site.name, url: site.url,
+    potentialAction: { "@type": "SearchAction", target: `${site.url}/search?q={search_term_string}`, "query-input": "required name=search_term_string" } },
+  { "@context": "https://schema.org", "@type": "ItemList", itemListElement: [
+      ["Today's Events", "/events-in-jaipur-today"], ["Weekend Events", "/events-this-weekend-in-jaipur"], ["Trending Events", "/trending-events-in-jaipur"],
+      ["Comedy Shows", "/category/comedy"], ["Music Concerts", "/category/music"], ["Art & Culture", "/category/art"],
+    ].map(([name, url], i) => ({ "@type": "SiteNavigationElement", position: i + 1, name, url: site.url + url })) },
+];
+const ld = (o: object) => JSON.stringify(o).replace(/</g, "\\u003c");
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={site.keywords} />
+    <meta name="robots" content={noindex ? "noindex, follow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Jagruk Jaipur" />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
+    <meta name="theme-color" content="#0D0814" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={abs(ogImage)} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={site.name} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={abs(ogImage)} />
+
+    {[...globalLd, ...jsonLd].map((o) => <script type="application/ld+json" set:html={ld(o)} />)}
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+    {site.clarityId && (
+      <script is:inline define:vars={{ clarityId: site.clarityId }}>
+        (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", clarityId);
+      </script>
+    )}
+    <slot name="head" />
+  </head>
+  <body>
+    <Navbar userName={me?.name ?? null} path={path} searchValue={searchValue} />
+    <MobileDrawer userName={me?.name ?? null} path={path} />
+    <FilterBar filters={siteData.filters} active={activeFilter} />
+
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <Footer />
+    <FloatingWidgets />
+    <AuthModals client:load loggedIn={!!me} />
+    <script>import "@/scripts/site";</script>
+  </body>
+</html>

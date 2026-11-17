@@ -1,0 +1,61 @@
+@layer theme, base, components, utilities;
+@layer components {
+.tk-hero { padding: 4rem 0 3rem; background: radial-gradient(circle at 50% 20%, rgba(124,58,237,0.18) 0%, rgba(13,8,20,0) 70%); }
+.tk-center { text-align: center; }
+.tk-pill { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(124,58,237,0.15); border: 1px solid rgba(124,58,237,0.4); color: #a78bfa; padding: 0.4rem 1.1rem; border-radius: 50px; font-size: 0.88rem; font-weight: 700; margin-bottom: 1.5rem; letter-spacing: 0.03em; }
+.tk-h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 900; line-height: 1.15; margin: 0 auto 1.25rem; color: #fff; max-width: 900px; font-family: 'Outfit', sans-serif; }
+.tk-grad { background: linear-gradient(135deg, #a78bfa 0%, #f472b6 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.tk-sub { font-size: 1.15rem; color: var(--text-muted); max-width: 760px; margin: 0 auto 2.5rem; line-height: 1.65; }
+.tk-cta-row { display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3.5rem; }
+.tk-cta-row .btn-primary { padding: 1rem 2.25rem; font-size: 1.1rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(124,58,237,0.4); }
+.tk-cta-row .btn-outline { padding: 1rem 2rem; font-size: 1.05rem; border-radius: 12px; border-color: rgba(255,255,255,0.25); color: #fff; }
+.tk-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.5rem; max-width: 950px; margin: 0 auto; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 1.75rem 1rem; }
+.tk-stat-num { font-size: 2.2rem; font-weight: 900; font-family: 'Outfit', sans-serif; }
+.tk-stat-lbl { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; margin-top: 0.2rem; }
+.tk-sec { padding: 4rem 0; border-top: 1px solid rgba(255,255,255,0.05); }
+.tk-sec-tint { background: rgba(124,58,237,0.02); }
+.tk-sec-head { text-align: center; max-width: 650px; margin: 0 auto 3.5rem; }
+.tk-sec-head h2 { font-size: 2.2rem; font-weight: 800; color: #fff; margin-bottom: 0.75rem; }
+.tk-sec-head p { color: var(--text-muted); font-size: 1.05rem; }
+.tk-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.75rem; }
+.tk-feature { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 2rem; transition: transform 0.3s ease; }
+.tk-feature:hover { transform: translateY(-5px); }
+.tk-feature-free { background: rgba(34,197,94,0.04); border-color: rgba(34,197,94,0.3); }
+.tk-feature-icon { width: 56px; height: 56px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin-bottom: 1.25rem; border: 1px solid transparent; }
+.tk-feature h3 { font-size: 1.35rem; font-weight: 700; color: #fff; margin-bottom: 0.6rem; }
+.tk-feature p { color: var(--text-muted); line-height: 1.6; font-size: 0.95rem; }
+.tk-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+.tk-step { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 1.5rem; text-align: center; }
+.tk-step-num { width: 40px; height: 40px; border-radius: 50%; background: #7C3AED; color: #fff; font-weight: 800; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; }
+.tk-step-num-last { background: #4ade80; color: #000; }
+.tk-step h4 { color: #fff; font-size: 1.1rem; margin-bottom: 0.5rem; }
+.tk-step p { color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; }
+.tk-free-banner { background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.3); border-radius: 18px; padding: 1.75rem 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.25rem; max-width: 950px; margin: 3.5rem auto 0; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+.tk-free-banner-l { display: flex; align-items: center; gap: 1rem; }
+.tk-free-banner-l > span { font-size: 2.2rem; }
+.tk-free-banner h3 { font-size: 1.25rem; font-weight: 800; color: #fff; margin-bottom: 0.25rem; }
+.tk-free-banner p { color: var(--text-muted); font-size: 0.95rem; margin: 0; }
+.tk-free-banner .btn { background: #22c55e; color: #000; font-weight: 800; border: none; padding: 0.75rem 1.5rem; border-radius: 10px; }
+.tk-faq-sec { padding: 4rem 0; }
+.tk-faq-wrap { max-width: 800px; }
+.tk-faq-head { text-align: center; margin-bottom: 3rem; }
+.tk-faq-head h2 { font-size: 2rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem; }
+.tk-faq-head p { color: var(--text-muted); }
+.tk-faq-list { display: flex; flex-direction: column; gap: 1rem; }
+.tk-faq { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1.25rem; cursor: pointer; }
+.tk-faq-free { background: rgba(34,197,94,0.05); border-color: rgba(34,197,94,0.3); }
+.tk-faq summary { font-weight: 700; font-size: 1.1rem; color: #fff; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+.tk-faq summary::-webkit-details-marker { display: none; }
+.tk-faq summary:focus-visible { outline: 2px solid #a78bfa; outline-offset: 4px; border-radius: 6px; }
+.tk-faq .faq-icon { font-size: 1.3rem; opacity: 0.7; display: inline-block; transition: transform 0.2s; }
+.tk-faq[open] .faq-icon { transform: rotate(45deg); }
+.tk-faq-body { margin-top: 0.75rem; color: var(--text-muted); line-height: 1.65; font-size: 0.95rem; }
+.tk-faq-body a { color: #a78bfa; text-decoration: underline; }
+.tk-final { padding: 4rem 0 6rem; }
+.tk-final-box { background: linear-gradient(135deg, #7C3AED 0%, #4C1D95 100%); border-radius: 24px; padding: 3.5rem 2rem; text-align: center; color: #fff; position: relative; overflow: hidden; box-shadow: 0 20px 50px rgba(124,58,237,0.35); }
+.tk-final-glow { position: absolute; top: -100px; left: -100px; width: 300px; height: 300px; background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%); pointer-events: none; }
+.tk-final-box h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; margin-bottom: 1rem; line-height: 1.2; }
+.tk-final-box p { font-size: 1.1rem; opacity: 0.9; max-width: 600px; margin: 0 auto 2.5rem; line-height: 1.6; }
+.tk-final-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.tk-final-actions .btn { background: #fff; color: #7C3AED; font-weight: 800; padding: 1rem 2.5rem; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+}

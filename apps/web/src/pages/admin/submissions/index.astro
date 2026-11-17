@@ -1,0 +1,58 @@
+---
+import Admin from "@/layouts/Admin.astro";
+import { adminApi, handlePost } from "@/lib/admin";
+import { dateShort } from "@/lib/format";
+
+const res = await handlePost(Astro, async (form) => {
+  if (form.get("action") === "delete") {
+    await adminApi(Astro, `/submissions/${Number(form.get("id"))}`, { method: "DELETE" });
+    return { message: "Submission deleted." };
+  }
+});
+if (res) return res;
+const { items } = await adminApi<{ items: any[] }>(Astro, "/submissions");
+const istDate = (iso: string) => dateShort(new Date(iso).toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" }));
+const str = (v: unknown) => (v === undefined || v === null ? "" : String(v));
+---
+<Admin title="Submissions" active="submissions">
+  <div class="page-title-row">
+    <div><div class="page-title">Submissions</div><div class="page-subtitle">{items.length} pending</div></div>
+  </div>
+  <div class="a-card">
+    <div class="a-table-wrap">
+      <table class="a-table">
+        <thead><tr><th>ID</th><th>Submitted On</th><th>Submitter Info</th><th>Event Title &amp; Date</th><th>Actions</th></tr></thead>
+        <tbody>
+          {items.length === 0 && <tr><td colspan="5" style="text-align:center; color:var(--a-muted); padding:2rem;">No pending submissions.</td></tr>}
+          {items.map((s) => {
+            const p = s.payload ?? {};
+            const title = str(p.title ?? p.event_title ?? p.name) || "(untitled)";
+            const date = str(p.event_date ?? p.date).slice(0, 10);
+            return (
+              <tr>
+                <td style="color:var(--a-muted);">#{s.id}</td>
+                <td class="nowrap">{istDate(s.created_at)}</td>
+                <td>
+                  <div style="font-weight:600;">{s.submitter_name ?? "Unknown"}</div>
+                  <div style="font-size:.78rem; color:var(--a-muted);">{s.submitter_number ?? ""}{s.submitter_email ? ` · ${s.submitter_email}` : ""}</div>
+                </td>
+                <td>
+                  <span class={`status-badge ${s.kind === "community" ? "status-past" : "status-published"}`} style="margin-right:.4rem;">{s.kind}</span>
+                  <strong>{title}</strong>
+                  {date && /^\d{4}-\d{2}-\d{2}$/.test(date) && <div style="font-size:.78rem; color:var(--a-muted);">📅 {dateShort(date)}</div>}
+                </td>
+                <td><div class="actions-cell">
+                  {s.kind === "event" && <a href={`/admin/events/new?submission_id=${s.id}`} class="a-btn a-btn-primary a-btn-sm">➕ Add Event</a>}
+                  <form method="POST" data-confirm="Delete this submission?">
+                    <input type="hidden" name="action" value="delete" /><input type="hidden" name="id" value={s.id} />
+                    <button type="submit" class="a-btn a-btn-danger a-btn-sm" title="Delete">🗑</button>
+                  </form>
+                </div></td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</Admin>

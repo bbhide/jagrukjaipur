@@ -1,0 +1,74 @@
+---
+import "@/styles/admin.css";
+import { takeFlash } from "@/lib/admin";
+
+interface Props { title: string; /** Sidebar key to highlight, e.g. "events". */ active: string }
+const { title, active } = Astro.props;
+const admin = Astro.locals.admin!;
+const flash = takeFlash(Astro);
+const nav = [
+  ["dashboard", "📊", "Dashboard", "/admin"], ["events", "🎉", "Events", "/admin/events"], ["venues", "📍", "Venues", "/admin/venues"],
+  ["categories", "🏷", "Categories", "/admin/categories"], ["organizers", "🎤", "Organisers", "/admin/organizers"], ["users", "👥", "Users", "/admin/users"],
+  ["analytics", "📈", "Analytics", "/admin/analytics"], ["submissions", "📥", "Submissions", "/admin/submissions"], ["podcasts", "🎙️", "Podcasts & Guests", "/admin/podcasts"],
+  ["ticketing_organizers", "🎫", "Ticket Organisers", "/admin/ticketing/organizers"], ["ticketing_events", "⏳", "Ticketing Events", "/admin/ticketing/events"],
+  ["ticketing_sales", "💰", "Ticket Sales", "/admin/ticketing/sales"], ["ticketing_settlements", "💸", "Payout Settlements", "/admin/ticketing/settlements"],
+  ["ticketing_promos", "🏷️", "Listing Promo Codes", "/admin/ticketing/promos"], ["settings", "⚙️", "Settings & Integrations", "/admin/settings"],
+];
+const initials = admin.username.slice(0, 2).toUpperCase();
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} — Admin · Jagruk Jaipur</title>
+    <meta name="robots" content="noindex,nofollow" />
+    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+    <slot name="head" />
+  </head>
+  <body>
+    <div class="admin-layout">
+      <div class="sidebar-overlay" id="sidebar-overlay"></div>
+      <aside class="admin-sidebar" id="admin-sidebar" role="navigation" aria-label="Admin Navigation">
+        <div class="sidebar-logo"><a href="/admin" class="block w-full"><img src="/img/logo.webp" alt="Jagruk Jaipur" style="height:40px; width:auto; object-fit:contain;" /></a></div>
+        <nav class="sidebar-nav">
+          <div class="sidebar-section-label">Main</div>
+          {nav.map(([key, icon, label, href]) => (
+            <a href={href} class:list={["sidebar-link", { active: active === key }]} id={`nav-${key}`} aria-current={active === key ? "page" : undefined}>
+              <span class="icon" aria-hidden="true">{icon}</span>{label}
+            </a>
+          ))}
+          <div class="sidebar-section-label" style="margin-top:.75rem;">Site</div>
+          <a href="/" target="_blank" class="sidebar-link" id="nav-view-site"><span class="icon" aria-hidden="true">🌐</span>View Public Site</a>
+          <form method="POST" action="/admin/logout" data-confirm="Sign out?">
+            <button type="submit" class="sidebar-link w-full border-0 bg-transparent text-left" id="nav-logout"><span class="icon" aria-hidden="true">🚪</span>Sign Out</button>
+          </form>
+        </nav>
+        <div class="sidebar-footer">
+          <div class="topbar-user">
+            <div class="user-avatar">{initials}</div>
+            <div><div style="font-weight:600; font-size:.82rem;">{admin.username}</div><div style="font-size:.72rem; color:var(--a-muted);">{admin.display_name}</div></div>
+          </div>
+        </div>
+      </aside>
+
+      <div class="admin-main">
+        <header class="admin-topbar">
+          <div style="display:flex; align-items:center; gap:1rem;">
+            <button id="sidebar-toggle" aria-label="Toggle sidebar">☰</button>
+            <div class="topbar-breadcrumb"><span>Admin</span><span style="opacity:.4;">/</span><strong>{title}</strong></div>
+          </div>
+          <div class="topbar-actions"><a href="/admin/events/new" class="a-btn a-btn-primary a-btn-sm" id="topbar-add-event">+ Add Event</a></div>
+        </header>
+        <div class="admin-content">
+          {flash && <div class={`a-flash a-flash-${flash.type}`} role="status">{flash.message}</div>}
+          <slot />
+        </div>
+      </div>
+    </div>
+    <script>import "@/scripts/admin";</script>
+  </body>
+</html>

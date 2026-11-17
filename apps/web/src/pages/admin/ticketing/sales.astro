@@ -1,0 +1,32 @@
+---
+import Admin from "@/layouts/Admin.astro";
+import { adminApi, fmtINR } from "@/lib/admin";
+import "@/styles/admin-extra-2.css";
+
+const { totals, by_event, by_organizer } = await adminApi<any>(Astro, "/ticketing/sales");
+const fmtD = (d: string) => new Date(`${d}T00:00:00+05:30`).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric", timeZone: "Asia/Kolkata" });
+const cards: [string, string, string][] = [
+  ["🎫", "Total Tickets Sold", Number(totals.tickets_sold).toLocaleString("en-IN")], ["💰", "Gross Ticket Sales", fmtINR(totals.gross_sales)],
+  ["🏦", "Platform Commission", fmtINR(totals.commission)], ["🧾", "GST Collected (18% on commission)", fmtINR(totals.gst)], ["💸", "Organizer Payouts", fmtINR(totals.organizer_payouts)],
+];
+---
+<Admin title="Ticket Sales" active="ticketing_sales">
+  <div class="page-title-row"><div><h1 class="page-title">Ticket Sales</h1><p class="page-subtitle">Confirmed bookings only</p></div></div>
+  <div class="stats-grid">{cards.map(([i, l, v]) => <div class="stat-card"><div class="stat-icon" aria-hidden="true">{i}</div><div class="stat-info"><strong>{v}</strong><span>{l}</span></div></div>)}</div>
+
+  <div class="a-card"><div class="a-card-header"><h2 class="a-card-title">Sales Performance by Event</h2></div>
+    {by_event.length === 0 ? <div class="a-empty">No ticket sales yet.</div> : (
+      <div class="a-table-wrap"><table class="a-table">
+        <thead><tr><th>Event</th><th>Organiser</th><th>Date</th><th class="a-num">Tickets Sold</th><th class="a-num">Gross Sales</th><th class="a-num">Commission</th><th class="a-num">Net Payout</th></tr></thead>
+        <tbody>{by_event.map((e: any) => <tr><td><strong>{e.title}</strong></td><td>{e.organizer_name ?? "—"}</td><td class="nowrap">{fmtD(e.event_date)}</td><td class="a-num">{e.tickets_sold}</td><td class="a-num">{fmtINR(e.gross_sales)}</td><td class="a-num">{fmtINR(e.commission)}</td><td class="a-num">{fmtINR(e.net_payout)}</td></tr>)}</tbody>
+      </table></div>)}
+  </div>
+
+  <div class="a-card" style="margin-top:1.25rem;"><div class="a-card-header"><h2 class="a-card-title">Sales Performance by Organiser</h2></div>
+    {by_organizer.length === 0 ? <div class="a-empty">No ticketing organisers yet.</div> : (
+      <div class="a-table-wrap"><table class="a-table">
+        <thead><tr><th>Organiser</th><th class="a-num">Commission Rate</th><th class="a-num">Tickets Sold</th><th class="a-num">Gross Sales</th><th class="a-num">Platform Commission</th><th class="a-num">Net Payout Due</th><th class="a-num">Settled Amount</th><th class="a-num">Outstanding Balance</th></tr></thead>
+        <tbody>{by_organizer.map((o: any) => <tr><td><strong>{o.name}</strong></td><td class="a-num">{o.commission_rate}%</td><td class="a-num">{o.tickets_sold}</td><td class="a-num">{fmtINR(o.gross_sales)}</td><td class="a-num">{fmtINR(o.platform_commission)}</td><td class="a-num">{fmtINR(o.net_payout_due)}</td><td class="a-num">{fmtINR(o.settled_amount)}</td><td class="a-num"><strong style={o.outstanding > 0 ? "color:#fbbf24;" : ""}>{fmtINR(o.outstanding)}</strong></td></tr>)}</tbody>
+      </table></div>)}
+  </div>
+</Admin>

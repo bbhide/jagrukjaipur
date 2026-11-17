@@ -1,0 +1,62 @@
+---
+import Admin from "@/layouts/Admin.astro";
+import { adminApi, fmtINR, handlePost } from "@/lib/admin";
+import "@/styles/admin-extra-2.css";
+
+const res = await handlePost(Astro, async (form) => {
+  await adminApi(Astro, "/ticketing/settlements", { method: "POST", body: {
+    organizer_id: String(form.get("organizer_id") ?? ""), amount: String(form.get("amount") ?? ""),
+    payment_mode: String(form.get("payment_mode") ?? ""), summary: String(form.get("summary") ?? ""),
+  } });
+  return { message: "Payout recorded." };
+});
+if (res) return res;
+
+const { balances, ledger } = await adminApi<{ balances: any[]; ledger: any[] }>(Astro, "/ticketing/settlements");
+const fmtT = (t: string) => new Date(t).toLocaleString("en-IN", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", timeZone: "Asia/Kolkata" });
+---
+<Admin title="Payout Settlements" active="ticketing_settlements">
+  <div class="page-title-row"><div><h1 class="page-title">Payout Settlements</h1><p class="page-subtitle">Record transfers made to organisers and track what is still due</p></div></div>
+
+  <div class="a-card"><div class="a-card-header"><h2 class="a-card-title">Organiser Balances</h2></div>
+    {balances.length === 0 ? <div class="a-empty">No ticketing organisers yet.</div> : (
+      <div class="a-table-wrap"><table class="a-table">
+        <thead><tr><th>Organiser</th><th class="a-num">Total Earned</th><th class="a-num">Total Settled</th><th class="a-num">Outstanding Due</th><th>Action</th></tr></thead>
+        <tbody>{balances.map((b) => (
+          <tr><td><strong>{b.name}</strong></td><td class="a-num">{fmtINR(b.total_earned)}</td><td class="a-num">{fmtINR(b.total_settled)}</td>
+            <td class="a-num"><strong style={b.outstanding > 0 ? "color:#fbbf24;" : ""}>{fmtINR(b.outstanding)}</strong></td>
+            <td><button type="button" class="a-btn a-btn-outline a-btn-sm" data-quickfill data-id={b.organizer_id} data-amount={Math.max(0, b.outstanding).toFixed(2)}>⚡ Quick fill</button></td></tr>))}</tbody>
+      </table></div>)}
+  </div>
+
+  <div class="a-card" style="margin-top:1.25rem;" id="record-form"><div class="a-card-header"><h2 class="a-card-title">Record Payout Transfer</h2></div>
+    <form method="POST" class="a-pad">
+      <div class="form-grid">
+        <div class="form-group"><label class="form-label" for="organizer_id">Organiser<span class="req">*</span></label>
+          <select class="form-select" id="organizer_id" name="organizer_id" required><option value="">Select organiser…</option>{balances.map((b) => <option value={b.organizer_id}>{b.name} (due {fmtINR(b.outstanding)})</option>)}</select></div>
+        <div class="form-group"><label class="form-label" for="amount">Amount (₹)<span class="req">*</span></label><input class="form-input" type="number" step="0.01" min="0.01" id="amount" name="amount" required placeholder="0.00" /></div>
+        <div class="form-group"><label class="form-label" for="payment_mode">Payment Mode<span class="req">*</span></label>
+          <select class="form-select" id="payment_mode" name="payment_mode" required>{["UPI", "Bank Transfer", "NetBanking", "Cash"].map((m) => <option value={m}>{m}</option>)}</select></div>
+        <div class="form-group full"><label class="form-label" for="summary">Transfer Summary<span class="req">*</span></label><textarea class="form-textarea" id="summary" name="summary" required maxlength="500" rows="3" placeholder="Reference / UTR number, period covered, notes…"></textarea></div>
+      </div>
+      <div class="form-actions"><button class="a-btn a-btn-primary" type="submit" data-confirm="Record this payout transfer? It is added to the ledger.">💸 Record Payout</button></div>
+    </form>
+  </div>
+
+  <div class="a-card" style="margin-top:1.25rem;"><div class="a-card-header"><h2 class="a-card-title">Settlement Payout Ledger</h2></div>
+    {ledger.length === 0 ? <div class="a-empty">No payouts recorded yet.</div> : (
+      <div class="a-table-wrap"><table class="a-table">
+        <thead><tr><th>ID</th><th>Date</th><th>Organiser</th><th class="a-num">Amount</th><th>Mode</th><th>Summary</th><th>Recorded By</th></tr></thead>
+        <tbody>{ledger.map((l) => <tr><td>{l.id}</td><td class="nowrap">{fmtT(l.created_at)}</td><td>{l.organizer_name}</td><td class="a-num">{fmtINR(l.amount)}</td><td>{l.payment_mode}</td><td style="max-width:280px;">{l.summary}</td><td>{l.created_by_name ?? "—"}</td></tr>)}</tbody>
+      </table></div>)}
+  </div>
+</Admin>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-quickfill]").forEach((b) => b.addEventListener("click", () => {
+    (document.getElementById("organizer_id") as HTMLSelectElement).value = b.dataset.id ?? "";
+    (document.getElementById("amount") as HTMLInputElement).value = b.dataset.amount ?? "";
+    document.getElementById("record-form")?.scrollIntoView({ behavior: "smooth", block: "center" });
+    document.getElementById("summary")?.focus();
+  }));
+</script>

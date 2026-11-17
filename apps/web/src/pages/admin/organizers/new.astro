@@ -1,0 +1,16 @@
+---
+import Admin from "@/layouts/Admin.astro";
+import OrganizerForm from "@/components/admin/OrganizerForm.astro";
+import { adminApi, handlePost } from "@/lib/admin";
+
+const res = await handlePost(Astro, async (form) => {
+  await adminApi(Astro, "/organizers", { method: "POST", body: form });
+  return { message: "Organiser created.", redirect: "/admin/organizers" };
+});
+if (res) return res;
+const { categories } = await adminApi<{ categories: any[] }>(Astro, "/events/form-options");
+---
+<Admin title="Add Organiser" active="organizers">
+  <div class="page-title-row"><div class="page-title">Add Organiser</div><a href="/admin/organizers" class="a-btn a-btn-outline">← Back</a></div>
+  <OrganizerForm mode="new" categories={categories} />
+</Admin>

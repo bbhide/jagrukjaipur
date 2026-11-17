@@ -1,0 +1,126 @@
+---
+import "@/styles/admin-extra-1.css";
+interface Props { organizer?: Record<string, any> | null; categories: { id: number; name: string; icon: string }[]; mode: "new" | "edit" }
+const { organizer = null, categories, mode } = Astro.props;
+const o = organizer ?? { is_active: true, is_community: false, features: [], category_ids: [] };
+const STANDARD = [["Paid Events", "🎟️"], ["Group Chat", "💬"], ["Workshops", "📚"], ["Kid Friendly", "🧸"], ["Free Events", "🆓"], ["Networking", "🤝"], ["Open Mic", "🎤"]];
+const stdLabels = STANDARD.map(([l]) => l);
+const features: { icon: string; label: string }[] = Array.isArray(o.features) ? o.features : [];
+const checked = new Set(features.map((f) => f.label));
+const custom = features.filter((f) => !stdLabels.includes(f.label));
+const socials = [
+  ["social_instagram", "Instagram", "https://instagram.com/…"], ["social_facebook", "Facebook", "https://facebook.com/…"], ["social_twitter", "Twitter / X", "https://x.com/…"],
+  ["social_whatsapp", "WhatsApp", "Group / channel link or number"], ["social_website", "Website", "https://…"],
+];
+const card = "margin-bottom:1.25rem;";
+---
+<form method="POST" enctype="multipart/form-data" id="organizer-form">
+  <div class="a-card" style={card}>
+    <div class="a-card-header"><div class="a-card-title">🎤 Basic Information</div></div>
+    <div class="form-grid">
+      <div class="form-group"><label class="form-label" for="name">Name<span class="req">*</span></label><input class="form-input" id="name" name="name" required maxlength="200" value={o.name ?? ""} /></div>
+      <div class="form-group"><label class="form-label" for="contact">Contact</label><input class="form-input" id="contact" name="contact" maxlength="120" value={o.contact ?? ""} placeholder="Phone number or email" /></div>
+      <div class="form-group">
+        <div class="toggle-group"><label class="toggle"><input type="checkbox" name="is_active" id="is_active" checked={!!o.is_active} /><span class="toggle-slider"></span></label><label for="is_active" style="font-weight:600;">Active</label></div>
+      </div>
+      <div class="form-group">
+        <div class="toggle-group"><label class="toggle"><input type="checkbox" name="is_community" id="is_community" checked={!!o.is_community} /><span class="toggle-slider"></span></label><label for="is_community" style="font-weight:600;">Show as a community</label></div>
+        <span class="form-hint">Communities get a public page in the Communities directory.</span>
+      </div>
+      <div class="form-group full">
+        <label class="form-label" for="about">About</label>
+        <textarea class="form-textarea" id="about" name="about" rows="4" maxlength="5000">{o.about ?? ""}</textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="a-card" style={card}>
+    <div class="a-card-header"><div class="a-card-title">🖼 Logo</div></div>
+    <div class="image-upload-area" id="image-upload-area">
+      <div id="upload-placeholder" style={o.logo_path ? "display:none;" : ""}>
+        <div class="image-upload-icon">🖼</div>
+        <div>Click or drag &amp; drop a logo</div>
+        <div class="form-hint">Square image works best · max 5 MB</div>
+      </div>
+      <input type="file" id="image-input" name="logo" accept="image/jpeg,image/png,image/webp,image/gif" />
+      <img id="image-preview" class="image-preview" alt="Logo preview" src={o.logo_path ?? ""} style={o.logo_path ? "display:block; max-width:200px;" : "max-width:200px;"} />
+    </div>
+    {mode === "edit" && o.logo_path && <span class="form-hint">Leave empty to keep the current logo.</span>}
+  </div>
+
+  <div class="a-card" style={card}>
+    <div class="a-card-header"><div class="a-card-title">🏷 Themes</div></div>
+    <div id="theme-box" style="display:flex; flex-wrap:wrap; gap:.5rem;">
+      {categories.map((c) => (
+        <label class="cat-chip"><input type="checkbox" name="category_id[]" value={c.id} checked={(o.category_ids ?? []).includes(c.id)} /><span>{c.icon} {c.name}</span></label>
+      ))}
+    </div>
+    <span class="form-hint">Choose up to 3 themes.</span>
+  </div>
+
+  <div class="a-card" style={card}>
+    <div class="a-card-header"><div class="a-card-title">✨ Features</div></div>
+    <div style="display:flex; flex-wrap:wrap; gap:.5rem;">
+      {STANDARD.map(([label, icon]) => (
+        <label class="cat-chip"><input type="checkbox" name="features[]" value={label} checked={checked.has(label)} /><span>{icon} {label}</span></label>
+      ))}
+    </div>
+    <div style="margin-top:1.25rem;">
+      <span class="form-label">Custom features</span>
+      <div id="custom-features" style="display:flex; flex-direction:column; gap:.5rem; margin-top:.5rem;">
+        {custom.map((f) => (
+          <div class="custom-row" style="display:flex; gap:.5rem;">
+            <input class="form-input" name="custom_feature_icon[]" value={f.icon} maxlength="8" placeholder="😀" style="width:80px;" aria-label="Emoji" />
+            <input class="form-input" name="custom_feature_label[]" value={f.label} maxlength="40" placeholder="Feature name" aria-label="Feature name" />
+            <button type="button" class="a-btn a-btn-danger a-btn-sm" data-remove aria-label="Remove feature">✕</button>
+          </div>
+        ))}
+      </div>
+      <button type="button" class="a-btn a-btn-outline a-btn-sm" id="add-feature" style="margin-top:.75rem;">+ Add custom feature</button>
+    </div>
+    <template id="feature-template">
+      <div class="custom-row" style="display:flex; gap:.5rem;">
+        <input class="form-input" name="custom_feature_icon[]" maxlength="8" placeholder="😀" style="width:80px;" aria-label="Emoji" />
+        <input class="form-input" name="custom_feature_label[]" maxlength="40" placeholder="Feature name" aria-label="Feature name" />
+        <button type="button" class="a-btn a-btn-danger a-btn-sm" data-remove aria-label="Remove feature">✕</button>
+      </div>
+    </template>
+  </div>
+
+  <div class="a-card" style={card}>
+    <div class="a-card-header"><div class="a-card-title">🔗 Social Links</div></div>
+    <div class="form-grid">
+      {socials.map(([name, label, ph]) => (
+        <div class="form-group"><label class="form-label" for={name}>{label}</label><input class="form-input" id={name} name={name} value={o[name] ?? ""} placeholder={ph} maxlength="300" /></div>
+      ))}
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <button type="submit" class="a-btn a-btn-primary a-btn-lg">{mode === "new" ? "💾 Save Organiser" : "💾 Update Organiser"}</button>
+    <a href="/admin/organizers" class="a-btn a-btn-outline a-btn-lg">Cancel</a>
+    {mode === "edit" && <button type="submit" form="organizer-delete-form" class="a-btn a-btn-danger a-btn-lg" style="margin-left:auto;">🗑 Delete Organiser</button>}
+  </div>
+</form>
+{mode === "edit" && (
+  <form method="POST" id="organizer-delete-form" data-confirm="Delete this organiser? Their events will be left without an organiser." data-no-loading>
+    <input type="hidden" name="action" value="delete" />
+  </form>
+)}
+<script>
+  const form = document.getElementById("organizer-form") as HTMLFormElement;
+  const themes = [...form.querySelectorAll<HTMLInputElement>('input[name="category_id[]"]')];
+  const syncThemes = () => {
+    const n = themes.filter((c) => c.checked).length;
+    themes.forEach((c) => { c.disabled = !c.checked && n >= 3; c.closest("label")?.classList.toggle("disabled", c.disabled); });
+  };
+  themes.forEach((c) => c.addEventListener("change", syncThemes)); syncThemes();
+
+  const list = document.getElementById("custom-features")!;
+  document.getElementById("add-feature")!.addEventListener("click", () => {
+    const tpl = document.getElementById("feature-template") as HTMLTemplateElement;
+    list.appendChild(tpl.content.cloneNode(true));
+    list.querySelector<HTMLInputElement>(".custom-row:last-child input")?.focus();
+  });
+  list.addEventListener("click", (e) => { (e.target as HTMLElement).closest("[data-remove]")?.closest(".custom-row")?.remove(); });
+</script>

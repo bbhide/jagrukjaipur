@@ -1,0 +1,28 @@
+---
+import Base from "@/layouts/Base.astro";
+import { loadShell } from "@/lib/page";
+const { siteData, me } = await loadShell(Astro);
+const [y, m] = siteData.today.split("-").map(Number);
+const updated = `${["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][m - 1]} ${y}`;
+const h3 = "mt-6 mb-2 text-ink";
+---
+<Base title="Privacy Policy — Jagruk Jaipur" description="Privacy Policy for Jagruk Jaipur." canonical="/privacy" siteData={siteData} me={me}>
+  <div class="container section">
+    <div class="glass-box slide-up mx-auto max-w-[800px] p-12">
+      <h1 class="heading-lg mb-6">Privacy Policy 🔒</h1>
+      <p class="mb-8 text-[1.1rem] leading-[1.8] text-muted">Last updated: {updated}</p>
+      <div class="leading-[1.7] text-muted">
+        <h3 class={h3}>1. Information We Collect</h3>
+        <p>We do not collect any personal data unless it is voluntarily provided to us (e.g., through contacting us). We may automatically collect non-identifiable data regarding your usage of the website, such as IP addresses, browser types, and access times, primarily through standard analytics tools.</p>
+        <h3 class={h3}>2. Use of Information</h3>
+        <p>Any information we collect is used solely to improve our user experience, ensure our platform functions correctly, and analyze aggregate traffic trends.</p>
+        <h3 class={h3}>3. Cookies</h3>
+        <p>Jagruk Jaipur may use minimal cookies to maintain session states and improve website speed and performance. You can disable cookies in your browser settings at any time without fundamentally breaking access to public event listings.</p>
+        <h3 class={h3}>4. Third-Party Links</h3>
+        <p>Our platform aggregates events that contain links to third-party booking platforms (like BookMyShow, Paytm Insider, etc). Jagruk Jaipur is not responsible for the privacy practices or the content of those external websites.</p>
+        <h3 class={h3}>5. Contact</h3>
+        <p>If you have any questions regarding this Privacy Policy, please <a href="/contact" class="text-primary-light underline">contact us</a>.</p>
+      </div>
+    </div>
+  </div>
+</Base>

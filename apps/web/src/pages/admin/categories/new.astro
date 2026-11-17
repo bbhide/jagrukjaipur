@@ -1,0 +1,16 @@
+---
+import Admin from "@/layouts/Admin.astro";
+import CategoryForm from "@/components/admin/CategoryForm.astro";
+import { adminApi, handlePost } from "@/lib/admin";
+import { formToJson } from "@/components/admin/helpers";
+
+const res = await handlePost(Astro, async (form) => {
+  await adminApi(Astro, "/categories", { method: "POST", body: formToJson(form, ["is_active"]) });
+  return { message: "Category created.", redirect: "/admin/categories" };
+});
+if (res) return res;
+---
+<Admin title="Add Category" active="categories">
+  <div class="page-title-row"><div class="page-title">Add Category</div><a href="/admin/categories" class="a-btn a-btn-outline">← Back</a></div>
+  <CategoryForm mode="new" />
+</Admin>

@@ -1,0 +1,60 @@
+---
+import Admin from "@/layouts/Admin.astro";
+import { adminApi, handlePost } from "@/lib/admin";
+import "@/styles/admin-extra-2.css";
+
+const res = await handlePost(Astro, async (form) => {
+  const action = String(form.get("action") ?? "");
+  const str = (k: string) => String(form.get(k) ?? "");
+  if (action === "gemini") {
+    const r = await adminApi(Astro, "/settings/gemini", { method: "PUT", body: { gemini_api_key: str("gemini_api_key"), gemini_model: str("gemini_model") } });
+    return { message: r.message };
+  }
+  if (action === "razorpay") {
+    const r = await adminApi(Astro, "/settings/razorpay", { method: "PUT", body: { razorpay_key_id: str("razorpay_key_id"), razorpay_key_secret: str("razorpay_key_secret") } });
+    return { message: r.message };
+  }
+  if (action === "notifications") { await adminApi(Astro, "/settings/notifications", { method: "PUT", body: { admin_notification_emails: str("admin_notification_emails") } }); return { message: "Notification recipients saved." }; }
+  if (action === "test_email") { await adminApi(Astro, "/settings/test-email", { method: "POST", body: {} }); return { message: "Test email sent." }; }
+});
+if (res) return res;
+
+const s = await adminApi<any>(Astro, "/settings");
+---
+<Admin title="Settings & Integrations" active="settings">
+  <div class="page-title-row"><div><h1 class="page-title">Settings &amp; Integrations</h1><p class="page-subtitle">API keys are verified before saving and are never shown again</p></div></div>
+
+  <div class="a-two-col">
+    <div class="a-card"><div class="a-card-header"><h2 class="a-card-title">✨ Google Gemini</h2><span class:list={["a-pill", s.gemini_configured ? "a-pill-ok" : "a-pill-off"]}>{s.gemini_configured ? "● Configured" : "○ Not configured"}</span></div>
+      <form method="POST" class="a-pad"><input type="hidden" name="action" value="gemini" />
+        <p class="a-muted" style="margin-bottom:1rem;">Powers the AI assistant on the event form (poster or pasted text to event details).</p>
+        <div class="form-group" style="margin-bottom:1rem;"><label class="form-label" for="gemini_api_key">API Key</label><input class="form-input" type="password" id="gemini_api_key" name="gemini_api_key" autocomplete="off" placeholder={s.gemini_configured ? "•••••••• (leave blank to keep the saved key)" : "Paste your Gemini API key"} /></div>
+        <div class="form-group" style="margin-bottom:1rem;"><label class="form-label" for="gemini_model">Model</label><input class="form-input" id="gemini_model" name="gemini_model" required value={s.gemini_model} /></div>
+        <div class="form-actions"><button class="a-btn a-btn-primary" type="submit" data-loading-text="Testing connection...">💾 Save &amp; Test Connection</button></div>
+      </form></div>
+
+    <div class="a-card"><div class="a-card-header"><h2 class="a-card-title">💳 Razorpay</h2><span class:list={["a-pill", s.razorpay_configured ? "a-pill-ok" : "a-pill-off"]}>{s.razorpay_configured ? "● Connected" : "○ Not configured"}</span></div>
+      <form method="POST" class="a-pad"><input type="hidden" name="action" value="razorpay" />
+        <p class="a-muted" style="margin-bottom:1rem;">Used for ticket checkout and listing fees. Keys are tested against Razorpay before they are saved.</p>
+        <div class="form-group" style="margin-bottom:1rem;"><label class="form-label" for="razorpay_key_id">Key ID</label><input class="form-input" id="razorpay_key_id" name="razorpay_key_id" required autocomplete="off" placeholder="rzp_live_…" value={s.razorpay_key_id} /></div>
+        <div class="form-group" style="margin-bottom:1rem;"><label class="form-label" for="razorpay_key_secret">Key Secret</label><input class="form-input" type="password" id="razorpay_key_secret" name="razorpay_key_secret" required autocomplete="off" placeholder="Enter the secret to save new keys" /></div>
+        <div class="form-actions"><button class="a-btn a-btn-primary" type="submit" data-loading-text="Testing connection...">💾 Save &amp; Test Connection</button></div>
+      </form></div>
+
+    <div class="a-card"><div class="a-card-header"><h2 class="a-card-title">📧 Submission Notifications</h2></div>
+      <form method="POST" class="a-pad"><input type="hidden" name="action" value="notifications" />
+        <div class="form-group" style="margin-bottom:1rem;"><label class="form-label" for="admin_notification_emails">Recipient e-mails</label><input class="form-input" id="admin_notification_emails" name="admin_notification_emails" value={s.admin_notification_emails} placeholder="a@example.com, b@example.com" /><span class="form-hint">Comma-separated. Notified when a visitor submits an event or community.</span></div>
+        <div class="form-actions"><button class="a-btn a-btn-primary" type="submit">💾 Save Recipients</button></div>
+      </form></div>
+
+    <div class="a-card"><div class="a-card-header"><h2 class="a-card-title">✉️ Send Test Email</h2><span class:list={["a-pill", s.smtp_configured ? "a-pill-ok" : "a-pill-off"]}>{s.smtp_configured ? "● SMTP configured" : "○ SMTP not configured"}</span></div>
+      <form method="POST" class="a-pad"><input type="hidden" name="action" value="test_email" />
+        <p class="a-muted" style="margin-bottom:1rem;">Sends a test message to the recipients above. Requires the <code>SMTP_URL</code> environment variable.</p>
+        <div class="form-actions"><button class="a-btn a-btn-outline" type="submit">📨 Send Test Email</button></div>
+      </form></div>
+  </div>
+
+  <div class="a-card" style="margin-top:1.25rem;"><div class="a-card-header"><h2 class="a-card-title">🗄 Database Migrations</h2></div>
+    <div class="a-pad"><p class="a-muted" style="font-size:.88rem;line-height:1.6;">Schema changes are versioned SQL files in <code>db/migrations</code> and are applied from the command line with <code>npm run db:migrate</code> during deployment. There is no migration runner in the admin panel.</p></div>
+  </div>
+</Admin>

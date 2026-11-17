@@ -1,0 +1,14 @@
+---
+import type { Category } from "@/lib/types";
+import CategoryChips from "./CategoryChips.astro";
+interface Props { categories: Category[]; hidden?: boolean; chips?: boolean }
+const { categories, hidden = false, chips = true } = Astro.props;
+---
+<div id="end-of-events" class="slide-up px-4 pt-16 pb-8 text-center" style={hidden ? "display:none" : undefined}>
+  <div class="mb-4 text-5xl leading-normal">🏁</div>
+  <h3 class="mb-2 text-[1.8rem]">That's all, folks!</h3>
+  <p class="mx-auto mb-8 max-w-[500px] leading-[1.6] text-muted">
+    {chips ? "You've reached the end of the lineup. Still looking for plans? Pick a vibe and explore what else Jaipur has to offer:" : "You've reached the end of the lineup."}
+  </p>
+  {chips && <CategoryChips categories={categories} />}
+</div>

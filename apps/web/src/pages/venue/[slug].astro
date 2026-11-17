@@ -1,0 +1,78 @@
+---
+import Base from "@/layouts/Base.astro";
+import EmptyState from "@/components/EmptyState.astro";
+import EventGrid from "@/components/EventGrid.astro";
+import PastEventCard from "@/components/PastEventCard.astro";
+import { api, ApiError } from "@/lib/api";
+import { loadShell } from "@/lib/page";
+import { site } from "@/lib/format";
+import type { EventCardData } from "@/lib/types";
+
+interface Venue { name: string; slug: string; area: string | null; address: string | null; maps_url: string | null }
+
+const slug = Astro.params.slug ?? "";
+const [{ siteData, me }, res] = await Promise.all([
+  loadShell(Astro),
+  api<{ venue: Venue; events: EventCardData[]; past_events: EventCardData[] }>(`/venues/${encodeURIComponent(slug)}`, { request: Astro.request })
+    .catch((e) => { if (e instanceof ApiError && e.status === 404) return null; throw e; }),
+]);
+if (!res) return Astro.rewrite("/404");
+const { venue, events, past_events: pastEvents } = res;
+
+const sourcePage = `Venue: ${venue.name}`;
+const title = `${venue.name} Events — ${site.name}`;
+const description = `Discover all past and upcoming events happening at ${venue.name} in Jaipur.`;
+const placeLd = {
+  "@context": "https://schema.org", "@type": "Place", name: venue.name, url: `${site.url}/venue/${venue.slug}`,
+  address: { "@type": "PostalAddress", ...(venue.area ? { addressLocality: venue.area } : {}), ...(venue.address ? { streetAddress: venue.address } : {}) },
+};
+---
+<Base title={title} description={description} canonical={`/venue/${venue.slug}`} siteData={siteData} me={me} jsonLd={[placeLd]}>
+  <div class="container">
+    <nav aria-label="Breadcrumb" class="py-5 text-[0.85rem] text-muted">
+      <a href="/" class="text-muted">Home</a>
+      <span class="mx-2 opacity-50">/</span>
+      <span>Venues</span>
+      <span class="mx-2 opacity-50">/</span>
+      <span>{venue.name}</span>
+    </nav>
+
+    <div class="event-main mb-12 text-center">
+      <div class="mb-4 text-[3rem]">📍</div>
+      <h1 class="heading-lg">{venue.name}</h1>
+      {(venue.area || venue.address) && (
+        <p class="mt-2 text-[1.1rem] text-muted">
+          {venue.area}
+          {venue.address && <><br /><span class="text-[0.9rem]">{venue.address}</span></>}
+        </p>
+      )}
+      {venue.maps_url && (
+        <a href="#" class="btn btn-sm needs-auth-ticket-btn mt-4" data-ticket-url={venue.maps_url} data-source-page={sourcePage} data-source-button="Open in Maps">
+          🗺 Open in Maps
+        </a>
+      )}
+    </div>
+
+    <section class="section !pt-0" aria-labelledby="active-events-heading">
+      <div class="section-header">
+        <h2 class="section-title" id="active-events-heading">🗓 Upcoming &amp; Active Events</h2>
+        <span class="text-muted text-small">{events.length} {events.length === 1 ? "event" : "events"}</span>
+      </div>
+      {events.length > 0
+        ? <EventGrid events={events} sourcePage={sourcePage} />
+        : <EmptyState icon="🎟" title="No Upcoming Events" text={`${venue.name} doesn't have any upcoming events right now.`} />}
+    </section>
+
+    {pastEvents.length > 0 && (
+      <section class="section !pt-4 opacity-85" aria-labelledby="past-events-heading">
+        <div class="section-header">
+          <h2 class="section-title text-muted" id="past-events-heading">🕰 Past Events</h2>
+          <span class="text-muted text-small">{pastEvents.length} {pastEvents.length === 1 ? "event" : "events"}</span>
+        </div>
+        <div class="events-grid">
+          {pastEvents.map((e) => <PastEventCard event={e} />)}
+        </div>
+      </section>
+    )}
+  </div>
+</Base>

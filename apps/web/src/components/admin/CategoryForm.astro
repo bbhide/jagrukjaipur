@@ -1,0 +1,56 @@
+---
+interface Props { category?: Record<string, any> | null; mode: "new" | "edit" }
+const { category = null, mode } = Astro.props;
+const c = category ?? { icon: "🎉", color: "#7C3AED", sort_order: 0, is_active: true };
+const emojis = ["🎉", "🎵", "🎤", "🎭", "😂", "🎨", "🍽️", "🎬", "📚", "💃", "⚽", "🧘", "🎮", "🛍️", "💼", "🎓", "🙏", "🌿", "📸", "🎪", "🏏", "🎸", "🥁", "🎻", "✨"];
+---
+<form method="POST" id="category-form">
+  <div class="a-card" style="margin-bottom:1.25rem;">
+    <div class="a-card-header"><div class="a-card-title">🏷 Category Details</div></div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label class="form-label" for="name">Name<span class="req">*</span></label>
+        <input class="form-input" id="name" name="name" required maxlength="80" value={c.name ?? ""} placeholder="e.g. Comedy" />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="icon">Icon (emoji)<span class="req">*</span></label>
+        <input class="form-input" id="icon" name="icon" required maxlength="16" value={c.icon} />
+      </div>
+      <div class="form-group full">
+        <span class="form-label">Quick pick</span>
+        <div style="display:flex; flex-wrap:wrap; gap:.4rem;" id="emoji-picks">
+          {emojis.map((e) => <button type="button" class="a-btn a-btn-outline a-btn-sm" data-emoji={e} style="font-size:1.1rem; padding:.3rem .55rem;" aria-label={`Use ${e}`}>{e}</button>)}
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="color">Colour</label>
+        <div style="display:flex; align-items:center; gap:.75rem;">
+          <input type="color" id="color" name="color" value={c.color} style="width:56px; height:40px; border:none; background:none; padding:0; cursor:pointer;" />
+          <code id="color-hex" style="font-size:.85rem;">{String(c.color).toUpperCase()}</code>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="sort_order">Sort Order</label>
+        <input class="form-input" type="number" min="0" max="999" id="sort_order" name="sort_order" value={c.sort_order} />
+        <span class="form-hint">Lower numbers appear first in the filter bar.</span>
+      </div>
+      <div class="form-group full">
+        <div class="toggle-group">
+          <label class="toggle"><input type="checkbox" name="is_active" id="is_active" checked={!!c.is_active} /><span class="toggle-slider"></span></label>
+          <label for="is_active" style="font-weight:600;">Active</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-actions">
+    <button type="submit" class="a-btn a-btn-primary a-btn-lg">{mode === "new" ? "💾 Save Category" : "💾 Update Category"}</button>
+    <a href="/admin/categories" class="a-btn a-btn-outline a-btn-lg">Cancel</a>
+  </div>
+</form>
+<script>
+  document.getElementById("emoji-picks")?.addEventListener("click", (e) => {
+    const btn = (e.target as HTMLElement).closest<HTMLElement>("[data-emoji]");
+    const input = document.getElementById("icon") as HTMLInputElement | null;
+    if (btn && input) input.value = btn.dataset.emoji!;
+  });
+</script>

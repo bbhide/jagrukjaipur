@@ -1,0 +1,71 @@
+---
+import Admin from "@/layouts/Admin.astro";
+import { adminApi, handlePost } from "@/lib/admin";
+import "@/styles/admin-extra-2.css";
+
+const res = await handlePost(Astro, async (form) => {
+  const action = String(form.get("action") ?? "");
+  const id = Number(form.get("id"));
+  if (action === "approve") { await adminApi(Astro, `/ticketing/events/${id}/approve`, { method: "POST", body: {} }); return { message: "Event approved and published." }; }
+  if (action === "reject") {
+    const r = await adminApi(Astro, `/ticketing/events/${id}/reject`, { method: "POST", body: { reason: String(form.get("reason") ?? "") } });
+    return { message: r.refunded ? "Event rejected. The listing fee is marked as refunded." : "Event rejected." };
+  }
+});
+if (res) return res;
+
+const { events } = await adminApi<{ events: any[] }>(Astro, "/ticketing/events");
+const fmtD = (d: string) => new Date(`${d}T00:00:00+05:30`).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric", timeZone: "Asia/Kolkata" });
+const fmtT = (t: string) => new Date(t).toLocaleString("en-IN", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit", timeZone: "Asia/Kolkata" });
+const fee: Record<string, [string, string]> = { paid: ["Paid", "a-badge-success"], unpaid: ["Unpaid", "a-badge-danger"], free: ["Free Listing", "a-badge-muted"], refunded: ["Refunded", "a-badge-warn"] };
+const appr: Record<string, [string, string]> = { pending: ["Pending", "a-badge-warn"], approved: ["Approved", "a-badge-success"], rejected: ["Rejected", "a-badge-danger"] };
+---
+<Admin title="Ticketing Events" active="ticketing_events">
+  <div class="page-title-row"><div><h1 class="page-title">Ticketing Events</h1><p class="page-subtitle">Moderation queue for organiser-submitted events</p></div></div>
+  <div class="a-card">
+    {events.length === 0 ? <div class="a-empty">No ticketing events registered yet.</div> : (
+      <div class="a-table-wrap"><table class="a-table">
+        <thead><tr><th>Submitted Event</th><th>Organiser</th><th>Type</th><th>Listing Fee</th><th>Razorpay Reference</th><th>Approval</th><th>Action</th></tr></thead>
+        <tbody>{events.map((e) => (
+          <tr>
+            <td><strong>{e.title}</strong><div class="a-muted">📅 {fmtD(e.event_date)} · submitted {fmtT(e.created_at)}</div>{e.rejection_reason && <div class="a-muted" style="color:#f87171;">Reason: {e.rejection_reason}</div>}</td>
+            <td>{e.organizer_name ?? "—"}<div class="a-muted">{e.organizer_email ?? ""}</div></td>
+            <td>{e.has_ticketing ? "🎟️ Ticketing" : "Free Listing"}</td>
+            <td><span class={`a-badge ${fee[e.listing_fee_status]?.[1]}`}>{fee[e.listing_fee_status]?.[0] ?? e.listing_fee_status}</span></td>
+            <td>{e.listing_payment_ref ? <code>{e.listing_payment_ref}</code> : "—"}</td>
+            <td><span class={`a-badge ${appr[e.approval_status]?.[1]}`}>{appr[e.approval_status]?.[0]}</span></td>
+            <td><div class="actions-cell">
+              {e.approval_status !== "approved" && <form method="POST" class="a-inline-form"><input type="hidden" name="action" value="approve" /><input type="hidden" name="id" value={e.id} /><button class="a-btn a-btn-success a-btn-sm" type="submit">✓ Approve</button></form>}
+              {e.approval_status !== "rejected" && <button type="button" class="a-btn a-btn-danger a-btn-sm" data-reject data-id={e.id} data-title={e.title} data-paid={e.listing_fee_status === "paid" ? "1" : "0"}>✕ Reject</button>}
+            </div></td>
+          </tr>))}</tbody>
+      </table></div>)}
+  </div>
+
+  <div class="a-modal" id="reject-modal" hidden role="dialog" aria-modal="true" aria-labelledby="reject-title">
+    <form method="POST" class="a-modal-box" data-confirm="Reject this event? The organiser is notified and a paid listing fee is refunded.">
+      <div class="a-modal-title" id="reject-title">Reject event</div>
+      <p class="a-muted" id="reject-event"></p>
+      <input type="hidden" name="action" value="reject" /><input type="hidden" name="id" id="reject-id" />
+      <div class="form-group" style="margin-top:1rem;"><label class="form-label" for="reason">Reason for rejection<span class="req">*</span></label>
+        <textarea class="form-textarea" id="reason" name="reason" required maxlength="1000" rows="4" placeholder="This reason is emailed to the organiser."></textarea>
+        <span class="form-hint" id="reject-refund-hint">This reason is emailed to the organiser.</span></div>
+      <div class="a-modal-actions"><button type="button" class="a-btn a-btn-outline" id="reject-cancel">Cancel</button><button type="submit" class="a-btn a-btn-danger">Confirm Reject &amp; Refund</button></div>
+    </form>
+  </div>
+</Admin>
+
+<script>
+  const modal = document.getElementById("reject-modal")!;
+  const close = () => { modal.hidden = true; };
+  document.querySelectorAll<HTMLElement>("[data-reject]").forEach((b) => b.addEventListener("click", () => {
+    (document.getElementById("reject-id") as HTMLInputElement).value = b.dataset.id ?? "";
+    document.getElementById("reject-event")!.textContent = b.dataset.title ?? "";
+    document.getElementById("reject-refund-hint")!.textContent = b.dataset.paid === "1" ? "The paid listing fee will be marked as refunded. This reason is emailed to the organiser." : "This reason is emailed to the organiser.";
+    modal.hidden = false;
+    document.getElementById("reason")?.focus();
+  }));
+  document.getElementById("reject-cancel")?.addEventListener("click", close);
+  modal.addEventListener("click", (e) => { if (e.target === modal) close(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
+</script>

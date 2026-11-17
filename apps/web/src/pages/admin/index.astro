@@ -1,0 +1,88 @@
+---
+import Admin from "@/layouts/Admin.astro";
+import { adminApi } from "@/lib/admin";
+import { dateShort, time12 } from "@/lib/format";
+
+const admin = Astro.locals.admin!;
+const d = await adminApi<{ stats: Record<string, number>; recent_events: any[]; this_week: any[] }>(Astro, "/dashboard");
+const n = (v: number) => Number(v ?? 0).toLocaleString("en-IN");
+const cards = [
+  ["total_events", "🎉", "Total Events", "rgba(124,58,237,.15)"],
+  ["published", "✅", "Published", "rgba(34,197,94,.15)"],
+  ["upcoming", "📅", "Upcoming", "rgba(59,130,246,.15)"],
+  ["total_views", "👁", "Total Views", "rgba(249,115,22,.15)"],
+  ["featured_active", "⭐", "Featured Active", "rgba(251,191,36,.15)"],
+  ["venues", "📍", "Venues", "rgba(236,72,153,.15)"],
+] as const;
+const short = (iso: string) => dateShort(iso).slice(0, 6);
+---
+<Admin title="Dashboard" active="dashboard">
+  <div class="page-title-row">
+    <div>
+      <div class="page-title">Welcome back, {admin.username} 👋</div>
+      <div class="page-subtitle">Here's what's happening on Jagruk Jaipur.</div>
+    </div>
+  </div>
+
+  <div class="stats-grid">
+    {cards.map(([key, icon, label, bg]) => (
+      <div class="stat-card">
+        <div class="stat-icon" style={`background:${bg};`}>{icon}</div>
+        <div class="stat-info"><strong>{n(d.stats[key])}</strong><span>{label}</span></div>
+      </div>
+    ))}
+  </div>
+
+  <div class="dash-grid" style="display:grid; grid-template-columns:1fr 320px; gap:1.5rem; align-items:start;">
+    <div class="a-card">
+      <div class="a-card-header">
+        <div class="a-card-title">Recent Events</div>
+        <a href="/admin/events" class="a-btn a-btn-outline a-btn-sm">View All</a>
+      </div>
+      <div class="a-table-wrap">
+        <table class="a-table">
+          <thead><tr><th>Event</th><th>Date</th><th>Status</th><th>Views</th><th>Actions</th></tr></thead>
+          <tbody>
+            {d.recent_events.length === 0 && <tr><td colspan="5" style="text-align:center; color:var(--a-muted);">No events yet.</td></tr>}
+            {d.recent_events.map((e) => (
+              <tr>
+                <td style="font-weight:600; max-width:260px;">{e.title}</td>
+                <td class="nowrap">{dateShort(e.event_date)}</td>
+                <td><span class={`status-badge status-${e.status}`}>{e.status}</span></td>
+                <td>{n(e.views)}</td>
+                <td><div class="actions-cell">
+                  <a href={`/admin/events/${e.id}`} class="a-btn a-btn-outline a-btn-sm" title="Edit">✏️</a>
+                  <a href={`/event/${e.slug}`} target="_blank" rel="noopener" class="a-btn a-btn-outline a-btn-sm" title="View on site">👁</a>
+                </div></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:1.5rem;">
+      <div class="a-card">
+        <div class="a-card-header" style="margin-bottom:1rem;"><div class="a-card-title">This Week</div></div>
+        {d.this_week.length === 0 && <p style="color:var(--a-muted); font-size:.85rem;">No published events in the next 7 days.</p>}
+        {d.this_week.map((e) => (
+          <div style="padding:.65rem 0; border-bottom:1px solid var(--a-border);">
+            <a href={`/admin/events/${e.id}`} style="font-weight:600; font-size:.88rem;">{e.title}</a>
+            <div style="font-size:.76rem; color:var(--a-muted); margin-top:.15rem;">
+              📅 {short(e.event_date)}{e.event_time ? ` · ${time12(e.event_time)}` : ""}{e.venue_name ? ` · ${e.venue_name}` : ""}
+            </div>
+          </div>
+        ))}
+        <div style="display:flex; flex-direction:column; gap:.5rem; margin-top:1.25rem;">
+          <a href="/admin/events/new" class="a-btn a-btn-primary" style="justify-content:center;">+ Add Event</a>
+          <a href="/admin/venues/new" class="a-btn a-btn-outline" style="justify-content:center;">+ Add Venue</a>
+          <a href="/admin/categories" class="a-btn a-btn-outline" style="justify-content:center;">🏷 Manage Categories</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Admin>
+
+<style is:global>
+  @media (max-width: 900px) { .dash-grid { grid-template-columns: 1fr !important; } }
+</style>

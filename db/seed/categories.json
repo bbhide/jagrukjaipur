@@ -1,0 +1,245 @@
+[
+  {
+    "name": "All Events",
+    "slug": "all",
+    "icon": "🌟",
+    "color": "#6C3BE4",
+    "sort_order": 0,
+    "is_active": true,
+    "is_system": true
+  },
+  {
+    "name": "Art & Culture",
+    "slug": "art",
+    "icon": "🎨",
+    "color": "#00BCD4",
+    "sort_order": 1,
+    "is_active": true,
+    "is_system": false
+  },
+  {
+    "name": "Workshops",
+    "slug": "workshops",
+    "icon": "📚",
+    "color": "#FF5722",
+    "sort_order": 2,
+    "is_active": true,
+    "is_system": false
+  },
+  {
+    "name": "Comedy",
+    "slug": "comedy",
+    "icon": "🎭",
+    "color": "#FF6B35",
+    "sort_order": 3,
+    "is_active": true,
+    "is_system": false
+  },
+  {
+    "name": "Fests & Fairs",
+    "slug": "fests",
+    "icon": "🎉",
+    "color": "#FF9800",
+    "sort_order": 4,
+    "is_active": true,
+    "is_system": false
+  },
+  {
+    "name": "Music & Concerts",
+    "slug": "music",
+    "icon": "🎵",
+    "color": "#E91E8C",
+    "sort_order": 5,
+    "is_active": true,
+    "is_system": false
+  },
+  {
+    "name": "Nightlife",
+    "slug": "nightlife",
+    "icon": "🌙",
+    "color": "#9C27B0",
+    "sort_order": 6,
+    "is_active": true,
+    "is_system": false
+  },
+  {
+    "name": "Kids & Family",
+    "slug": "kids",
+    "icon": "👶",
+    "color": "#FFEB3B",
+    "sort_order": 7,
+    "is_active": true,
+    "is_system": false
+  },
+  {
+    "name": "Exhibition",
+    "slug": "exhibition",
+    "icon": "🖼️",
+    "color": "#3F51B5",
+    "sort_order": 8,
+    "is_active": true,
+    "is_system": false
+  },
+  {
+    "name": "Open Mic",
+    "slug": "open-mic",
+    "icon": "🎤",
+    "color": "#E91E8C",
+    "sort_order": 9,
+    "is_active": true,
+    "is_system": false
+  },
+  {
+    "name": "Poetry",
+    "slug": "poetry",
+    "icon": "🎤",
+    "color": "#7C3AED",
+    "sort_order": 10,
+    "is_active": true,
+    "is_system": false
+  },
+  {
+    "name": "Food & Dining",
+    "slug": "food",
+    "icon": "🍽️",
+    "color": "#4CAF50",
+    "sort_order": 11,
+    "is_active": true,
+    "is_system": false
+  },
+  {
+    "name": "Networking",
+    "slug": "networking",
+    "icon": "💼",
+    "color": "#607D8B",
+    "sort_order": 12,
+    "is_active": true,
+    "is_system": false
+  },
+  {
+    "name": "Theatre & Drama",
+    "slug": "theatre",
+    "icon": "🎪",
+    "color": "#795548",
+    "sort_order": 13,
+    "is_active": true,
+    "is_system": false
+  },
+  {
+    "name": "Wellness & Yoga",
+    "slug": "wellness",
+    "icon": "🧘",
+    "color": "#8BC34A",
+    "sort_order": 14,
+    "is_active": true,
+    "is_system": false
+  },
+  {
+    "name": "Dance",
+    "slug": "dance",
+    "icon": "💃",
+    "color": "#7C3AED",
+    "sort_order": 15,
+    "is_active": true,
+    "is_system": false
+  },
+  {
+    "name": "Movies",
+    "slug": "movies",
+    "icon": "🎬",
+    "color": "#7C3AED",
+    "sort_order": 16,
+    "is_active": true,
+    "is_system": false
+  },
+  {
+    "name": "Sports & Fitness",
+    "slug": "sports",
+    "icon": "🏃",
+    "color": "#F44336",
+    "sort_order": 17,
+    "is_active": true,
+    "is_system": false
+  },
+  {
+    "name": "Nature & Adventure",
+    "slug": "adventure",
+    "icon": "🌿",
+    "color": "#009688",
+    "sort_order": 18,
+    "is_active": true,
+    "is_system": false
+  },
+  {
+    "name": "Spiritual",
+    "slug": "spiritual",
+    "icon": "🙏",
+    "color": "#7C3AED",
+    "sort_order": 19,
+    "is_active": true,
+    "is_system": false
+  },
+  {
+    "name": "Party",
+    "slug": "party",
+    "icon": "🎉",
+    "color": "#7C3AED",
+    "sort_order": 20,
+    "is_active": true,
+    "is_system": false
+  },
+  {
+    "name": "Pet Event",
+    "slug": "pet-event",
+    "icon": "🐶",
+    "color": "#7C3AED",
+    "sort_order": 21,
+    "is_active": true,
+    "is_system": false
+  },
+  {
+    "name": "Heritage Walk",
+    "slug": "heritage-walk",
+    "icon": "🚶",
+    "color": "#7C3AED",
+    "sort_order": 22,
+    "is_active": true,
+    "is_system": false
+  },
+  {
+    "name": "Treasure Hunt",
+    "slug": "treasure-hunt",
+    "icon": "🕵🏻‍♀️",
+    "color": "#7C3AED",
+    "sort_order": 23,
+    "is_active": true,
+    "is_system": false
+  },
+  {
+    "name": "Breakfast Walk",
+    "slug": "breakfast-walk",
+    "icon": "🚶‍♂️☕️",
+    "color": "#7C3AED",
+    "sort_order": 24,
+    "is_active": true,
+    "is_system": false
+  },
+  {
+    "name": "Games and Activities",
+    "slug": "games-and-activities",
+    "icon": "🏆",
+    "color": "#7C3AED",
+    "sort_order": 25,
+    "is_active": true,
+    "is_system": false
+  },
+  {
+    "name": "Dandiya",
+    "slug": "dandiya",
+    "icon": "💃",
+    "color": "#7C3AED",
+    "sort_order": 26,
+    "is_active": true,
+    "is_system": false
+  }
+]

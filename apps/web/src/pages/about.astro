@@ -1,0 +1,23 @@
+---
+import Base from "@/layouts/Base.astro";
+import { loadShell } from "@/lib/page";
+const { siteData, me } = await loadShell(Astro);
+---
+<Base title="About Us — Jagruk Jaipur" description="Learn more about Jagruk Jaipur and our mission to connect you with the best events in the Pink City." canonical="/about" siteData={siteData} me={me}>
+  <div class="container section">
+    <div class="glass-box slide-up mx-auto max-w-[800px] p-12">
+      <h1 class="heading-lg mb-6">About Jagruk Jaipur ✨</h1>
+      <p class="mb-8 text-[1.1rem] leading-[1.8] text-muted">
+        Welcome to <strong>Jagruk Jaipur</strong>, your ultimate portal for discovering the pulse of the Pink City. We believe that Jaipur is more than just heritage—it's a vibrant, living ecosystem of art, culture, comedy, and music.
+      </p>
+      <h2 class="heading-md mt-8 mb-4">Our Mission</h2>
+      <p class="leading-[1.8] text-muted">
+        Our mission is simple: to make sure you never suffer from FOMO (Fear Of Missing Out) again. Whether you're looking for a weekend stand-up comedy show, a massive music festival, an intimate art workshop, or a culinary fair, we aggregate the best experiences Jaipur has to offer all in one seamless platform.
+      </p>
+      <div class="mt-12 text-center">
+        <a href="/contact" class="btn btn-primary">Get in Touch</a>
+        <a href="/" class="btn btn-outline ml-2">Explore Events</a>
+      </div>
+    </div>
+  </div>
+</Base>

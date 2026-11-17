@@ -1,0 +1,48 @@
+---
+import Admin from "@/layouts/Admin.astro";
+import { adminApi, handlePost } from "@/lib/admin";
+
+const res = await handlePost(Astro, async (form) => {
+  if (form.get("action") === "delete") {
+    await adminApi(Astro, `/categories/${Number(form.get("id"))}`, { method: "DELETE" });
+    return { message: "Category deleted." };
+  }
+});
+if (res) return res;
+const { items } = await adminApi<{ items: any[] }>(Astro, "/categories");
+---
+<Admin title="Categories" active="categories">
+  <div class="page-title-row">
+    <div><div class="page-title">Categories</div><div class="page-subtitle">{items.length} categories</div></div>
+    <a href="/admin/categories/new" class="a-btn a-btn-primary">+ Add Category</a>
+  </div>
+  <div class="a-card">
+    <div class="a-table-wrap">
+      <table class="a-table">
+        <thead><tr><th>#</th><th>Icon</th><th>Name</th><th>Slug</th><th>Color</th><th>Order</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody>
+          {items.map((c) => (
+            <tr>
+              <td style="color:var(--a-muted);">{c.id}</td>
+              <td style="font-size:1.3rem;">{c.icon}</td>
+              <td style="font-weight:600;">{c.name}</td>
+              <td style="color:var(--a-muted);">{c.slug}</td>
+              <td class="nowrap"><span class="color-swatch" style={`background:${c.color};`}></span>{c.color.toUpperCase()}</td>
+              <td>{c.sort_order}</td>
+              <td><span class={`status-badge ${c.is_active ? "status-published" : "status-draft"}`}>{c.is_active ? "Active" : "Inactive"}</span></td>
+              <td><div class="actions-cell">
+                <a href={`/admin/categories/${c.id}`} class="a-btn a-btn-outline a-btn-sm" title="Edit">✏️</a>
+                {!c.is_system && (
+                  <form method="POST" data-confirm="Delete this category? It will be removed from every event that uses it.">
+                    <input type="hidden" name="action" value="delete" /><input type="hidden" name="id" value={c.id} />
+                    <button type="submit" class="a-btn a-btn-danger a-btn-sm" title="Delete">🗑</button>
+                  </form>
+                )}
+              </div></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</Admin>

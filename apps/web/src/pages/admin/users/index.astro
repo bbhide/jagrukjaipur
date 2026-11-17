@@ -1,0 +1,49 @@
+---
+import Admin from "@/layouts/Admin.astro";
+import Pager from "@/components/admin/Pager.astro";
+import { adminApi } from "@/lib/admin";
+import { pageParam } from "@/components/admin/helpers";
+import { dateShort } from "@/lib/format";
+
+const q = Astro.url.searchParams.get("q")?.trim() ?? "";
+const page = pageParam(Astro.url);
+const data = await adminApi<{ items: any[]; total: number; pages: number; page: number }>(Astro, "/users", { query: { q, page } });
+const istDate = (iso: string) => dateShort(new Date(iso).toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" }));
+const exportHref = `/admin/users/export.csv${q ? `?q=${encodeURIComponent(q)}` : ""}`;
+---
+<Admin title="Users" active="users">
+  <div class="page-title-row">
+    <div><div class="page-title">Users</div><div class="page-subtitle">{data.total.toLocaleString("en-IN")} users total</div></div>
+    <a href={exportHref} class="a-btn a-btn-outline">📥 Export CSV</a>
+  </div>
+  <div class="a-card">
+    <form method="GET" class="a-card-header" style="justify-content:flex-start;">
+      <div class="a-search" style="flex:1;"><span class="a-search-icon">🔍</span><input type="search" name="q" value={q} placeholder="Search name, number, email…" aria-label="Search users" /></div>
+      <button type="submit" class="a-btn a-btn-outline">Search</button>
+    </form>
+    <div class="a-table-wrap">
+      <table class="a-table">
+        <thead><tr><th>ID</th><th>Name</th><th>WhatsApp Number</th><th>Email</th><th>Instagram</th><th>Interested Events</th><th>Gender</th><th>DOB</th><th>Registered On</th></tr></thead>
+        <tbody>
+          {data.items.length === 0 && <tr><td colspan="9" style="text-align:center; color:var(--a-muted); padding:2rem;">No users found.</td></tr>}
+          {data.items.map((u) => (
+            <tr>
+              <td style="color:var(--a-muted);">{u.id}</td>
+              <td style="font-weight:600;">{u.name ?? "—"}</td>
+              <td class="nowrap"><a href={`https://wa.me/${u.whatsapp_number}`} target="_blank" rel="noopener noreferrer" style="color:#4ade80;">{u.whatsapp_number}</a></td>
+              <td>{u.email ?? "—"}</td>
+              <td>{u.instagram_username ? <a href={`https://instagram.com/${u.instagram_username}`} target="_blank" rel="noopener noreferrer" style="color:var(--a-primary);">@{u.instagram_username}</a> : "—"}</td>
+              <td style="max-width:240px;">
+                {u.interested_events.length === 0 ? "—" : u.interested_events.map((e: any, i: number) => (<><a href={`/event/${e.slug}`} target="_blank" rel="noopener" style="color:var(--a-primary);">{e.title}</a>{i < u.interested_events.length - 1 ? ", " : ""}</>))}
+              </td>
+              <td>{u.gender ?? "—"}</td>
+              <td class="nowrap">{u.dob ? dateShort(u.dob) : "—"}</td>
+              <td class="nowrap">{istDate(u.created_at)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <Pager page={data.page} pages={data.pages} params={{ q }} />
+  </div>
+</Admin>

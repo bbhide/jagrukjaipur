@@ -1,0 +1,16 @@
+---
+import type { Organizer } from "@/lib/types";
+interface Props { org: Organizer; extra?: boolean }
+const { org, extra = false } = Astro.props;
+---
+<a href={`/organizer/${org.slug}`} class:list={["slide-up community-mini", { "max-md:!hidden": extra }]}>
+  {org.logo_path
+    ? <img src={org.logo_path} alt={org.name} class="size-14 shrink-0 rounded-full border-2 border-primary/30 object-cover" loading="lazy" />
+    : <div class="flex size-14 shrink-0 items-center justify-center rounded-full border-2 border-primary/30 bg-primary/15 text-2xl">🤝</div>}
+  <div class="min-w-0">
+    <div class="mb-1 truncate text-[1.05rem] font-bold">{org.name}</div>
+    {org.categories.length > 0 && (
+      <div class="flex flex-wrap gap-2 text-[0.8rem] text-muted">{org.categories.slice(0, 2).map((c) => <span>{c.icon} {c.name}</span>)}</div>
+    )}
+  </div>
+</a>

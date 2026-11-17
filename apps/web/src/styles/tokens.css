@@ -1,0 +1,139 @@
+/* Design tokens — extracted from the reference site (see docs/03-design-system.md). */
+@import "tailwindcss";
+
+/* Replace Tailwind's breakpoint-driven `container` (it would cap the layout at 769px on tablets) with the legacy one (margin/padding come from `.container` in components.css). */
+@utility container {
+  width: 100%;
+  max-width: 1180px;
+}
+
+@theme {
+  /* Brand */
+  --color-primary: #7c3aed;
+  --color-primary-light: #9f5fff;
+  --color-primary-dark: #5b21b6;
+  --color-primary-soft: #a78bfa;
+  --color-accent: #f97316;
+  --color-accent-light: #fb923c;
+  --color-success: #22c55e;
+  --color-danger: #ef4444;
+  --color-whatsapp: #25d366;
+  --color-pink: #ec4899;
+
+  /* Surfaces */
+  --color-bg: #080810;
+  --color-bg-2: #0e0e1a;
+  --color-card: rgb(255 255 255 / 0.04);
+  --color-card-hover: rgb(255 255 255 / 0.08);
+  --color-line: rgb(255 255 255 / 0.08);
+  --color-line-light: rgb(255 255 255 / 0.14);
+  --color-drawer: #0d0814;
+
+  /* Text */
+  --color-ink: #f0f0fa;
+  --color-muted: #8888a8;
+  --color-faint: #4a4a6a;
+
+  /* Type */
+  --font-display: "Outfit", system-ui, sans-serif;
+  --font-body: "DM Sans", system-ui, sans-serif;
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-card: 14px;
+  --radius-lg: 22px;
+  --radius-xl: 32px;
+  --radius-pill: 50px;
+
+  /* Elevation */
+  --shadow-sm: 0 2px 8px rgb(0 0 0 / 0.4);
+  --shadow-md: 0 8px 32px rgb(0 0 0 / 0.5);
+  --shadow-lg: 0 20px 60px rgb(0 0 0 / 0.6);
+  --shadow-purple: 0 8px 32px rgb(124 58 237 / 0.35);
+  --shadow-accent: 0 8px 32px rgb(249 115 22 / 0.35);
+
+  /* Breakpoints — the reference uses max-width 900 / 768 / 640 / 480 / 400.
+     Use the `max-*` variants: max-lg = ≤900px, max-md = ≤768px, max-sm = ≤640px, max-xs = ≤480px. */
+  --breakpoint-xs: 481px;
+  --breakpoint-sm: 641px;
+  --breakpoint-md: 769px;
+  --breakpoint-lg: 901px;
+  --breakpoint-xl: 1180px;
+
+  --ease-brand: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Legacy custom-property names used by the ported component layer. */
+:root {
+  --primary: var(--color-primary);
+  --primary-light: var(--color-primary-light);
+  --primary-dark: var(--color-primary-dark);
+  --accent: var(--color-accent);
+  --accent-light: var(--color-accent-light);
+  --success: var(--color-success);
+  --danger: var(--color-danger);
+
+  --bg: var(--color-bg);
+  --bg-2: var(--color-bg-2);
+  --bg-card: rgba(255, 255, 255, 0.04);
+  --bg-card-hover: rgba(255, 255, 255, 0.08);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-light: rgba(255, 255, 255, 0.14);
+
+  --text: var(--color-ink);
+  --text-muted: var(--color-muted);
+  --text-faint: var(--color-faint);
+
+  --gradient-hero: linear-gradient(135deg, #1a0533 0%, #080810 50%, #0d1a3a 100%);
+  --gradient-card: linear-gradient(145deg, rgba(124, 58, 237, 0.12), rgba(249, 115, 22, 0.06));
+  --gradient-btn: linear-gradient(135deg, #7c3aed, #9f5fff);
+  --gradient-btn-accent: linear-gradient(135deg, #f97316, #fb923c);
+
+  --radius: 14px;
+  --shadow: var(--shadow-md);
+  --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --nav-height: 64px;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+  }
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+  /* Preflight flattens heading sizes; the reference relies on the UA scale. */
+  h1 { font-size: 2em; }
+  h2 { font-size: 1.5em; }
+  h3 { font-size: 1.17em; }
+  h4 { font-size: 1em; }
+  img { max-width: 100%; display: block; }
+  svg { display: inline; vertical-align: baseline; }
+  button { cursor: pointer; }
+  @media (display-mode: standalone) {
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: #0d0814;
+      z-index: 99999;
+      pointer-events: none;
+      animation: pwa-splash-out 0.5s ease 0.9s forwards;
+    }
+  }
+  @keyframes pwa-splash-out { to { opacity: 0; } }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+}

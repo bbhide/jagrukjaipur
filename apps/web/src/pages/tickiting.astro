@@ -1,0 +1,155 @@
+---
+import Base from "@/layouts/Base.astro";
+import { loadShell } from "@/lib/page";
+import { site } from "@/lib/format";
+import "@/styles/pages/tickiting.css";
+
+const { siteData, me } = await loadShell(Astro);
+
+const title = "Sell Event Tickets in Jaipur | Jagruk Jaipur Organizers & Ticketing Platform";
+const description = "Host events and sell tickets in Jaipur with zero hassle. Automated WhatsApp & QR tickets, instant mobile door scanner app, custom registration forms, low commission, and weekly bank settlements.";
+
+const appLd = {
+  "@context": "https://schema.org", "@type": "SoftwareApplication",
+  name: "Jagruk Jaipur Ticketing & Event Platform", applicationCategory: "BusinessApplication", operatingSystem: "Web, iOS, Android", description,
+  offers: { "@type": "Offer", price: "0", priceCurrency: "INR" },
+  provider: { "@type": "Organization", name: site.name, url: site.url },
+};
+const faqLd = {
+  "@context": "https://schema.org", "@type": "FAQPage",
+  mainEntity: [
+    ["How do I start selling tickets on Jagruk Jaipur?", "Sign up for an organizer account using your WhatsApp number, create your event listing, set your ticket tiers, and go live instantly!"],
+    ["How do buyers receive their tickets?", "Buyers instantly receive their digital E-ticket PDF and unique QR pass via WhatsApp and Email upon completing payment."],
+    ["How does door scanning work at the event venue?", "Organizers get access to our mobile-friendly Web QR Scanner app. Simply point any smartphone camera at the buyer's QR code for instant entry verification."],
+    ["When do organizers receive ticket sales payouts?", "Earnings are settled and transferred directly to your bank account on weekly Monday payout cycles."],
+  ].map(([name, text]) => ({ "@type": "Question", name, acceptedAnswer: { "@type": "Answer", text } })),
+};
+
+const stats = [
+  ["#a78bfa", "50,000+", "Jaipur Audience"], ["#4ade80", "100% Free", "Free Event Listing"],
+  ["#fb923c", "&lt; 1 Sec", "Door Scan Speed"], ["#60a5fa", "Weekly", "Direct Bank Payouts"],
+];
+const features = [
+  { free: true, bg: "rgba(34,197,94,0.15)", bd: "rgba(34,197,94,0.35)", icon: "🎁", h: "List Free Events &amp; Meetups", p: "Hosting a free workshop, open mic, art exhibition, or community gathering? List it <strong>100% Free</strong> with full RSVP management and WhatsApp QR passes." },
+  { bg: "rgba(37,211,102,0.15)", bd: "rgba(37,211,102,0.3)", icon: "💬", h: "Automated WhatsApp &amp; Email Passes", p: "Buyers and attendees instantly receive a branded E-ticket PDF and unique QR pass right on their WhatsApp within seconds of booking." },
+  { bg: "rgba(167,139,250,0.15)", bd: "rgba(167,139,250,0.3)", icon: "📷", h: "Instant Door QR Scanner App", p: "No hardware required! Open our web QR scanner on any smartphone camera at venue entrance for sub-second gate check-ins with audio beep feedback." },
+  { bg: "rgba(251,146,60,0.15)", bd: "rgba(251,146,60,0.3)", icon: "🎟️", h: "Custom Ticket Tiers &amp; Buyer Forms", p: "Create Early Bird, VIP, Group, or Free RSVP passes. Ask custom questions during booking like T-shirt sizes, phone numbers, or special requirements." },
+  { bg: "rgba(244,114,182,0.15)", bd: "rgba(244,114,182,0.3)", icon: "🏷️", h: "Promo Codes &amp; Discount Engine", p: "Boost early sales with promotional coupon codes! Offer percentage discounts or flat ₹ off to influencer partners and VIPs." },
+  { bg: "rgba(96,165,250,0.15)", bd: "rgba(96,165,250,0.3)", icon: "📊", h: "Real-Time Analytics &amp; CSV Exports", p: "Track live ticket sales, gross earnings, net payouts, and download 1-click CSV guestlists with full contact details." },
+];
+const steps = [
+  ["Register Account", "Sign up with your WhatsApp number &amp; organizer details in 60 seconds."],
+  ["Create Event", "Add banner, date, venue, set free or paid pricing tiers, and custom questions."],
+  ["Share &amp; Promote", "Share your custom ticket link on Instagram, WhatsApp &amp; socials to get RSVPs or ticket sales."],
+  ["Scan Door Tickets", "Scan attendee QR codes at venue entrance using our mobile web scanner app."],
+  ["Receive Payout", "Get ticket sale earnings transferred straight to your registered bank account."],
+];
+const faqs = [
+  { free: true, q: "Can I list Free events or community meetups on Jagruk Jaipur?", a: "Yes, absolutely! You can list free events, workshops, open mics, and community gatherings 100% free with zero platform fees. Attendees can RSVP and receive WhatsApp QR entry passes just like paid events." },
+  { q: "How do I start listing events or selling tickets on Jagruk Jaipur?", a: 'Simply click <a href="/organizer">Create Organizer Account</a>, complete your WhatsApp verification, fill in your basic business details, and start listing your events right away!' },
+  { q: "How do buyers receive their tickets after purchasing?", a: "Buyers instantly receive a digital receipt and unique QR code entry pass via WhatsApp and Email as soon as payment is confirmed by Razorpay." },
+  { q: "How does door scanning work at the event venue?", a: "Organizers get access to our Web QR Scanner tool inside their organizer dashboard. Open it on any smartphone camera at the venue gate to scan attendee passes. The system gives instant audio/visual feedback and prevents duplicate entries." },
+  { q: "When do organizers receive ticket sales payouts?", a: "Earnings are calculated transparently and transferred directly to your registered bank account on weekly Monday payout settlements." },
+  { q: "Can I offer promo codes or ask custom questions during checkout?", a: "Yes! You can create custom discount coupons (percentage or flat amount) and set up to 3 custom questions (e.g. T-shirt size, attendee name, emergency contact) when setting up your ticketing." },
+];
+---
+<Base title={title} description={description} canonical="/tickiting" siteData={siteData} me={me} jsonLd={[appLd, faqLd]}>
+  <!-- Hero -->
+  <section class="section tk-hero">
+    <div class="container tk-center">
+      <div class="tk-pill">⚡ THE #1 EVENT TICKETING &amp; LISTING PLATFORM IN JAIPUR</div>
+      <h1 class="tk-h1">Host Paid &amp; Free Events in Jaipur <span class="tk-grad">Effortlessly</span> 🚀</h1>
+      <p class="tk-sub">Reach over <strong>50,000+ Jaipur event-goers</strong>. Whether you're selling tickets for music concerts and comedy shows or listing <strong>free community meetups, workshops, and fests</strong> — launch your event in 2 minutes!</p>
+      <div class="tk-cta-row">
+        <a href="/organizer" class="btn btn-primary btn-lg needs-auth-ticket-btn" data-ticket-url="/organizer" data-source-page="Ticketing Landing Page" data-source-button="Hero CTA">🚀 List Your Event / Sell Tickets</a>
+        <a href="/organizer" class="btn btn-outline btn-lg">📊 Organizer Dashboard →</a>
+      </div>
+      <div class="tk-stats">
+        {stats.map(([color, num, lbl]) => (
+          <div><div class="tk-stat-num" style={`color:${color}`} set:html={num} /><div class="tk-stat-lbl">{lbl}</div></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="section tk-sec" id="features">
+    <div class="container">
+      <div class="tk-sec-head">
+        <h2>Everything You Need to Host &amp; Sell Out Your Event ✨</h2>
+        <p>Powerful tools crafted specifically for organizers, artists, comedy clubs, community hosts, and venues.</p>
+      </div>
+      <div class="tk-features">
+        {features.map((f) => (
+          <div class:list={["tk-feature", { "tk-feature-free": f.free }]}>
+            <div class="tk-feature-icon" style={`background:${f.bg};border-color:${f.bd}`}>{f.icon}</div>
+            <h3 set:html={f.h} />
+            <p set:html={f.p} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="section tk-sec tk-sec-tint">
+    <div class="container">
+      <div class="tk-sec-head">
+        <h2>How It Works in 5 Easy Steps 🛠️</h2>
+        <p>From event creation to gate scanning — simple, automated, and hassle-free.</p>
+      </div>
+      <div class="tk-steps">
+        {steps.map(([h, p], i) => (
+          <div class="tk-step">
+            <div class:list={["tk-step-num", { "tk-step-num-last": i === steps.length - 1 }]}>{i + 1}</div>
+            <h4 set:html={h} />
+            <p set:html={p} />
+          </div>
+        ))}
+      </div>
+
+      <div class="tk-free-banner">
+        <div class="tk-free-banner-l">
+          <span>🟢</span>
+          <div>
+            <h3>Hosting a Free Event or Community Meetup?</h3>
+            <p>List it for 100% free! Track attendee RSVPs with automated WhatsApp QR passes.</p>
+          </div>
+        </div>
+        <a href="/organizer" class="btn btn-primary needs-auth-ticket-btn" data-ticket-url="/organizer" data-source-page="Ticketing Landing Page" data-source-button="Free Event Banner">List Free Event Now →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section tk-faq-sec">
+    <div class="container tk-faq-wrap">
+      <div class="tk-faq-head">
+        <h2>Frequently Asked Questions 🤔</h2>
+        <p>Have questions before listing your event? We've got answers.</p>
+      </div>
+      <div class="tk-faq-list">
+        {faqs.map((f) => (
+          <details class:list={["tk-faq", { "tk-faq-free": f.free }]}>
+            <summary>{f.q}<span class="faq-icon" aria-hidden="true">+</span></summary>
+            <div class="tk-faq-body" set:html={f.a} />
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="section tk-final">
+    <div class="container">
+      <div class="tk-final-box">
+        <div class="tk-final-glow"></div>
+        <h2>Ready to Fill Your Next Venue in Jaipur? 🎟️</h2>
+        <p>Join Jaipur's fastest growing event network and start selling tickets today.</p>
+        <div class="tk-final-actions">
+          <a href="/organizer" class="btn btn-lg needs-auth-ticket-btn" data-ticket-url="/organizer" data-source-page="Ticketing Landing Page" data-source-button="Bottom CTA">🚀 Start Selling Tickets Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

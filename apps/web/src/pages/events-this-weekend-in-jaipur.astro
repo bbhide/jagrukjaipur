@@ -1,0 +1,59 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/components/PageHeader.astro";
+import EventGrid from "@/components/EventGrid.astro";
+import EmptyState from "@/components/EmptyState.astro";
+import { api } from "@/lib/api";
+import { loadShell } from "@/lib/page";
+import { dateFull, dateLong, dayMonth, eventUrl, site } from "@/lib/format";
+import type { EventCardData, EventList } from "@/lib/types";
+
+const [{ siteData, me }, events] = await Promise.all([
+  loadShell(Astro),
+  api<EventList>("/events", { query: { scope: "weekend", per_page: 200 } }),
+]);
+const { saturday, sunday } = siteData.weekend;
+const range = `${dayMonth(saturday)} – ${dateLong(sunday)}`;
+const n = events.total;
+const title = `Weekend Events in Jaipur — ${range} — ${site.name}`;
+const description = `Discover ${n} weekend events in Jaipur (${range}). From comedy shows and concerts to food festivals and workshops — plan your weekend with ${site.name}.`;
+const listLd = {
+  "@context": "https://schema.org", "@type": "ItemList", name: `Weekend Events in Jaipur — ${range}`, description, numberOfItems: events.items.length,
+  itemListElement: events.items.map((e, i) => ({ "@type": "ListItem", position: i + 1, url: site.url + eventUrl(e.slug), name: e.title })),
+};
+const groups = new Map<string, EventCardData[]>();
+for (const e of events.items) (groups.get(e.display_date) ?? groups.set(e.display_date, []).get(e.display_date)!).push(e);
+---
+<Base title={title} description={description} canonical="/events-this-weekend-in-jaipur" siteData={siteData} me={me} jsonLd={[listLd]}>
+  <PageHeader icon="🗓" sub={range} count={`${n} ${n === 1 ? "event" : "events"} this weekend`}>
+    Weekend Events <span class="text-muted">in Jaipur</span>
+  </PageHeader>
+
+  <section class="section">
+    <div class="container">
+      {n === 0 ? (
+        <EmptyState icon="🗓" title="No weekend events yet" text="Nothing is scheduled for this weekend so far. Check back soon or browse all upcoming events.">
+          <a href="/" class="btn btn-primary">Browse All Events</a>
+        </EmptyState>
+      ) : (
+        [...groups].map(([date, items]) => (
+          <div class="mb-10">
+            <h2 class="mb-5 pb-[0.6rem] text-[1.1rem] font-bold uppercase tracking-[0.08em] text-muted">
+              {dateFull(date)} <span class="text-[0.85rem] font-normal">({items.length} {items.length === 1 ? "event" : "events"})</span>
+            </h2>
+            <EventGrid events={items} sourcePage="Weekend Events" />
+          </div>
+        ))
+      )}
+
+      <div class="mt-12 pt-8 text-center">
+        <p class="mb-4 text-muted">More ways to explore Jaipur events</p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="/events-in-jaipur-today" class="btn btn-outline">📅 Events Today</a>
+          <a href="/" class="btn btn-outline">📋 All Upcoming Events</a>
+          <a href="/submit" class="btn btn-outline">➕ Submit Your Event</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

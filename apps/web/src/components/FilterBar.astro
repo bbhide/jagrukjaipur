@@ -1,0 +1,26 @@
+---
+import type { SiteData } from "@/lib/types";
+interface Props { filters: SiteData["filters"]; active?: string }
+const { filters, active = "" } = Astro.props;
+const pill = (color: string) => `background:${color}cc; box-shadow:0 0 0 1px ${color}55;`;
+const chips = [
+  { id: "all", href: "/", icon: "🌟", label: "All Events", count: filters.total, color: "#6C3BE4" },
+  { id: "trending", href: "/trending-events-in-jaipur", icon: "🔥", label: "Trending" },
+  { id: "podcast", href: "/podcast", icon: "🎙️", label: "Podcast" },
+  { id: "free", href: "/?free=1", icon: "🟢", label: "Free Events", count: filters.free, color: "#16a34a" },
+  ...filters.categories.map((c) => ({ id: c.slug, href: `/category/${c.slug}`, icon: c.icon, label: c.name, count: c.count, color: c.color })),
+];
+---
+<div class="filter-section" id="filter-bar" role="navigation" aria-label="Filter by category">
+  <div class="container">
+    <div class="filter-scroll" id="filter-scroll">
+      {chips.map((c) => (
+        <a href={c.href} class:list={["filter-chip", { active: active === c.id }]} id={`cat-${c.id}`} aria-current={active === c.id ? "true" : "false"}>
+          <span aria-hidden="true">{c.icon}</span>
+          {c.label}
+          {c.count ? <span class="cat-count" style={pill(c.color!)}>{c.count}</span> : null}
+        </a>
+      ))}
+    </div>
+  </div>
+</div>

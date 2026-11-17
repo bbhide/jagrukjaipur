@@ -1,0 +1,44 @@
+---
+// Layout inferred — the legacy organiser portal was not observable (see docs/01-reconnaissance.md §6)
+import "@/styles/pages/organizer.css";
+import Base from "@/layouts/Base.astro";
+import LoginRequired from "@/components/organizer/LoginRequired.astro";
+import PortalNav from "@/components/organizer/PortalNav.astro";
+import ProfileForm from "@/components/organizer/ProfileForm.astro";
+import { formValues, loadPortal, portalFail, profileBody } from "@/components/organizer/guard";
+import { api, ApiError } from "@/lib/api";
+
+const p = await loadPortal(Astro);
+if (p.redirect) return p.redirect;
+
+let error = "";
+const o = p.organizer;
+let values: Record<string, string> = o ? { name: o.name, email: o.email ?? "", contact: o.contact ?? "", state: o.state ?? "", gstin: o.gstin ?? "", about: o.about ?? "" } : {};
+let bank = o?.bank ?? null;
+if (o && Astro.request.method === "POST") {
+  values = formValues(await Astro.request.formData());
+  try {
+    await api("/organizer/me", { method: "PUT", body: profileBody(values), request: Astro.request });
+    return Astro.redirect("/organizer/profile?ok=1", 303);
+  } catch (e) {
+    if (!(e instanceof ApiError) || e.status < 400 || e.status >= 500 || [401, 403, 404].includes(e.status)) return portalFail(Astro, e);
+    error = e.message;
+  }
+}
+const saved = Astro.url.searchParams.get("ok") === "1";
+---
+<Base title="Edit Profile | Organizer Portal" canonical="/organizer/profile" siteData={p.siteData} me={p.me} noindex>
+  {!p.me || !o ? <LoginRequired /> : (
+    <div class="container section">
+      <div class="org-wrap org-narrow">
+        <PortalNav active="profile" />
+        <h1 class="org-page-title" style="margin-bottom:0.5rem">Edit profile</h1>
+        <p class="org-note" style="margin-bottom:1.5rem">
+          Commission rate: {o.commission_rate}% · Approval: {o.approval_status}. These are managed by Jagruk Jaipur.
+        </p>
+        {saved && !error && <div class="flash flash-success org-flash">Profile saved.</div>}
+        <ProfileForm values={values} error={error} submitLabel="Save changes" bankOnFile={bank} />
+      </div>
+    </div>
+  )}
+</Base>

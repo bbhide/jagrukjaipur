@@ -1,0 +1,126 @@
+---
+import Base from "@/layouts/Base.astro";
+import EventGrid from "@/components/EventGrid.astro";
+import EndOfList from "@/components/EndOfList.astro";
+import EmptyState from "@/components/EmptyState.astro";
+import TicketingBanner from "@/components/TicketingBanner.astro";
+import CommunityMiniCard from "@/components/CommunityMiniCard.astro";
+import { api } from "@/lib/api";
+import { loadShell } from "@/lib/page";
+import { eventUrl, site } from "@/lib/format";
+import type { EventList, Organizer } from "@/lib/types";
+
+const free = Astro.url.searchParams.get("free") === "1";
+const page = Math.max(1, Number(Astro.url.searchParams.get("page")) || 1);
+const [{ siteData, me }, events, orgs] = await Promise.all([
+  loadShell(Astro),
+  api<EventList>("/events", { query: { page, free: free ? 1 : undefined } }),
+  api<{ organizers: Organizer[] }>("/organizers"),
+]);
+const nextHref = events.has_more ? `/?${new URLSearchParams({ ...(free ? { free: "1" } : {}), page: String(events.page + 1) })}` : null;
+const title = "Jagruk Jaipur: Events, Concerts, Comedy Shows & Things to Do";
+const description = "Discover the best events happening in Jaipur — concerts, comedy shows, food fests, art exhibitions, and more.";
+const listLd = {
+  "@context": "https://schema.org", "@type": "ItemList", name: title, description, numberOfItems: events.items.length,
+  itemListElement: events.items.map((e, i) => ({ "@type": "ListItem", position: i + 1, url: site.url + eventUrl(e.slug), name: e.title })),
+};
+---
+<Base title={title} description={description} canonical="/" siteData={siteData} me={me} activeFilter={free ? "free" : "all"} jsonLd={[listLd]} noindex={page > 1}>
+  <section class="hero" aria-labelledby="hero-heading">
+    <div class="hero-slider"><div class="hero-slide slide-1"></div><div class="hero-slide slide-2"></div><div class="hero-overlay"></div></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-eyebrow" aria-hidden="true"><span></span> Jaipur's Event Guide</div>
+        <h1 class="heading-xl" id="hero-heading">Your City.<br /><em>Your Events.</em></h1>
+        <p class="hero-sub">Never miss what's happening in Jaipur. Concerts, Comedy, Food Fests, Art, Workshops &amp; everything in between — curated for you.</p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#events" class="btn btn-primary btn-lg" id="hero-explore-btn">🎉 Explore Events</a>
+          <a href="/communities" class="btn btn-lg btn-soft-purple">🤝 Explore Communities</a>
+          <a href="/search" class="btn btn-outline btn-lg needs-auth-ticket-btn" data-ticket-url="/search" data-source-page="Homepage" data-source-button="Hero: Search" id="hero-search-btn">🔍 Search</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="events" aria-labelledby="events-heading">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title" id="events-heading">{free ? "🟢 Free Events" : "🗓 Upcoming Events"}</h2>
+        <span class="text-muted text-small">{events.total} events found</span>
+      </div>
+
+      {events.total === 0 ? (
+        <EmptyState icon="🎭" title="No events found" text="There are no upcoming events here right now. Check back soon!">
+          <a href="/" class="btn btn-primary">Browse All Events</a>
+        </EmptyState>
+      ) : (
+        <EventGrid events={events.items} sourcePage="Homepage" id="events-grid" />
+      )}
+
+      {nextHref && (
+        <div class="pagination" aria-label="Pagination">
+          <a href={nextHref} class="btn btn-outline btn-sm" id="load-more-btn">Load More Events</a>
+        </div>
+      )}
+      {events.total > 0 && <EndOfList categories={siteData.filters.categories} hidden={!!nextHref} />}
+
+      <TicketingBanner sourcePage="Homepage" />
+    </div>
+  </section>
+
+  {orgs.organizers.length > 0 && (
+    <section class="section border-t border-primary/10 bg-primary/[0.03] !pt-8 !pb-16" id="communities-spotlight" aria-labelledby="communities-heading">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title m-0" id="communities-heading">🤝 Active Communities</h2>
+          <a href="/communities" class="btn btn-outline btn-sm border-primary/40">Explore All →</a>
+        </div>
+        <div class="mt-8 grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-5">
+          {orgs.organizers.slice(0, 6).map((org, i) => <CommunityMiniCard org={org} extra={i >= 4} />)}
+        </div>
+        <div class="mt-12 border-t border-primary/[0.08] pt-10 text-center">
+          <h3 class="mb-3 text-[1.4rem]">Discover all the communities in Jaipur</h3>
+          <p class="mx-auto mb-7 max-w-[520px] leading-[1.6] text-muted">From fitness groups to creative hubs, find and join communities that match your passion.</p>
+          <div class="mt-7 flex flex-wrap justify-center gap-4">
+            <a href="/communities" class="btn btn-primary btn-lg px-10 shadow-[0_10px_20px_rgba(124,58,237,0.2)]">🌐 Explore All Communities</a>
+            <a href="/contact?subject=Submit+Community" class="btn btn-outline btn-lg needs-auth-ticket-btn border-primary/40" data-ticket-url="/contact?subject=Submit+Community" data-source-page="Homepage" data-source-button="CTA: Submit Community">🤝 Submit Your Community</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+</Base>
+
+<script>
+  import { revealObserver } from "@/scripts/site";
+  // "Load More": fetch the next server-rendered page and append its cards.
+  document.body.addEventListener("click", async (e) => {
+    const btn = (e.target as HTMLElement).closest<HTMLAnchorElement>("#load-more-btn");
+    if (!btn) return;
+    e.preventDefault();
+    const original = btn.innerText;
+    btn.innerText = "Loading...";
+    btn.style.pointerEvents = "none";
+    btn.style.opacity = "0.7";
+    try {
+      const res = await fetch(btn.href);
+      if (!res.ok) throw new Error(String(res.status));
+      const doc = new DOMParser().parseFromString(await res.text(), "text/html");
+      const grid = document.getElementById("events-grid");
+      doc.querySelectorAll("#events-grid .event-card").forEach((card) => grid?.appendChild(card));
+      const next = doc.querySelector(".pagination");
+      const current = btn.closest(".pagination")!;
+      if (next) current.innerHTML = next.innerHTML;
+      else {
+        current.remove();
+        const end = document.getElementById("end-of-events");
+        if (end) { end.style.display = "block"; revealObserver.observe(end); }
+      }
+    } catch (err) {
+      console.error("Failed to load more events", err);
+      btn.innerText = original;
+      btn.style.pointerEvents = "auto";
+      btn.style.opacity = "1";
+    }
+  });
+</script>

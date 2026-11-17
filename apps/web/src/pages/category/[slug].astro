@@ -1,0 +1,49 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/components/PageHeader.astro";
+import EventGrid from "@/components/EventGrid.astro";
+import EndOfList from "@/components/EndOfList.astro";
+import EmptyState from "@/components/EmptyState.astro";
+import { api, ApiError } from "@/lib/api";
+import { loadShell } from "@/lib/page";
+import { eventUrl, site } from "@/lib/format";
+import type { Category, EventList } from "@/lib/types";
+
+const slug = Astro.params.slug ?? "";
+let category: Category;
+let events: EventList;
+const [{ siteData, me }, catRes] = await Promise.all([
+  loadShell(Astro),
+  api<{ category: Category }>(`/categories/${encodeURIComponent(slug)}`).catch((e) => { if (e instanceof ApiError && e.status === 404) return null; throw e; }),
+]);
+if (!catRes) return Astro.rewrite("/404");
+category = catRes.category;
+events = await api<EventList>("/events", { query: { category: slug, per_page: 200 } });
+
+const title = `${category.name} Events in Jaipur — ${site.name}`;
+const description = `Find the best ${category.name} events happening in Jaipur. Curated by ${site.name}.`;
+const listLd = {
+  "@context": "https://schema.org", "@type": "ItemList", name: `${category.name} Events in Jaipur`, description, numberOfItems: events.items.length,
+  itemListElement: events.items.map((e, i) => ({ "@type": "ListItem", position: i + 1, url: site.url + eventUrl(e.slug), name: e.title })),
+};
+---
+<Base title={title} description={description} canonical={`/category/${slug}`} siteData={siteData} me={me} activeFilter={slug} jsonLd={[listLd]}>
+  <PageHeader icon={category.icon} count={`${events.total} upcoming events found`}>
+    {category.name} <span class="text-muted">Events in Jaipur</span>
+  </PageHeader>
+
+  <section class="section">
+    <div class="container">
+      {events.total === 0 ? (
+        <EmptyState icon={category.icon} title={`No ${category.name} Events`} text="Nothing scheduled right now — check back soon or explore other categories.">
+          <a href="/" class="btn btn-primary">Explore All Events</a>
+        </EmptyState>
+      ) : (
+        <>
+          <EventGrid events={events.items} sourcePage={`Category: ${category.name}`} showArea={false} id="events-grid" />
+          <EndOfList categories={siteData.filters.categories} chips={false} />
+        </>
+      )}
+    </div>
+  </section>
+</Base>

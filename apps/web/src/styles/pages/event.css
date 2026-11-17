@@ -1,0 +1,12 @@
+/* Event detail page only. Everything else comes from components.css and Tailwind utilities. */
+
+/* FAQ accordion: hide the native marker, rotate the "+" into a "×" when open. */
+.event-faq .faq-icon { display: inline-block; transition: transform 0.2s; }
+.event-faq[open] .faq-icon { transform: translateY(-50%) rotate(45deg); }
+
+/* Native-share button stays hidden until the browser proves it can share (script flips this). */
+.share-btn.btn-native-share { display: none; }
+.share-btn.btn-native-share.is-available { display: inline-flex; }
+
+/* The legacy detail page shows category badges, which the global card rule hides only inside cards. */
+.event-detail-badges .badge { font-size: 0.85rem; padding: 0.35rem 0.9rem; }

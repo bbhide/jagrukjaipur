@@ -1,0 +1,20 @@
+---
+import Admin from "@/layouts/Admin.astro";
+import CategoryForm from "@/components/admin/CategoryForm.astro";
+import { adminApi, handlePost } from "@/lib/admin";
+import { formToJson, loadOrFlash } from "@/components/admin/helpers";
+
+const id = Number(Astro.params.id);
+if (!Number.isInteger(id) || id < 1) return Astro.redirect("/admin/categories", 303);
+const res = await handlePost(Astro, async (form) => {
+  await adminApi(Astro, `/categories/${id}`, { method: "PUT", body: formToJson(form, ["is_active"]) });
+  return { message: "Category updated.", redirect: "/admin/categories" };
+});
+if (res) return res;
+const category = await loadOrFlash(Astro, () => adminApi(Astro, `/categories/${id}`), "Category not found.");
+if (!category) return Astro.redirect("/admin/categories", 303);
+---
+<Admin title="Edit Category" active="categories">
+  <div class="page-title-row"><div class="page-title">Edit Category</div><a href="/admin/categories" class="a-btn a-btn-outline">← Back</a></div>
+  <CategoryForm mode="edit" category={category} />
+</Admin>

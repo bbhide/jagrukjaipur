@@ -1,0 +1,49 @@
+---
+import Admin from "@/layouts/Admin.astro";
+import EventForm from "@/components/admin/EventForm.astro";
+import { adminApi, handlePost } from "@/lib/admin";
+
+const res = await handlePost(Astro, async (form) => {
+  const submitStatus = form.get("submit_status");
+  if (submitStatus) form.set("status", String(submitStatus));
+  form.delete("submit_status");
+  await adminApi(Astro, "/events", { method: "POST", body: form });
+  return { message: form.get("status") === "published" ? "Event published." : "Event saved.", redirect: "/admin/events" };
+});
+if (res) return res;
+
+const submissionId = Number(Astro.url.searchParams.get("submission_id")) || null;
+const [options, ai, submission] = await Promise.all([
+  adminApi(Astro, "/events/form-options"),
+  adminApi(Astro, "/settings/ai-status").catch(() => null),
+  submissionId ? adminApi(Astro, `/submissions/${submissionId}`).catch(() => null) : null,
+]);
+const aiEnabled = !!(ai && (ai.configured ?? ai.enabled ?? ai.ok));
+
+// Pre-fill from the public submission payload (field names vary, so a few aliases are accepted).
+const p: Record<string, any> = submission?.payload ?? {};
+const pick = (...keys: string[]) => { for (const k of keys) if (p[k] !== undefined && p[k] !== null && String(p[k]).trim() !== "") return String(p[k]).trim(); return undefined; };
+const event = submission ? {
+  title: pick("title", "event_title", "name"),
+  short_description: pick("short_description", "summary"),
+  description: pick("description", "details", "about"),
+  event_date: pick("event_date", "date")?.slice(0, 10),
+  event_time: pick("event_time", "time")?.slice(0, 5),
+  end_date: pick("end_date")?.slice(0, 10),
+  end_time: pick("end_time")?.slice(0, 5),
+  ticket_url: pick("ticket_url", "link", "url", "registration_link"),
+  ticket_price: pick("ticket_price", "price"),
+  is_free: ["1", "true", "on", "yes", "free"].includes((pick("is_free", "free") ?? "").toLowerCase()),
+} : null;
+const info: [string, string][] = submission ? [
+  ...(submission.submitter_name ? [["Submitted by", `${submission.submitter_name}${submission.submitter_number ? ` · ${submission.submitter_number}` : ""}`] as [string, string]] : []),
+  ...Object.entries(p).map(([k, v]) => [k.replace(/_/g, " "), typeof v === "object" ? JSON.stringify(v) : String(v)] as [string, string]),
+] : [];
+---
+<Admin title="Add Event" active="events">
+  <div class="page-title-row">
+    <div><div class="page-title">Add Event</div><div class="page-subtitle">Fill in the details below to list a new event.</div></div>
+    <a href="/admin/events" class="a-btn a-btn-outline">← Back</a>
+  </div>
+  <EventForm mode="new" options={options} event={event} aiEnabled={aiEnabled} submissionId={submission ? submissionId : null} submissionInfo={info} />
+</Admin>

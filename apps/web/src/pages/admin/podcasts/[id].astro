@@ -1,0 +1,33 @@
+---
+import Admin from "@/layouts/Admin.astro";
+import PodcastsForm from "@/components/admin/PodcastsForm.astro";
+import { adminApi, handlePost } from "@/lib/admin";
+import { ApiError } from "@/lib/api";
+import "@/styles/admin-extra-2.css";
+
+const type = Astro.url.searchParams.get("type") === "guest" ? "guest" : "episode";
+const id = Number(Astro.params.id);
+if (!Number.isInteger(id) || id < 1) return new Response(null, { status: 404 });
+const res = await handlePost(Astro, async (form) => {
+  if (type === "episode") {
+    await adminApi(Astro, `/podcasts/episodes/${id}`, { method: "PUT", body: { ...Object.fromEntries([...form.entries()].filter(([, v]) => typeof v === "string")), is_active: form.get("is_active") === "on" } });
+    return { message: "Episode updated.", redirect: "/admin/podcasts?tab=episodes" };
+  }
+  // PUT with multipart: forwarded as-is so the photo upload reaches the API.
+  await adminApi(Astro, `/podcasts/guests/${id}`, { method: "PUT", body: form });
+  return { message: "Guest updated.", redirect: "/admin/podcasts?tab=guests" };
+});
+if (res) return res;
+let item: any;
+try {
+  const r = await adminApi(Astro, `/podcasts/${type === "episode" ? "episodes" : "guests"}/${id}`);
+  item = type === "episode" ? r.episode : r.guest;
+} catch (e) {
+  if (e instanceof ApiError && e.status === 404) return new Response("Not found", { status: 404 });
+  throw e;
+}
+---
+<Admin title={type === "episode" ? "Edit Episode" : "Edit Guest"} active="podcasts">
+  <div class="page-title-row"><div><h1 class="page-title">{type === "episode" ? `Edit Episode #${item.episode_number}` : `Edit Guest: ${item.name}`}</h1><p class="page-subtitle">🎙️ Podcasts &amp; Guests</p></div></div>
+  <div class="a-card"><div class="a-pad"><PodcastsForm type={type} item={item} /></div></div>
+</Admin>

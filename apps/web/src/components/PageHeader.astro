@@ -1,0 +1,13 @@
+---
+/** Legacy `.category-header` banner used by listing pages: big icon, h1 (slot), optional small line and a count line. */
+interface Props { icon: string; sub?: string; count?: string }
+const { icon, sub, count } = Astro.props;
+---
+<section class="category-header">
+  <div class="container">
+    <div class="category-icon-lg" aria-hidden="true">{icon}</div>
+    <h1 class="heading-lg"><slot /></h1>
+    {sub && <p class="mt-1 text-[0.95rem] text-muted">{sub}</p>}
+    {count && <p class="mt-2 text-muted">{count}</p>}
+  </div>
+</section>

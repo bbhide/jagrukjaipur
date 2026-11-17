@@ -1,0 +1,84 @@
+---
+import Base from "@/layouts/Base.astro";
+import EventGrid from "@/components/EventGrid.astro";
+import EmptyState from "@/components/EmptyState.astro";
+import CommunityMiniCard from "@/components/CommunityMiniCard.astro";
+import LoginRequired from "@/components/LoginRequired.astro";
+import { api, ApiError } from "@/lib/api";
+import { loadShell } from "@/lib/page";
+import type { EventCardData, Organizer } from "@/lib/types";
+
+const { siteData, me } = await loadShell(Astro);
+const q = (Astro.url.searchParams.get("q") ?? "").trim().slice(0, 80);
+const current = Astro.url.pathname + Astro.url.search;
+
+let needsLogin = !me;
+let tooShort = false;
+let events: EventCardData[] = [];
+let communities: Organizer[] = [];
+if (me && q) {
+  if (q.length < 2) tooShort = true;
+  else {
+    try {
+      const r = await api<{ events: EventCardData[]; communities: Organizer[] }>("/search", { request: Astro.request, query: { q } });
+      events = r.events; communities = r.communities;
+    } catch (e) {
+      if (e instanceof ApiError && e.status === 401) needsLogin = true;
+      else if (e instanceof ApiError && e.status === 400) tooShort = true;
+      else throw e;
+    }
+  }
+}
+const searched = !needsLogin && !!q && !tooShort;
+const total = events.length + communities.length;
+---
+<Base title="Search — Jagruk Jaipur" description="Search for events and communities in Jaipur on Jagruk Jaipur." canonical="/search" noindex siteData={siteData} me={me} searchValue={q}>
+  {needsLogin ? (
+    <LoginRequired ticketUrl={current} sourcePage="Search Page" sourceButton="Search Page Login" />
+  ) : (
+    <section class="section">
+      <div class="container">
+        <h1 class="heading-lg text-center">Search <span class="text-muted">Jagruk Jaipur</span></h1>
+        <form class="search-bar" action="/search" method="GET" role="search">
+          <span class="search-bar-icon" aria-hidden="true">🔍</span>
+          <input type="search" id="search-input" name="q" value={q} placeholder="Search events & communities…" autocomplete="off" aria-label="Search events and communities" minlength="2" maxlength="80" />
+        </form>
+
+        {!q && (
+          <p class="text-center text-muted">Type at least 2 characters to search events and communities in Jaipur.</p>
+        )}
+        {tooShort && (
+          <p class="text-center text-muted">Type at least 2 characters to search.</p>
+        )}
+
+        {searched && total === 0 && (
+          <EmptyState icon="🔍" title="No results found" text={`We couldn't find anything for “${q}”. Try a different keyword or browse all events.`}>
+            <a href="/" class="btn btn-primary">Browse All Events</a>
+          </EmptyState>
+        )}
+
+        {searched && events.length > 0 && (
+          <div class="mt-8">
+            <div class="section-header">
+              <h2 class="section-title" id="search-events-heading">🗓 Events</h2>
+              <span class="text-muted text-small">{events.length} {events.length === 1 ? "event" : "events"} found</span>
+            </div>
+            <EventGrid events={events} sourcePage="Search" id="search-events-grid" />
+          </div>
+        )}
+
+        {searched && communities.length > 0 && (
+          <div class="mt-12">
+            <div class="section-header">
+              <h2 class="section-title" id="search-communities-heading">🤝 Communities</h2>
+              <span class="text-muted text-small">{communities.length} {communities.length === 1 ? "community" : "communities"} found</span>
+            </div>
+            <div class="mt-6 grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-5">
+              {communities.map((org) => <CommunityMiniCard org={org} />)}
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  )}
+</Base>

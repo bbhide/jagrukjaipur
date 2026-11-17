@@ -1,0 +1,59 @@
+---
+import Admin from "@/layouts/Admin.astro";
+import { adminApi, handlePost } from "@/lib/admin";
+
+const res = await handlePost(Astro, async (form) => {
+  if (form.get("action") === "delete") {
+    await adminApi(Astro, `/organizers/${Number(form.get("id"))}`, { method: "DELETE" });
+    return { message: "Organiser deleted." };
+  }
+});
+if (res) return res;
+const typeParam = Astro.url.searchParams.get("type");
+const type = typeParam === "organizer" || typeParam === "community" ? typeParam : "all";
+const { items } = await adminApi<{ items: any[] }>(Astro, "/organizers", { query: { type } });
+---
+<Admin title="Organisers" active="organizers">
+  <div class="page-title-row">
+    <div><div class="page-title">Organisers</div><div class="page-subtitle">{items.length} listed</div></div>
+    <a href="/admin/organizers/new" class="a-btn a-btn-primary">+ Add Organiser</a>
+  </div>
+  <div class="a-card">
+    <form method="GET" class="a-card-header" style="justify-content:flex-start;">
+      <select name="type" class="form-select" style="width:auto;" data-autosubmit aria-label="Type filter">
+        <option value="all" selected={type === "all"}>All</option>
+        <option value="organizer" selected={type === "organizer"}>Organisers Only</option>
+        <option value="community" selected={type === "community"}>Communities Only</option>
+      </select>
+    </form>
+    <div class="a-table-wrap">
+      <table class="a-table">
+        <thead><tr><th>#</th><th>Name</th><th>Type</th><th>Contact</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody>
+          {items.length === 0 && <tr><td colspan="6" style="text-align:center; color:var(--a-muted); padding:2rem;">Nothing here yet.</td></tr>}
+          {items.map((o) => (
+            <tr>
+              <td style="color:var(--a-muted);">{o.id}</td>
+              <td style="font-weight:600;">
+                <div style="display:flex; align-items:center; gap:.6rem;">
+                  {o.logo_path && <img src={o.logo_path} alt="" loading="lazy" style="width:32px; height:32px; border-radius:50%;" />}
+                  {o.name}
+                </div>
+              </td>
+              <td><span class={`status-badge ${o.is_community ? "status-past" : "status-draft"}`}>{o.is_community ? "Community" : "Organiser"}</span></td>
+              <td>{o.contact ?? "—"}</td>
+              <td><span class={`status-badge ${o.is_active ? "status-published" : "status-draft"}`}>{o.is_active ? "Active" : "Inactive"}</span></td>
+              <td><div class="actions-cell">
+                <a href={`/admin/organizers/${o.id}`} class="a-btn a-btn-outline a-btn-sm" title="Edit">✏️</a>
+                <form method="POST" data-confirm="Delete this organiser? Their events will be left without an organiser.">
+                  <input type="hidden" name="action" value="delete" /><input type="hidden" name="id" value={o.id} />
+                  <button type="submit" class="a-btn a-btn-danger a-btn-sm" title="Delete">🗑</button>
+                </form>
+              </div></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</Admin>

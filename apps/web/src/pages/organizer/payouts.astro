@@ -1,0 +1,75 @@
+---
+// Layout inferred — the legacy organiser portal was not observable (see docs/01-reconnaissance.md §6)
+import "@/styles/pages/organizer.css";
+import Base from "@/layouts/Base.astro";
+import LoginRequired from "@/components/organizer/LoginRequired.astro";
+import PortalNav from "@/components/organizer/PortalNav.astro";
+import { loadPortal, portalFail, rupees } from "@/components/organizer/guard";
+import { api } from "@/lib/api";
+import { dateShort } from "@/lib/format";
+
+const p = await loadPortal(Astro);
+if (p.redirect) return p.redirect;
+
+let data: { balance: { net_payout: number; settled: number; outstanding: number }; settlements: { id: number; amount: number; payment_mode: string; summary: string; created_at: string }[] } | null = null;
+if (p.organizer) {
+  try { data = await api("/organizer/settlements", { request: Astro.request }); }
+  catch (e) { return portalFail(Astro, e); }
+}
+const bank = p.organizer?.bank;
+const day = (iso: string) => dateShort(new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Kolkata" }).format(new Date(iso)));
+---
+<Base title="Payouts | Organizer Portal" canonical="/organizer/payouts" siteData={p.siteData} me={p.me} noindex>
+  {!p.me || !data ? <LoginRequired /> : (
+    <div class="container section">
+      <div class="org-wrap">
+        <PortalNav active="payouts" />
+        <div class="organizer-header-row">
+          <div>
+            <h1 class="org-page-title">Payouts</h1>
+            <p class="text-muted">Settlements are paid every Monday to your registered bank account.</p>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="analytics-card"><div class="card-label">Net earnings</div><div class="card-value">{rupees(data.balance.net_payout)}</div></div>
+          <div class="analytics-card"><div class="card-label">Paid out</div><div class="card-value is-ok">{rupees(data.balance.settled)}</div></div>
+          <div class="analytics-card"><div class="card-label">Outstanding balance</div><div class="card-value is-accent">{rupees(data.balance.outstanding)}</div></div>
+        </div>
+
+        <h2 class="org-section-title">Bank account on file</h2>
+        <div class="glass-box" style="margin-bottom:2.5rem">
+          {bank ? (
+            <div class="org-fields cols-2">
+              <div><div class="org-note">Account holder</div><strong>{bank.account_holder}</strong></div>
+              <div><div class="org-note">Bank</div><strong>{bank.bank_name}</strong></div>
+              <div><div class="org-note">Account number</div><strong>{bank.account_number_masked}</strong></div>
+              <div><div class="org-note">IFSC</div><strong>{bank.ifsc}</strong></div>
+            </div>
+          ) : (
+            <p class="text-muted">No bank account added yet. <a href="/organizer/profile" class="gradient-text">Add your bank details</a> so we can pay you out.</p>
+          )}
+          {bank && <p class="org-note" style="margin-top:1rem"><a href="/organizer/profile" class="gradient-text">Update bank details</a></p>}
+        </div>
+
+        <h2 class="org-section-title">Settlement history</h2>
+        <div class="glass-box org-table-card">
+          {data.settlements.length === 0 ? (
+            <div class="org-empty">No settlements yet. Payouts appear here once they are processed.</div>
+          ) : (
+            <div class="table-responsive">
+              <table class="dashboard-table">
+                <thead><tr><th>Date</th><th>Mode</th><th>Summary</th><th class="num">Amount</th></tr></thead>
+                <tbody>
+                  {data.settlements.map((s) => (
+                    <tr><td>{day(s.created_at)}</td><td>{s.payment_mode}</td><td style="white-space:normal">{s.summary}</td><td class="num">{rupees(s.amount)}</td></tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )}
+</Base>

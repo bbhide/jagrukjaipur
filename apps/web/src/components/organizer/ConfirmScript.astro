@@ -1,0 +1,9 @@
+---
+/** Submit buttons carrying data-confirm ask before submitting (the public site has no global handler). */
+---
+<script>
+  document.addEventListener("submit", (e) => {
+    const msg = (e as SubmitEvent).submitter?.getAttribute("data-confirm");
+    if (msg && !confirm(msg)) e.preventDefault();
+  });
+</script>

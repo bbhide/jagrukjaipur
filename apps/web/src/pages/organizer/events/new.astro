@@ -1,0 +1,48 @@
+---
+// Layout inferred — the legacy organiser portal was not observable (see docs/01-reconnaissance.md §6)
+import "@/styles/pages/organizer.css";
+import Base from "@/layouts/Base.astro";
+import LoginRequired from "@/components/organizer/LoginRequired.astro";
+import PortalNav from "@/components/organizer/PortalNav.astro";
+import EventForm from "@/components/organizer/EventForm.astro";
+import { eventFormData, formValues, loadPortal, portalFail, type FormOptions } from "@/components/organizer/guard";
+import { api, ApiError } from "@/lib/api";
+
+const p = await loadPortal(Astro);
+if (p.redirect) return p.redirect;
+
+let options: FormOptions = { categories: [], venues: [] };
+let error = "";
+let values: Record<string, string> = { listing_type: "ticketing" };
+let categoryIds: string[] = [];
+let tiers: any[] | undefined, questions: any[] | undefined, coupons: any[] | undefined;
+if (p.organizer) {
+  try { options = await api<FormOptions>("/organizer/form-options", { request: Astro.request }); }
+  catch (e) { return portalFail(Astro, e); }
+  if (Astro.request.method === "POST") {
+    const form = await Astro.request.formData();
+    values = formValues(form);
+    categoryIds = form.getAll("category_id[]").map(String);
+    const parse = (k: string) => { try { return JSON.parse(values[k] ?? "[]"); } catch { return undefined; } };
+    tiers = parse("tiers"); questions = parse("questions"); coupons = parse("coupons");
+    try {
+      await api("/organizer/events", { method: "POST", body: eventFormData(form), request: Astro.request });
+      return Astro.redirect("/organizer/dashboard?ok=created", 303);
+    } catch (e) {
+      if (!(e instanceof ApiError) || [401, 403].includes(e.status) || e.status >= 500) return portalFail(Astro, e);
+      error = e.message;
+    }
+  }
+}
+---
+<Base title="Create Event | Organizer Portal" canonical="/organizer/events/new" siteData={p.siteData} me={p.me} noindex>
+  {!p.me || !p.organizer ? <LoginRequired /> : (
+    <div class="container section">
+      <div class="org-wrap org-narrow">
+        <PortalNav active="new" />
+        <h1 class="org-page-title" style="margin-bottom:1.5rem">Create event</h1>
+        <EventForm values={values} categoryIds={categoryIds} options={options} tiers={tiers} questions={questions} coupons={coupons} error={error} submitLabel="Submit for review" />
+      </div>
+    </div>
+  )}
+</Base>

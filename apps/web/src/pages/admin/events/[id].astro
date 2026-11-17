@@ -1,0 +1,31 @@
+---
+import Admin from "@/layouts/Admin.astro";
+import EventForm from "@/components/admin/EventForm.astro";
+import { adminApi, handlePost } from "@/lib/admin";
+import { loadOrFlash } from "@/components/admin/helpers";
+
+const id = Number(Astro.params.id);
+if (!Number.isInteger(id) || id < 1) return Astro.redirect("/admin/events", 303);
+
+const res = await handlePost(Astro, async (form) => {
+  if (form.get("action") === "delete") {
+    await adminApi(Astro, `/events/${id}`, { method: "DELETE" });
+    return { message: "Event deleted.", redirect: "/admin/events" };
+  }
+  await adminApi(Astro, `/events/${id}`, { method: "PUT", body: form });
+  return { message: "Event updated." };
+});
+if (res) return res;
+
+const event = await loadOrFlash(Astro, () => adminApi(Astro, `/events/${id}`), "Event not found.");
+if (!event) return Astro.redirect("/admin/events", 303);
+const [options, ai] = await Promise.all([adminApi(Astro, "/events/form-options"), adminApi(Astro, "/settings/ai-status").catch(() => null)]);
+const aiEnabled = !!(ai && (ai.configured ?? ai.enabled ?? ai.ok));
+---
+<Admin title="Edit Event" active="events">
+  <div class="page-title-row">
+    <div><div class="page-title">Edit Event</div><div class="page-subtitle">{event.title}</div></div>
+    <a href="/admin/events" class="a-btn a-btn-outline">← Back</a>
+  </div>
+  <EventForm mode="edit" options={options} event={event} aiEnabled={aiEnabled} />
+</Admin>

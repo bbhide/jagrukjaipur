@@ -1,0 +1,52 @@
+---
+interface Props { venue?: Record<string, any> | null; areas: string[]; mode: "new" | "edit" }
+const { venue = null, areas, mode } = Astro.props;
+const v = venue ?? { is_active: true };
+const list = v.area && !areas.includes(v.area) ? [...areas, v.area] : areas;
+---
+<form method="POST" id="venue-form">
+  <div class="a-card" style="margin-bottom:1.25rem;">
+    <div class="a-card-header"><div class="a-card-title">📍 Venue Details</div></div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label class="form-label" for="name">Venue Name<span class="req">*</span></label>
+        <input class="form-input" id="name" name="name" required maxlength="200" value={v.name ?? ""} placeholder="e.g. Jawahar Kala Kendra" />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="area">Area</label>
+        <select class="form-select" id="area" name="area">
+          <option value="">— Select area —</option>
+          {list.map((a) => <option value={a} selected={v.area === a}>{a}</option>)}
+        </select>
+      </div>
+      <div class="form-group full">
+        <label class="form-label" for="address">Address</label>
+        <textarea class="form-textarea" id="address" name="address" rows="2" maxlength="500" style="min-height:70px;">{v.address ?? ""}</textarea>
+      </div>
+      <div class="form-group full">
+        <label class="form-label" for="maps_url">Google Maps Link<span class="req">*</span></label>
+        <input class="form-input" type="url" id="maps_url" name="maps_url" required value={v.maps_url ?? ""} placeholder="https://maps.app.goo.gl/…" />
+        <span class="form-hint">Open the place in Google Maps → Share → Copy link.</span>
+      </div>
+      <input type="hidden" name="google_place_id" value={v.google_place_id ?? ""} />
+      <input type="hidden" name="lat" value={v.lat ?? ""} />
+      <input type="hidden" name="lng" value={v.lng ?? ""} />
+      <div class="form-group full">
+        <div class="toggle-group">
+          <label class="toggle"><input type="checkbox" name="is_active" id="is_active" checked={!!v.is_active} /><span class="toggle-slider"></span></label>
+          <label for="is_active" style="font-weight:600;">Active</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-actions">
+    <button type="submit" class="a-btn a-btn-primary a-btn-lg">{mode === "new" ? "💾 Save Venue" : "💾 Update Venue"}</button>
+    <a href="/admin/venues" class="a-btn a-btn-outline a-btn-lg">Cancel</a>
+    {mode === "edit" && <button type="submit" form="venue-delete-form" class="a-btn a-btn-danger a-btn-lg" style="margin-left:auto;">🗑 Delete Venue</button>}
+  </div>
+</form>
+{mode === "edit" && (
+  <form method="POST" id="venue-delete-form" data-confirm="Delete this venue? Events at this venue will be left without a venue." data-no-loading>
+    <input type="hidden" name="action" value="delete" />
+  </form>
+)}

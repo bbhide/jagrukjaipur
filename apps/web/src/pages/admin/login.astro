@@ -1,0 +1,53 @@
+---
+import "@/styles/admin.css";
+import { api, ApiError, redirectKeepingCookies } from "@/lib/api";
+
+const redirectTo = Astro.url.searchParams.get("redirect") ?? "/admin";
+const safeRedirect = redirectTo.startsWith("/admin") && !redirectTo.startsWith("//") ? redirectTo : "/admin";
+let error = "";
+let username = "";
+if (Astro.request.method === "POST") {
+  const form = await Astro.request.formData();
+  username = String(form.get("username") ?? "");
+  try {
+    await api("/admin/login", { body: { username, password: String(form.get("password") ?? "") }, request: Astro.request, responseHeaders: Astro.response.headers });
+    return redirectKeepingCookies(Astro, safeRedirect);
+  } catch (e) {
+    error = e instanceof ApiError ? e.message : "Something went wrong. Please try again.";
+  }
+}
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Login — Jagruk Jaipur</title>
+    <meta name="robots" content="noindex,nofollow" />
+    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="login-wrapper">
+      <div class="login-card">
+        <div class="login-logo">
+          <img src="/img/logo.webp" alt="Jagruk Jaipur Admin" style="height:60px; width:auto; object-fit:contain; margin:0 auto 10px;" />
+          <p>Admin Panel — Sign In</p>
+        </div>
+        {error && <div class="a-flash a-flash-error" role="alert">{error}</div>}
+        <form method="POST" id="login-form">
+          <div class="form-group" style="margin-bottom:1rem;">
+            <label class="form-label" for="username">Username</label>
+            <input class="form-input" type="text" id="username" name="username" value={username} autocomplete="username" autofocus required placeholder="admin" />
+          </div>
+          <div class="form-group" style="margin-bottom:1.5rem;">
+            <label class="form-label" for="password">Password</label>
+            <input class="form-input" type="password" id="password" name="password" autocomplete="current-password" required placeholder="••••••••" />
+          </div>
+          <button type="submit" class="a-btn a-btn-primary a-btn-lg" style="width:100%; justify-content:center;" id="login-submit-btn">Sign In →</button>
+        </form>
+        <p style="text-align:center; margin-top:1.5rem; font-size:.78rem; color:var(--a-muted);">← <a href="/" style="color:var(--a-muted);">Back to public site</a></p>
+      </div>
+    </div>
+  </body>
+</html>
