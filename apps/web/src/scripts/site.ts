@@ -147,3 +147,7 @@ document.addEventListener("submit", (e) => {
   if (banner) banner.style.display = "flex";
   setTimeout(() => { form.dataset.submitting = "false"; btn.classList.remove("is-submitting"); btn.innerHTML = original; if (banner) banner.style.display = "none"; }, 25000);
 });
+
+// Marks the page as loaded so CSS can bring in below-the-fold / later imagery (second hero slide).
+if (document.readyState === "complete") document.documentElement.classList.add("page-loaded");
+else window.addEventListener("load", () => document.documentElement.classList.add("page-loaded"));

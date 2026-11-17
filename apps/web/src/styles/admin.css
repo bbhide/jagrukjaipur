@@ -1,4 +1,5 @@
 /* Admin panel styles — ported from the reference admin, tokens kept under the --a-* namespace. */
+@import "./fonts.css";
 @import "tailwindcss";
 
 @theme {

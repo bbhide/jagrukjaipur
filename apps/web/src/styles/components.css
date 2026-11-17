@@ -545,8 +545,11 @@ body.drawer-open .scroll-top {
   animation-delay: 0s;
 }
 .hero-slide.slide-2 {
-  background-image: url('/img/hero/albert-hall.avif');
   animation-delay: 6s;
+}
+/* The second slide is first shown 6s in; site.ts adds .page-loaded on window load so its image stays out of the critical path. */
+.page-loaded .hero-slide.slide-2 {
+  background-image: url('/img/hero/albert-hall.avif');
 }
 @keyframes hero-fade {
   0% { opacity: 0; transform: scale(1.05); }

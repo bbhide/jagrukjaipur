@@ -18,6 +18,7 @@ Route 53 ─▶ CloudFront ─┬─▶ /uploads/*  ─▶ S3 bucket (private, O
 | Database | RDS PostgreSQL 16 | Private subnets, security group open only to the API tasks, automated backups + PITR, `DATABASE_SSL=true` |
 | Uploads | S3 + CloudFront | `UPLOAD_DRIVER=s3`, `S3_BUCKET=…`, `UPLOAD_PUBLIC_BASE=/uploads`; API task role needs `s3:PutObject` on `uploads/*`. Add `@aws-sdk/client-s3` to `apps/api` when enabling this driver |
 | Secrets | Secrets Manager / SSM Parameter Store | `DATABASE_URL`, `SESSION_SECRET`, `ADMIN_PASSWORD`, WhatsApp token, Razorpay keys — injected as ECS task secrets, never baked into images |
+| Compression | CloudFront | The Node servers send HTML, CSS and JS uncompressed. Use a cache policy with gzip and Brotli enabled (e.g. `CachingOptimized` for `/_astro/*`, a no-cache policy with compression on for HTML) — it cuts the homepage's text payload from about 230 KB to about 50 KB |
 | TLS / DNS | ACM + Route 53 | Certificate on CloudFront (us-east-1) and on the ALB |
 | Logs | CloudWatch Logs | Both services log JSON to stdout (`awslogs` driver). API logs carry a request id and redact cookies, OTPs and passwords |
 | Metrics / alarms | CloudWatch | ALB 5xx rate, target response time, ECS CPU/memory, RDS connections/storage; alarm to SNS |
